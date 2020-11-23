@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ChevronUp, ChevronDown } from "@styled-icons/boxicons-solid";
-import { css } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import { IntroSlide } from "./slides/IntroSlide";
+import { Frame, Page } from "framer";
+import { getCurrentStyle, getBackgroundColor } from "../utils/styleUtils";
+import ThemeContext from "../context/ThemeContext";
 
 const columnContainerStyles = css`
-  height: 90vh;
-  width: 90vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const pageStyle = css`
+  height: 100%;
+  width: 100%;
 `;
 
 const prevButtonStyle = css`
@@ -25,23 +37,18 @@ const nextButtonStyle = css`
 `;
 
 export const FramerCube: React.FC = () => {
-  // const [slideIndex, setSlideIndex] = useState(0);
+  const { light, dark, neon } = useContext(ThemeContext);
+  const [currentStyle, setCurrentStyle] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("");
 
-  const nextColumn = () => {
-    // if (slideIndex < slides.length - 1) {
-    //   setSlideIndex(slideIndex + 1);
-    // }
-  };
-
-  const lastColumn = () => {
-    // if (slideIndex > 0) {
-    //   setSlideIndex(slideIndex - 1);
-    // }
-  };
+  useEffect(() => {
+    setCurrentStyle(getCurrentStyle(light, neon, dark));
+    setBackgroundColor(getBackgroundColor(light, neon, dark));
+  }, [light, dark, neon]);
 
   const PrevButton = () => {
     return (
-      <div className={prevButtonStyle} onClick={() => lastColumn()}>
+      <div className={prevButtonStyle}>
         <ChevronUp size="36" />
       </div>
     );
@@ -49,18 +56,47 @@ export const FramerCube: React.FC = () => {
 
   const NextButton = () => {
     return (
-      <div className={nextButtonStyle} onClick={() => nextColumn()}>
+      <div className={nextButtonStyle}>
         <ChevronDown size="36" />
       </div>
     );
   };
 
   return (
-    <div className={columnContainerStyles}>
-      <IntroSlide
-        heading="Hi, my name is Gabe!"
-        message="I am a web developer"
-      />
+    <div className={cx(currentStyle, columnContainerStyles)}>
+      <Page
+        height={"100vh"}
+        width={"100vh"}
+        alignment="center"
+        gap={0}
+        defaultEffect={"cube"}
+        backgroundColor="transparent"
+        paddingLeft={40}
+        paddingRight={40}
+      >
+        <Frame
+          backgroundColor={backgroundColor}
+          border="1px solid #3e3e3e"
+          height={"100vh"}
+          width={"100vh"}
+        >
+          <IntroSlide
+            heading="Hi, my name is Gabe!"
+            message="I am a web developer"
+          />
+        </Frame>
+        <Frame
+          backgroundColor={backgroundColor}
+          border="1px solid #3e3e3e"
+          height={"100vh"}
+          width={"100vh"}
+        >
+          <IntroSlide
+            heading="Hi, my name is Gabe!"
+            message="I am a web developer"
+          />
+        </Frame>
+      </Page>
     </div>
   );
 };

@@ -1,18 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ThemeContext from "../context/ThemeContext";
 import { css } from "@emotion/css";
+import { getBackgroundColor, getTextColor } from "../utils/styleUtils";
 
 interface ThemeSwitcherProps {}
 
-const themeSwitcherButtonStyle = css`
+const themeSwitcherButtonStyle = (
+  backgroundColor: string,
+  textColor: string
+): string => css`
   position: absolute;
   top: 10px;
   left: 10px;
-  border: 2px solid white;
+  background-color: ${backgroundColor};
+  border: 2px solid ${textColor};
+  color: ${textColor};
   padding: 5px;
   border-radius: 5px;
-  background-color: transparent;
-  color: inherit;
   font-weight: 600;
   cursor: pointer;
   z-index: 99;
@@ -20,9 +24,20 @@ const themeSwitcherButtonStyle = css`
 
 export const ThemeSwitcher = (props: ThemeSwitcherProps) => {
   const { toggle } = useContext(ThemeContext);
+  const { light, dark, neon } = useContext(ThemeContext);
+  const [backgroundColor, setBackgroundColor] = useState("");
+  const [textColor, setTextColor] = useState("");
+
+  useEffect(() => {
+    setBackgroundColor(getBackgroundColor(light, neon, dark));
+    setTextColor(getTextColor(light, neon, dark));
+  }, [light, dark, neon]);
 
   return (
-    <div className={themeSwitcherButtonStyle} onClick={() => toggle()}>
+    <div
+      className={themeSwitcherButtonStyle(backgroundColor, textColor)}
+      onClick={() => toggle()}
+    >
       Switch Themes
     </div>
   );
