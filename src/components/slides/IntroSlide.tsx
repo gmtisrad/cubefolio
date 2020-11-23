@@ -16,6 +16,7 @@ const introWrapperStyle = (borderColor: string) => css`
   height: 100%;
   width: 100%;
   border: 1px solid ${borderColor};
+  font-size: 2em;
 `;
 
 export const IntroSlide: React.FC<Props> = (props: Props) => {

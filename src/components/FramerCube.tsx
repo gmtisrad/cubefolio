@@ -3,7 +3,11 @@ import { ChevronUp, ChevronDown } from "@styled-icons/boxicons-solid";
 import { css, cx } from "@emotion/css";
 import { IntroSlide } from "./slides/IntroSlide";
 import { Frame, Page } from "framer";
-import { getCurrentStyle, getBackgroundColor } from "../utils/styleUtils";
+import {
+  getCurrentStyle,
+  getBackgroundColor,
+  getTextColor,
+} from "../utils/styleUtils";
 import ThemeContext from "../context/ThemeContext";
 
 const columnContainerStyles = css`
@@ -40,10 +44,19 @@ export const FramerCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
   const [currentStyle, setCurrentStyle] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
+  const [textColor, setTextColor] = useState("");
+
+  const frameStyle = !light
+    ? {
+        boxShadow: `${textColor} 0px 0px 1em`,
+        textShadow: `${textColor} 0px 0px 1em`,
+      }
+    : {};
 
   useEffect(() => {
     setCurrentStyle(getCurrentStyle(light, neon, dark));
     setBackgroundColor(getBackgroundColor(light, neon, dark));
+    setTextColor(getTextColor(light, neon, dark));
   }, [light, dark, neon]);
 
   const PrevButton = () => {
@@ -76,9 +89,9 @@ export const FramerCube: React.FC = () => {
       >
         <Frame
           backgroundColor={backgroundColor}
-          border="1px solid #3e3e3e"
           height={"100vh"}
           width={"100vh"}
+          style={frameStyle}
         >
           <IntroSlide
             heading="Hi, my name is Gabe!"
@@ -87,9 +100,9 @@ export const FramerCube: React.FC = () => {
         </Frame>
         <Frame
           backgroundColor={backgroundColor}
-          border="1px solid #3e3e3e"
           height={"100vh"}
           width={"100vh"}
+          style={frameStyle}
         >
           <IntroSlide
             heading="Hi, my name is Gabe!"
