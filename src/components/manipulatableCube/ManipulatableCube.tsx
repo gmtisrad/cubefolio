@@ -15,6 +15,7 @@ import {
   sideSix,
 } from "./manipulatableCubeStyles";
 import { FilterCenterFocus } from "@styled-icons/material-outlined";
+import { motion } from "framer";
 
 export const ManipulatableCube = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -92,7 +93,15 @@ export const ManipulatableCube = () => {
   return (
     <div className="wrapper">
       <div className={cx(cubeViewport, "manipulatable-cube-viewport")}>
-        <div
+        <motion.div
+          initial={{
+            rotateX: 0,
+            rotateY: 0,
+          }}
+          animate={{
+            rotateX: cubeRotateX.current,
+            rotateY: cubeRotateY.current,
+          }}
           className={cx(
             cubeWrapper(light, cubeRotateX, cubeRotateY, textColor),
             "cube"
@@ -181,7 +190,7 @@ export const ManipulatableCube = () => {
               message="I am a web developer"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
