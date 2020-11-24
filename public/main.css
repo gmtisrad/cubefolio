@@ -2,6 +2,8 @@
 *:before,
 *:after {
   box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 html {
@@ -17,7 +19,7 @@ body {
   margin: 0;
 }
 
-/* Star Field */
+/* Star Field, TODO: Convert to emotion*/
 
 #space {
   background-color: #000;
@@ -87,3 +89,5 @@ body {
     transform: scale(3.5);
   }
 }
+
+/* end starfield */

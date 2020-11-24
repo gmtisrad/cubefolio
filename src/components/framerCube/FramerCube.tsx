@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ChevronUp, ChevronDown } from "@styled-icons/boxicons-solid";
 import { css, cx } from "@emotion/css";
-import { IntroSlide } from "./slides/IntroSlide";
+import { IntroSlide } from "../slides/IntroSlide";
 import { Frame, Page } from "framer";
 import {
   getCurrentStyle,
   getBackgroundColor,
   getTextColor,
-} from "../utils/styleUtils";
-import ThemeContext from "../context/ThemeContext";
+} from "../../utils/styleUtils";
+import ThemeContext from "../../context/ThemeContext";
 
 const columnContainerStyles = css`
   position: relative;
