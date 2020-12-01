@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { MiniIntroSlide } from "../slides/MiniIntroSlide";
 import ThemeContext from "../../context/ThemeContext";
 import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";
@@ -39,14 +33,14 @@ export const ManipulatableCube = () => {
     (event: MouseEvent) => {
       let throttleTimeout;
       const getRotateX = () => {
-        let newRotateX = cubeRotateX.get() - event.movementY * 0.15;
-        newRotateX = newRotateX < -90 ? -90 : newRotateX;
-        newRotateX = newRotateX > 90 ? 90 : newRotateX;
+        let newRotateX = cubeRotateX.get() - event.movementY * 0.3;
+        newRotateX = newRotateX < -91 ? -90 : newRotateX;
+        newRotateX = newRotateX > 91 ? 90 : newRotateX;
         return newRotateX;
       };
       if (mouseDown && !throttleEvent) {
         cubeRotateX.set(getRotateX());
-        cubeRotateY.set(cubeRotateY.get() + event.movementX * 0.075);
+        cubeRotateY.set(cubeRotateY.get() + event.movementX * 0.15);
         setThrottleEvent(true);
         throttleTimeout = setTimeout(() => {
           setThrottleEvent(false);
@@ -64,22 +58,13 @@ export const ManipulatableCube = () => {
   }, [light, dark, neon]);
 
   useEffect(() => {
-    const mouseUp = (): void => {
-      setMouseDown(false);
-    };
-
-    console.log("add listeners");
-    window.addEventListener("mousemove", handleDrag);
-    window.addEventListener("mouseup", mouseUp);
-
-    return (): void => {
-      console.log("remove listeners");
-      window.addEventListener("mousemove", handleDrag);
-      window.addEventListener("mouseup", mouseUp);
-    };
-  }, [handleDrag]);
+    window.onmousemove = handleDrag;
+    window.onmousedown = () => setMouseDown(true);
+    window.onmouseup = () => setMouseDown(false);
+  });
 
   const rotateTo = (face: string) => {
+    setMouseDown(false);
     setCurrentFace(face);
   };
 
@@ -95,15 +80,15 @@ export const ManipulatableCube = () => {
         break;
       case "three":
         cubeRotateX.set(0);
-        cubeRotateY.set(90);
+        cubeRotateY.set(-90);
         break;
       case "four":
         cubeRotateX.set(0);
-        cubeRotateY.set(180);
+        cubeRotateY.set(-180);
         break;
       case "five":
         cubeRotateX.set(0);
-        cubeRotateY.set(270);
+        cubeRotateY.set(-270);
         break;
       case "six":
         cubeRotateX.set(90);
@@ -169,7 +154,6 @@ export const ManipulatableCube = () => {
           )}
         >
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideOne,
@@ -187,7 +171,6 @@ export const ManipulatableCube = () => {
             />
           </div>
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideTwo,
@@ -205,7 +188,6 @@ export const ManipulatableCube = () => {
             />
           </div>
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideThree,
@@ -223,7 +205,6 @@ export const ManipulatableCube = () => {
             />
           </div>
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFour,
@@ -241,7 +222,6 @@ export const ManipulatableCube = () => {
             />
           </div>
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFive,
@@ -259,7 +239,6 @@ export const ManipulatableCube = () => {
             />
           </div>
           <div
-            onMouseDown={() => setMouseDown(true)}
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideSix,
