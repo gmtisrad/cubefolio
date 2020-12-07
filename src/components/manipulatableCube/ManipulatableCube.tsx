@@ -17,7 +17,7 @@ import {
 import { FilterCenterFocus } from "@styled-icons/material-outlined";
 import { motion, useMotionValue } from "framer";
 
-export const ManipulatableCube = () => {
+export const ManipulatableCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
   const [backgroundColor, setBackgroundColor] = useState("");
   const [textColor, setTextColor] = useState("");
@@ -63,11 +63,6 @@ export const ManipulatableCube = () => {
     window.onmouseup = () => setMouseDown(false);
   });
 
-  const rotateTo = (face: string) => {
-    setMouseDown(false);
-    setCurrentFace(face);
-  };
-
   const animationEnd = () => {
     switch (currentFace) {
       case "one":
@@ -98,52 +93,101 @@ export const ManipulatableCube = () => {
     setCurrentFace("");
   };
 
-  const centerButtonStyle = css`
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 10;
-  `;
-
   const variants = {
     one: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "0deg",
       rotateY: "0deg",
     },
     two: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "-90deg",
       rotateY: "0deg",
     },
     three: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "0deg",
       rotateY: "90deg",
     },
     four: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "0deg",
       rotateY: "180deg",
     },
     five: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "0deg",
       rotateY: "270deg",
     },
     six: {
+      perspective: "1000px",
+      height: "50vh",
+      width: "50vh",
       rotateX: "90deg",
       rotateY: "0deg",
     },
   };
 
+  const viewportVariants = {
+    initial: {
+      height: "100vh",
+      width: "100vh",
+    },
+    end: {
+      height: "50vh",
+      width: "50vh",
+      perspective: "1000px",
+      perspectiveOrigin: "50% 200px",
+      transform: "scale(0.8, 0.8)",
+    },
+  };
+
+  const sizeVariant = {
+    end: {
+      height: "50vh",
+      width: "50vh",
+    },
+  };
+
   return (
-    <div className="wrapper">
-      <div className={cx(cubeViewport, "manipulatable-cube-viewport")}>
+    <div
+      className={cx(
+        "wrapper",
+        css`
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `
+      )}
+    >
+      <motion.div
+        // variants={viewportVariants}
+        // initial={{
+        //   height: "100vh",
+        //   width: "100vh",
+        // }}
+        className={cubeViewport}
+        animate="end"
+      >
         <motion.div
-          initial={{
-            rotateX: 0,
-            rotateY: 0,
-          }}
-          animate={currentFace}
-          variants={variants}
-          onAnimationComplete={() => animationEnd()}
+          // initial={{
+          //   rotateX: 0,
+          //   rotateY: 0,
+          // }}
+          // animate={currentFace}
+          // variants={variants}
+          // onAnimationComplete={() => animationEnd()}
           style={{
             rotateX: `${cubeRotateX.get()}deg`,
             rotateY: `${cubeRotateY.get()}deg`,
@@ -153,110 +197,116 @@ export const ManipulatableCube = () => {
             "cube"
           )}
         >
-          <div
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideOne,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("one")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideTwo,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("two")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideThree,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("three")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFour,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("four")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFive,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("five")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
-          <div
+          </motion.div>
+          <motion.div
+            // initial={{
+            //   height: "100vh",
+            //   width: "100vh",
+            // }}
+            // variants={sizeVariant}
+            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideSix,
               "side"
             )}
           >
-            <FilterCenterFocus
-              onClick={() => rotateTo("six")}
-              className={centerButtonStyle}
-              size={36}
-            />
             <MiniIntroSlide
               heading="Hi, my name is Gabe!"
               message="I am a web developer"
             />
-          </div>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -1,37 +1,46 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useState } from "react";
 
 const ThemeContext = React.createContext({
   light: true,
   dark: false,
   neon: false,
-  toggle: () => {},
+  standardView: true,
+  toggleStyle: () => {},
+  toggleView: () => {},
 });
 
-export const ThemeProvider = (props: any) => {
+type Props = {
+  children: React.ReactNode | React.ReactNode[];
+};
+
+export const ThemeProvider: React.FC<Props> = (props: Props) => {
   const [light, setLight] = useState(false);
   const [dark, setDark] = useState(true);
   const [neon, setNeon] = useState(false);
+  const [standardView, setStandardView] = useState(true);
 
-  const toggle = () => {
-    console.log("When Sheriff Jon Brown come 4 u");
-    const handleLocalStorage = () => {
-      window.localStorage.setItem("lightTheme", light.toString());
-      window.localStorage.setItem("darkTheme", dark.toString());
-      window.localStorage.setItem("neonTheme", neon.toString());
+  const toggleView = (): void => {
+    setStandardView(!standardView);
+  };
+
+  const toggleStyle = (): void => {
+    const handleLocalStorage = (currentTheme: string): void => {
+      window.localStorage.setItem("portfolioTheme", currentTheme);
     };
 
     if (light) {
       setLight(false);
       setDark(true);
-      handleLocalStorage();
+      handleLocalStorage("dark");
     } else if (dark) {
       setDark(false);
       setNeon(true);
-      handleLocalStorage();
+      handleLocalStorage("neon");
     } else if (neon) {
       setNeon(false);
       setLight(true);
-      handleLocalStorage();
+      handleLocalStorage("light");
     }
   };
 
@@ -39,7 +48,9 @@ export const ThemeProvider = (props: any) => {
     light,
     dark,
     neon,
-    toggle,
+    standardView,
+    toggleStyle,
+    toggleView,
   };
 
   return (

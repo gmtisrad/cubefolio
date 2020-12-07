@@ -3,14 +3,12 @@ import ThemeContext from "../context/ThemeContext";
 import { css } from "@emotion/css";
 import { getBackgroundColor, getTextColor } from "../utils/styleUtils";
 
-interface ThemeSwitcherProps {}
-
-const themeSwitcherButtonStyle = (
+const viewSwitcherButtonStyle = (
   backgroundColor: string,
   textColor: string
 ): string => css`
   position: absolute;
-  top: 10px;
+  top: 70px;
   left: 10px;
   background-color: ${backgroundColor};
   border: 2px solid ${textColor};
@@ -22,8 +20,8 @@ const themeSwitcherButtonStyle = (
   z-index: 99;
 `;
 
-export const ThemeSwitcher: React.FC = () => {
-  const { toggleStyle } = useContext(ThemeContext);
+export const ViewSwitcher: React.FC = () => {
+  const { toggleView, standardView } = useContext(ThemeContext);
   const { light, dark, neon } = useContext(ThemeContext);
   const [backgroundColor, setBackgroundColor] = useState("");
   const [textColor, setTextColor] = useState("");
@@ -34,17 +32,17 @@ export const ThemeSwitcher: React.FC = () => {
   }, [light, dark, neon]);
 
   const handleClick = (): void => {
-    toggleStyle();
+    toggleView();
   };
 
   return (
     <div
-      className={themeSwitcherButtonStyle(backgroundColor, textColor)}
+      className={viewSwitcherButtonStyle(backgroundColor, textColor)}
       onClick={handleClick}
     >
-      Switch Themes
+      {standardView ? "3D View" : "Standard View"}
     </div>
   );
 };
 
-export default ThemeSwitcher;
+export default ViewSwitcher;
