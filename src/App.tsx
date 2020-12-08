@@ -6,7 +6,7 @@ import StarField from "./components/StarField";
 import ManipulatableCube from "./components/manipulatableCube/ManipulatableCube";
 import ThemeContext from "./context/ThemeContext";
 import ViewSwitcher from "./components/VeiwSwitcher";
-import { Page, Frame } from "framer";
+import { Page, Frame, AnimatePresence, motion } from "framer";
 
 const App: React.FC = () => {
   const { standardView } = useContext(ThemeContext);
@@ -26,22 +26,40 @@ const App: React.FC = () => {
       <ThemeSwitcher />
       <ViewSwitcher />
       <StarField />
-      <Page
-        height={"100vh"}
-        width={"100vw"}
-        alignment="center"
-        dragEnabled={false}
-        draggable={false}
-        currentPage={standardView ? 0 : 1}
-        effect={standardView ? shrinkEffect : growEffect}
-      >
-        <Frame background="transparent" height="100vh" width="100vw" center="y">
-          <FramerCube />
-        </Frame>
-        <Frame background="transparent" height="100vh" center>
-          <ManipulatableCube />
-        </Frame>
-      </Page>
+      <AnimatePresence>
+        {standardView && (
+          <Wrapper>
+            <motion.div
+              key="standard"
+              initial={{ scale: 0.5 }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: 0.5,
+              }}
+            >
+              <FramerCube />
+            </motion.div>
+          </Wrapper>
+        )}
+        {!standardView && (
+          <Wrapper>
+            <motion.div
+              key="cube"
+              initial={{ scale: 2 }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: 2,
+              }}
+            >
+              <ManipulatableCube />
+            </motion.div>
+          </Wrapper>
+        )}
+      </AnimatePresence>
     </>
   );
 };

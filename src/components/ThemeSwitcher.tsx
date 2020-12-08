@@ -3,8 +3,6 @@ import ThemeContext from "../context/ThemeContext";
 import { css } from "@emotion/css";
 import { getBackgroundColor, getTextColor } from "../utils/styleUtils";
 
-interface ThemeSwitcherProps {}
-
 const themeSwitcherButtonStyle = (
   backgroundColor: string,
   textColor: string
@@ -15,7 +13,7 @@ const themeSwitcherButtonStyle = (
   background-color: ${backgroundColor};
   border: 2px solid ${textColor};
   color: ${textColor};
-  padding: 5px;
+  padding: 5pxinterface ThemeSwitcherProps {};
   border-radius: 5px;
   font-weight: 600;
   cursor: pointer;
