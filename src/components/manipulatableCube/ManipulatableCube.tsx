@@ -14,7 +14,6 @@ import {
   sideFive,
   sideSix,
 } from "./manipulatableCubeStyles";
-import { FilterCenterFocus } from "@styled-icons/material-outlined";
 import { motion, useMotionValue } from "framer";
 
 export const ManipulatableCube: React.FC = () => {
@@ -26,7 +25,6 @@ export const ManipulatableCube: React.FC = () => {
   // Cube Animation State
   const cubeRotateX = useMotionValue(0);
   const cubeRotateY = useMotionValue(0);
-  const [currentFace, setCurrentFace] = useState("");
   const [mouseDown, setMouseDown] = useState(false);
 
   const handleDrag = useCallback(
@@ -44,7 +42,7 @@ export const ManipulatableCube: React.FC = () => {
         setThrottleEvent(true);
         throttleTimeout = setTimeout(() => {
           setThrottleEvent(false);
-        }, 100);
+        }, 1000 / 90);
       } else if (!mouseDown) {
         clearTimeout(throttleTimeout);
       }
@@ -61,103 +59,7 @@ export const ManipulatableCube: React.FC = () => {
     window.onmousemove = handleDrag;
     window.onmousedown = () => setMouseDown(true);
     window.onmouseup = () => setMouseDown(false);
-  });
-
-  const animationEnd = () => {
-    switch (currentFace) {
-      case "one":
-        cubeRotateX.set(0);
-        cubeRotateY.set(0);
-        break;
-      case "two":
-        cubeRotateX.set(-90);
-        cubeRotateY.set(0);
-        break;
-      case "three":
-        cubeRotateX.set(0);
-        cubeRotateY.set(-90);
-        break;
-      case "four":
-        cubeRotateX.set(0);
-        cubeRotateY.set(-180);
-        break;
-      case "five":
-        cubeRotateX.set(0);
-        cubeRotateY.set(-270);
-        break;
-      case "six":
-        cubeRotateX.set(90);
-        cubeRotateY.set(0);
-        break;
-    }
-    setCurrentFace("");
-  };
-
-  const variants = {
-    one: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "0deg",
-      rotateY: "0deg",
-    },
-    two: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "-90deg",
-      rotateY: "0deg",
-    },
-    three: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "0deg",
-      rotateY: "90deg",
-    },
-    four: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "0deg",
-      rotateY: "180deg",
-    },
-    five: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "0deg",
-      rotateY: "270deg",
-    },
-    six: {
-      perspective: "1000px",
-      height: "50vh",
-      width: "50vh",
-      rotateX: "90deg",
-      rotateY: "0deg",
-    },
-  };
-
-  const viewportVariants = {
-    initial: {
-      height: "100vh",
-      width: "100vh",
-    },
-    end: {
-      height: "50vh",
-      width: "50vh",
-      perspective: "1000px",
-      perspectiveOrigin: "50% 200px",
-      transform: "scale(0.8, 0.8)",
-    },
-  };
-
-  const sizeVariant = {
-    end: {
-      height: "50vh",
-      width: "50vh",
-    },
-  };
+  }, [handleDrag]);
 
   return (
     <div
@@ -171,23 +73,8 @@ export const ManipulatableCube: React.FC = () => {
         `
       )}
     >
-      <motion.div
-        // variants={viewportVariants}
-        // initial={{
-        //   height: "100vh",
-        //   width: "100vh",
-        // }}
-        className={cubeViewport}
-        animate="end"
-      >
+      <motion.div className={cubeViewport} animate="end">
         <motion.div
-          // initial={{
-          //   rotateX: 0,
-          //   rotateY: 0,
-          // }}
-          // animate={currentFace}
-          // variants={variants}
-          // onAnimationComplete={() => animationEnd()}
           style={{
             rotateX: `${cubeRotateX.get()}deg`,
             rotateY: `${cubeRotateY.get()}deg`,
@@ -198,12 +85,6 @@ export const ManipulatableCube: React.FC = () => {
           )}
         >
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideOne,
@@ -216,12 +97,6 @@ export const ManipulatableCube: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideTwo,
@@ -234,12 +109,6 @@ export const ManipulatableCube: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideThree,
@@ -252,12 +121,6 @@ export const ManipulatableCube: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFour,
@@ -270,12 +133,6 @@ export const ManipulatableCube: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFive,
@@ -288,12 +145,6 @@ export const ManipulatableCube: React.FC = () => {
             />
           </motion.div>
           <motion.div
-            // initial={{
-            //   height: "100vh",
-            //   width: "100vh",
-            // }}
-            // variants={sizeVariant}
-            // animate="end"
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideSix,

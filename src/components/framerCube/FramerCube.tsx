@@ -15,6 +15,9 @@ import {
 } from "../../utils/styleUtils";
 import ThemeContext from "../../context/ThemeContext";
 import TitleSlide from "../slides/TitleSlide";
+import FrontEndSlide from "../slides/FrontEndSlide";
+import AboutMe from "../slides/AboutMe";
+import TerminalIntro from "../slides/TerminalIntro";
 
 const MAX_HORIZONTAL_SIDES = 4;
 const MAX_VERTICAL_SIDES = 3;
@@ -66,14 +69,7 @@ export const FramerCube: React.FC = () => {
   const [backgroundColor, setBackgroundColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [verticalIndex, setVerticalIndex] = useState(1);
-
-  const frameStyle = !light
-    ? {
-        boxShadow: `${textColor} 0px 0px 1em`,
-        textShadow: `${textColor} 0px 0px 1em`,
-      }
-    : {};
+  const [verticalIndex, setVerticalIndex] = useState(0);
 
   useEffect(() => {
     setCurrentStyle(getCurrentStyle(light, neon, dark));
@@ -178,28 +174,58 @@ export const FramerCube: React.FC = () => {
             backgroundColor={backgroundColor}
             height={"100vh"}
             width={"100vh"}
-            style={frameStyle}
             center
           >
             <Controls />
-            <TitleSlide />
+            {/* <TitleSlide /> */}
+            <TerminalIntro />
           </Frame>
           <Frame
             backgroundColor={backgroundColor}
             height={"100vh"}
             width={"100vh"}
-            style={frameStyle}
             center
           >
             <Controls />
-            <TitleSlide />
+            <AboutMe />
           </Frame>
           <Frame
             backgroundColor={backgroundColor}
             height={"100vh"}
             width={"100vh"}
-            style={frameStyle}
             center
+          >
+            <Controls />
+            <FrontEndSlide />
+          </Frame>
+        </Page>
+        <Page
+          dragEnabled={false}
+          defaultEffect={"cube"}
+          paddingTop={40}
+          paddingBottom={40}
+          directionLock={true}
+        >
+          <Frame
+            backgroundColor={backgroundColor}
+            height={"100vh"}
+            width={"100vh"}
+          >
+            <Controls />
+            <FrontEndSlide />
+          </Frame>
+        </Page>
+        <Page
+          dragEnabled={false}
+          defaultEffect={"cube"}
+          paddingTop={40}
+          paddingBottom={40}
+          directionLock={true}
+        >
+          <Frame
+            backgroundColor={backgroundColor}
+            height={"100vh"}
+            width={"100vh"}
           >
             <Controls />
             <TitleSlide />
@@ -216,41 +242,6 @@ export const FramerCube: React.FC = () => {
             backgroundColor={backgroundColor}
             height={"100vh"}
             width={"100vh"}
-            style={frameStyle}
-          >
-            <Controls />
-            <TitleSlide />
-          </Frame>
-        </Page>
-        <Page
-          dragEnabled={false}
-          defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
-          directionLock={true}
-        >
-          <Frame
-            backgroundColor={backgroundColor}
-            height={"100vh"}
-            width={"100vh"}
-            style={frameStyle}
-          >
-            <Controls />
-            <TitleSlide />
-          </Frame>
-        </Page>
-        <Page
-          dragEnabled={false}
-          defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
-          directionLock={true}
-        >
-          <Frame
-            backgroundColor={backgroundColor}
-            height={"100vh"}
-            width={"100vh"}
-            style={frameStyle}
           >
             <Controls />
             <TitleSlide />

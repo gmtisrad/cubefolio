@@ -51,8 +51,8 @@ export const cubeWrapper = (
     height: 50vh;
     width: 50vh;
     user-select: none;
-    ${!light && `box-shadow: ${textColor} 0px 0px 1em;`}
-    ${!light && `text-shadow: ${textColor} 0px 0px 1em;`}
+    // ${!light && `box-shadow: ${textColor} 0px 0px 1em;`}
+    // ${!light && `text-shadow: ${textColor} 0px 0px 1em;`}
   }
 `;
 

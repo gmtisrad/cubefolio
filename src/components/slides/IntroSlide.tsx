@@ -4,11 +4,12 @@ import ThemeContext from "../../context/ThemeContext";
 import { getTextColor } from "../../utils/styleUtils";
 
 type Props = {
-  heading: String;
-  message: String;
+  name: string;
+  tagline: string;
+  message: string;
 };
 
-const introWrapperStyle = (borderColor: string) => css`
+export const introWrapperStyle = (borderColor: string) => css`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,18 +21,59 @@ const introWrapperStyle = (borderColor: string) => css`
 `;
 
 export const IntroSlide: React.FC<Props> = (props: Props) => {
-  const { heading, message } = props;
+  const { name, tagline, message } = props;
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
+
+  const titlePageStyle = css`
+    padding: 120px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: ${textColor};
+    border: 1px solid ${textColor};
+    .intro-introduction {
+      font-size: 24px;
+      margin-bottom: 1rem;
+      color: #e5e5e5;
+      font-weight: 600;
+    }
+    .intro-name {
+      font-size: 60px;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      font-weight: 600;
+      text-shadow: ${textColor} 0px 0px 3px;
+    }
+    .intro-tagline {
+      font-size: 42px;
+      margin-bottom: 1rem;
+      margin-left: 2rem;
+      color: #e5e5e5;
+      font-weight: 600;
+    }
+    .intro-message {
+      font-size: 24px;
+      margin-bottom: 1rem;
+      margin-left: 3rem;
+      color: #e5e5e5;
+      font-weight: 400;
+    }
+  `;
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
   }, [light, dark, neon]);
 
   return (
-    <div className={introWrapperStyle(textColor)}>
-      <h1>{heading}</h1>
-      <p>{message}</p>
+    <div className={titlePageStyle}>
+      <span className="intro-introduction">Hi, my name is</span>
+      <span className="intro-name">{name}</span>
+      <span className="intro-tagline">{tagline}</span>
+      <span className="intro-message">{message}</span>
     </div>
   );
 };
