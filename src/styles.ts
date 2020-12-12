@@ -19,12 +19,15 @@ export const baseWrapperStyle = css`
 
 export const lightWrapperStyle = css`
   color: ${LIGHT_TEXT};
+  background-color: ${LIGHT_BACKGROUND};
 `;
 
 export const darkWrapperStyle = css`
   color: ${DARK_TEXT};
+  background-color: ${DARK_BACKGROUND};
 `;
 
 export const neonWrapperStyle = css`
   color: ${NEON_TEXT};
+  background-color: ${NEON_BACKGROUND};
 `;

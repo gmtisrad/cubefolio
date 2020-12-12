@@ -128,9 +128,23 @@ export const scrollingAnimation = keyframes`
     `;
 
 export const terminalWrapperStyle = (textColor: string) => css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-  border: 1px solid ${textColor};
+  @media (min-width: 1920px) {
+    width: 1440px;
+  }
+  @media (min-width: 1024px) {
+    width: 1024px;
+  }
+  @media (max-width: 1024px) {
+    height: 755px;
+  }
+  @media (max-width: 568px) {
+    height: 400px;
+  }
 `;
 
 export const turnOnStyle = keyframes`
@@ -236,6 +250,9 @@ export const terminalStyle = css`
   @media (max-width: 1024px) {
     font-size: 16px;
   }
+  @media (max-width: 568px) {
+    font-size: 12px;
+  }
 `;
 export const blink = keyframes`
     0% { opacity: 1;}
@@ -279,7 +296,6 @@ export const terminalContainerStyle = css`
   width: 90%;
   height: 90%;
   background-color: black;
-  margin: 5%;
   border-radius: 20px;
   overflow: hidden;
 `;

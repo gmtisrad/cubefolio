@@ -10,6 +10,9 @@ import {
   NEON_TEXT,
   DARK_TEXT,
   LIGHT_TEXT,
+  NEON_ACCENT_BACKGROUND,
+  DARK_ACCENT_BACKGROUND,
+  LIGHT_ACCENT_BACKGROUND,
 } from "../constants/ColorConstants";
 
 export const getCurrentStyle = (
@@ -53,5 +56,21 @@ export const getTextColor = (light: boolean, neon: boolean, dark: boolean) => {
     return LIGHT_TEXT;
   } else {
     return LIGHT_TEXT;
+  }
+};
+
+export const getAccentBackgroundColor = (
+  light: boolean,
+  neon: boolean,
+  dark: boolean
+) => {
+  if (neon) {
+    return NEON_ACCENT_BACKGROUND;
+  } else if (dark) {
+    return DARK_ACCENT_BACKGROUND;
+  } else if (light) {
+    return LIGHT_ACCENT_BACKGROUND;
+  } else {
+    return LIGHT_ACCENT_BACKGROUND;
   }
 };
