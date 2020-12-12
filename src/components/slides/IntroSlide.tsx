@@ -25,6 +25,10 @@ export const IntroSlide: React.FC<Props> = (props: Props) => {
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
 
+  useEffect(() => {
+    setTextColor(getTextColor(light, neon, dark));
+  }, [light, dark, neon]);
+
   const titlePageStyle = css`
     padding: 120px;
     height: 100%;
@@ -63,11 +67,6 @@ export const IntroSlide: React.FC<Props> = (props: Props) => {
       font-weight: 400;
     }
   `;
-
-  useEffect(() => {
-    setTextColor(getTextColor(light, neon, dark));
-  }, [light, dark, neon]);
-
   return (
     <div className={titlePageStyle}>
       <span className="intro-introduction">Hi, my name is</span>

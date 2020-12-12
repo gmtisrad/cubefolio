@@ -110,99 +110,66 @@ export const FrontEndSlide: React.FC = () => {
       <div className={cx(skillColumnsStyles, "skill-columns-wrapper")}>
         <div className={cx(skillColumnStyle, "skill-column-wrapper")}>
           <SkillMeter name={"HTML"} percent={100} color={"#f16529"} />
-          <SkillMeter name={"CSS"} percent={100} color={"#29a8e0"} />
+          <SkillMeter name={"CSS"} percent={100} color={"#eb4222"} />
           <SkillMeter name={"JavaScript"} percent={100} color={"#89cf2d"} />
           <SkillMeter
             name={"React"}
             percent={100}
             borderColorborderColor
-            color={"#3ed1f4"}
+            color={"#89cf2d"}
             subSkill={true}
           />
           <SkillMeter
             name={"WebPack"}
             percent={100}
-            color={"#89cff4"}
+            color={"#89cf2d"}
             subSkill={true}
           />
           <SkillMeter
             name={"TypeScript"}
             percent={100}
-            color={"#0276c5"}
+            color={"#89cf2d"}
             subSkill={true}
           />
           <SkillMeter
             name={"Node"}
             percent={100}
-            color={"#6aa159"}
+            color={"#89cf2d"}
             subSkill={true}
           />
           <SkillMeter name={"Python"} percent={100} color={"#f7c434"} />
           <SkillMeter
             name={"Django"}
             percent={100}
-            color={"#47a372"}
+            color={"#f7c434"}
             subSkill={true}
           />
           <SkillMeter
             name={"Flask"}
             percent={100}
-            color={"#356f9f"}
+            color={"#f7c434"}
             subSkill={true}
           />
           <SkillMeter
             name={"TF/Keras"}
             percent={100}
-            color={"#f08a2a"}
+            color={"#f7c434"}
             subSkill={true}
           />
         </div>{" "}
         <div className={cx(skillColumnStyle, "skill-column-wrapper")}>
-          <SkillMeter name={"HTML"} percent={100} color={"#f16529"} />
-          <SkillMeter name={"CSS"} percent={100} color={"#29a8e0"} />
-          <SkillMeter name={"JavaScript"} percent={100} color={"#89cf2d"} />
+          <SkillMeter name={"Git"} percent={100} color={"#984a99"} />
+          <SkillMeter name={"AWS"} percent={100} color={"#29a8e0"} />
           <SkillMeter
-            name={"React"}
+            name={"EC2"}
             percent={100}
-            borderColorborderColor
-            color={"#3ed1f4"}
+            color={"#29a8e0"}
             subSkill={true}
           />
           <SkillMeter
-            name={"WebPack"}
+            name={"Fargate"}
             percent={100}
-            color={"#89cff4"}
-            subSkill={true}
-          />
-          <SkillMeter
-            name={"TypeScript"}
-            percent={100}
-            color={"#0276c5"}
-            subSkill={true}
-          />
-          <SkillMeter
-            name={"Node"}
-            percent={100}
-            color={"#6aa159"}
-            subSkill={true}
-          />
-          <SkillMeter name={"Python"} percent={100} color={"#f7c434"} />
-          <SkillMeter
-            name={"Django"}
-            percent={100}
-            color={"#47a372"}
-            subSkill={true}
-          />
-          <SkillMeter
-            name={"Flask"}
-            percent={100}
-            color={"#356f9f"}
-            subSkill={true}
-          />
-          <SkillMeter
-            name={"TF/Keras"}
-            percent={100}
-            color={"#f08a2a"}
+            color={"#29a8e0"}
             subSkill={true}
           />
         </div>

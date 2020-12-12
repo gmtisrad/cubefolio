@@ -18,6 +18,7 @@ import TitleSlide from "../slides/TitleSlide";
 import FrontEndSlide from "../slides/FrontEndSlide";
 import AboutMe from "../slides/AboutMe";
 import TerminalIntro from "../slides/TerminalIntro";
+import MyExperience from "../slides/MyExperience";
 
 const MAX_HORIZONTAL_SIDES = 4;
 const MAX_VERTICAL_SIDES = 3;
@@ -65,6 +66,7 @@ const rightButtonStyle = css`
 
 export const FramerCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
+
   const [currentStyle, setCurrentStyle] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
   const [textColor, setTextColor] = useState("");
@@ -177,7 +179,6 @@ export const FramerCube: React.FC = () => {
             center
           >
             <Controls />
-            {/* <TitleSlide /> */}
             <TerminalIntro />
           </Frame>
           <Frame
@@ -196,7 +197,8 @@ export const FramerCube: React.FC = () => {
             center
           >
             <Controls />
-            <FrontEndSlide />
+            {/* <FrontEndSlide /> */}
+            <MyExperience />
           </Frame>
         </Page>
         <Page

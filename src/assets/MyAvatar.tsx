@@ -13,21 +13,15 @@ export const MyAvatar = () => {
     overflow: hidden;
     background-color: white;
     box-shadow: 0 0 10px 0 white;
+    margin: 0;
     img {
       transform: rotate(-45deg);
-      margin-right: -30px;
-      margin-bottom: -30px;
+      margin: 0 -30px -30px 0;
     }
   `;
-
-  const avatarContainer = css`
-    margin: 50px 0;
-  `;
   return (
-    <div className={avatarContainer}>
-      <div className={cx(avatarWrapperStyle, "avatar-wrapper")}>
-        <img src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairBun&accessoriesType=Blank&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=PastelOrange&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light" />
-      </div>
+    <div className={cx(avatarWrapperStyle, "avatar-wrapper")}>
+      <img src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairBun&accessoriesType=Blank&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=Hoodie&clotheColor=PastelOrange&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light" />
     </div>
   );
 };
