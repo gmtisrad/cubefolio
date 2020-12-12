@@ -23,9 +23,10 @@ export const MyExperience: React.FC = () => {
   ];
 
   const myExperienceBodyStyle = css`
-    height: 100%;
+    height: calc(100% - 40px);
     width: 100%;
     overflow: auto;
+    margin-top: 40px;
   `;
 
   const tabs = [<ParthenonTab key={0} />, <NikeTab key={1} />];

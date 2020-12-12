@@ -6,7 +6,6 @@ const nikeTabStyle = css`
   height: 100%;
   width: 100%;
   background-color: white;
-  padding-top: 40px;
 `;
 
 const nikeTabTopNavStyle = css`

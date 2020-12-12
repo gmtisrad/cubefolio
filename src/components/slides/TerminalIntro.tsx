@@ -16,41 +16,37 @@ import {
 const IntroScroll = (props: any) => {
   const { commandsIndex, update } = props;
   const asciiIntro = `
-     ____       _          
-    / ___| __ _| |__   ___ 
-   | |  _ / _\` | '_ \\ / _ \\
-   | |_| | (_| | |_) |  __/
-    \\____|\\__,_|_.__/ \\___|
-               _____ _     
-              |_   _(_)_ __ ___  _ __ ___  
-                | | | | '_ \` _ \\| '_ \` _ \\ 
-                | | | | | | | | | | | | | |
-                |_| |_|_| |_| |_|_| |_| |_|`;
+    ____       _          
+   / ___| __ _| |__   ___ 
+  | |  _ / _\` | '_ \\ / _ \\
+  | |_| | (_| | |_) |  __/
+   \\____|\\__,_|_.__/ \\___|
+ _____ _     
+|_   _(_)_ __ ___  _ __ ___  
+  | | | | '_ \` _ \\| '_ \` _ \\ 
+  | | | | | | | | | | | | | |
+  |_| |_|_| |_| |_|_| |_| |_|`;
 
   const asciiHtml = `<pre><code>${asciiIntro}</code></pre>`;
   const dangerHTML = { __html: asciiHtml };
 
-  console.log("anim8n");
-
   const asciiIntroStyle = css`
-    ${commandsIndex === -1
-      ? `
-      animation: ${scrollingAnimation} 4s steps(15, end);
-      animation-iteration-count: 1;
-      animation-delay: 0;`
-      : ""}
-    position: absolute;
+    animation: ${scrollingAnimation} 4s steps(15, end);
+    animation-iteration-count: 1;
+    animation-delay: 0;
+    width: 100%;
     top: 0;
     margin: -60px auto 0;
     background-color: transparent;
+    margin: 0 auto;
   `;
 
   useEffect(() => {
-    if (commandsIndex.current === -2) {
+    if (commandsIndex.current === -1) {
       const animationTimeout = setTimeout(() => {
         update();
         commandsIndex.current = commandsIndex.current + 1;
-      }, 1000);
+      }, 2000);
 
       return (): void => {
         clearTimeout(animationTimeout);
@@ -58,9 +54,9 @@ const IntroScroll = (props: any) => {
     }
   }, [commandsIndex, update]);
 
-  return commandsIndex.current >= -1 ? (
+  return (
     <div className={asciiIntroStyle} dangerouslySetInnerHTML={dangerHTML} />
-  ) : null;
+  );
 };
 
 const Cursor: React.FC = () => {
@@ -74,11 +70,8 @@ const Command: React.FC<any> = (props: any) => {
   const terminalPrefix = "gabeTimm:~$";
 
   useEffect(() => {
-    console.log("IDX: ", idx);
-    console.log("cmdIdx: ", commandIdx.current);
     if (idx === commandIdx.current) {
       const animationTimeout = setTimeout(() => {
-        console.log(idx);
         setDone();
         setIsDone(true);
         clearTimeout(animationTimeout);
@@ -128,9 +121,9 @@ export const TerminalIntro: React.FC = () => {
 
   useEffect(() => {
     const introTimer = setTimeout(() => {
-      clearTimeout(introTimer);
       commandsShown.current = commandsShown.current + 1;
       setShouldUpdate(true);
+      clearTimeout(introTimer);
     }, 4000);
 
     return () => {
@@ -167,80 +160,6 @@ export const TerminalIntro: React.FC = () => {
               {idx === commands.length - 1 ? <Cursor /> : null}
             </Command>
           ))}
-          {/* {commandsShown.current >= 0 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[0]}
-            />
-          )}
-          {commandsShown.current >= 1 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[1]}
-            />
-          )}
-          {commandsShown.current >= 2 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[2]}
-            />
-          )}
-          {commandsShown.current >= 3 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[3]}
-            />
-          )}
-          {commandsShown.current >= 4 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[4]}
-            />
-          )}
-          {commandsShown.current >= 5 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[5]}
-            />
-          )}
-          {commandsShown.current >= 6 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[6]}
-            />
-          )}
-          {commandsShown.current >= 7 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[7]}
-            />
-          )}
-          {commandsShown.current >= 8 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[8]}
-            />
-          )}
-          {commandsShown.current >= 9 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[9]}
-            />
-          )}
-          {commandsShown.current >= 10 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[10]}
-            />
-          )}
-          {commandsShown.current >= 11 && (
-            <Command
-              setDone={(): void => commandsShown.current = (commandsShown.current + 1)}
-              termCommand={commands[11]}
-            >
-              <Cursor />
-            </Command> */}
-          {/* )} */}
         </div>
       </div>
     </div>

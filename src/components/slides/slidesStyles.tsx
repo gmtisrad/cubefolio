@@ -121,9 +121,9 @@ export const parthenonDutyListItemStyle = css`
 `;
 
 export const scrollingAnimation = keyframes`
-      0% { transform: translateY(200%) }
-      35% { transform: translateY(50%)}
-      65% { transform: translateY(50%)}
+      0% { transform: translateY(100%) }
+      35% { transform: translateY(43%)}
+      65% { transform: translateY(43%)}
       100% { transform: translateY(0%) }
     `;
 
@@ -211,8 +211,6 @@ export const terminalStyle = css`
   position: relative;
   height: 100%;
   width: 100%;
-  // background-color: #061700;
-  background-color: black;
   background: radial-gradient(
     circle at center,
     #020600 0%,
@@ -227,10 +225,17 @@ export const terminalStyle = css`
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 50px 0 25px 25px;
+  padding: 0 0 10px 10px;
   font-size: 24px;
   overflow: hidden;
   animation: ${turnOnStyle} 4s 1;
+  pre {
+    display: flex;
+    justify-content: center;
+  }
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 export const blink = keyframes`
     0% { opacity: 1;}
