@@ -7,6 +7,7 @@ import {
   parthInfo,
   parthenonHeaderStyle,
   parthenonBodyStyle,
+  projectCardsStyle,
 } from "./slidesStyles";
 import { cx } from "@emotion/css";
 
@@ -42,11 +43,13 @@ export const ParthenonTab: React.FC = () => {
           </p>
         </div>
         <div className={projectsStyle}>
-          <ParthenonProjectCard project="Intel Unite" duties={intelDuties} />
-          <ParthenonProjectCard
-            project="Blueprint/Next Step"
-            duties={bpnsDuties}
-          />
+          <div className={projectCardsStyle}>
+            <ParthenonProjectCard project="Intel Unite" duties={intelDuties} />
+            <ParthenonProjectCard
+              project="Blueprint/Next Step"
+              duties={bpnsDuties}
+            />
+          </div>
         </div>
       </div>
     </div>

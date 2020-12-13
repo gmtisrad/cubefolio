@@ -22,11 +22,12 @@ export const MyExperience: React.FC = () => {
     "Nike - Senior Applications Engineer",
   ];
 
-  const myExperienceBodyStyle = css`
-    height: calc(100% - 40px);
+  const myExperienceBodyStyle = (isParth: boolean) => css`
+    height: 100%;
     width: 100%;
     overflow: auto;
     margin-top: 40px;
+    ${isParth ? "background: linear-gradient(135deg, #284b67, #2f5e79);" : ""}
   `;
 
   const tabs = [<ParthenonTab key={0} />, <NikeTab key={1} />];
@@ -51,7 +52,12 @@ export const MyExperience: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className={cx("my-experience-body", myExperienceBodyStyle)}>
+        <div
+          className={cx(
+            "my-experience-body",
+            myExperienceBodyStyle(activeIndex === 0)
+          )}
+        >
           {tabs[activeIndex]}
         </div>
       </div>

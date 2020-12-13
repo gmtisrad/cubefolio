@@ -3,6 +3,7 @@ import { cx, css } from "@emotion/css";
 import NBYLogo from "../../assets/NBYLogo.jpg";
 
 const nikeTabStyle = css`
+  padding-top: 40px;
   height: 100%;
   width: 100%;
   background-color: white;
@@ -46,6 +47,8 @@ const nikeTabNavInfo = css`
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: visible;
+  white-space: nowrap;
 `;
 
 const nikeTabTickerStyle = css`
@@ -60,15 +63,30 @@ const nikeTabTickerStyle = css`
 const nikeTabBody = css`
   width: 100%;
   padding: 0 10px;
+  margin: 0 auto;
+  @media (min-width: 1921px) {
+    max-width: 1440px;
+  }
+  @media (max-width: 1920px) {
+    max-width: 1024px;
+  }
 `;
 
 const nikeTabBodyRowLeft = css`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 0;
+    img {
+      margin-bottom: 20px;
+    }
+  }
 `;
 const nbyLogo = css`
   display: flex;
@@ -88,9 +106,11 @@ const nbyInfoStyle = css`
   width: 100%;
   height: 100%;
   color: black;
-  padding-left: 20px;
   p {
     margin-top: 0;
+  }
+  @media (min-width: 568px) {
+    padding-left: 20px;
   }
 `;
 
@@ -106,6 +126,19 @@ const nikeTabFooterStyle = css`
     li {
       width: 45%;
       margin: 10px 0;
+    }
+  }
+  @media (min-width: 1024px) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  @media (max-width: 586px) {
+    ul {
+      padding: 20px;
+      li {
+        width: 100%;
+      }
     }
   }
 `;

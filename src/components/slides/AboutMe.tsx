@@ -19,10 +19,20 @@ export const AboutMe: React.FC = () => {
     font-size: 16px;
     flex-direction: row;
     justify-content: space-between;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      justify-content: center;
+      .avatar-wrapper {
+        margin: 60px;
+      }
+      padding-top: 60px;
+    }
   `;
 
   const infoContainerStyle = css`
-    width: 50%;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
     .skills-info {
       margin: 0 20px 0 0;
     }
@@ -32,6 +42,13 @@ export const AboutMe: React.FC = () => {
       list-style: none;
       padding: 0;
       margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      max-width: 568px;
+      ul {
+        max-width: 324px;
+        margin: 0 auto;
+      }
     }
   `;
 

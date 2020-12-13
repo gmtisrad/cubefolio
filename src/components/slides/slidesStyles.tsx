@@ -4,8 +4,15 @@ export const parthenonBodyStyle = css`
   height: 100%;
   width: 100%;
   padding-top: 40px;
-  // background-color: #2f5e79;
-  background: linear-gradient(135deg, #284b67, #2f5e79);
+  // // background-color: #2f5e79;
+  // background: linear-gradient(135deg, #284b67, #2f5e79);
+  margin: 0 auto;
+  @media (min-width: 1921px) {
+    max-width: 1440px;
+  }
+  @media (max-width: 1920px) {
+    max-width: 1024px;
+  }
 `;
 
 export const parthInfo = css`
@@ -17,6 +24,10 @@ export const projectWrapperStyle = css`
   width: 45%;
   overflow: hidden;
   margin: 0 auto;
+  @media (max-width: 767px) {
+    width: 100%;
+    padding: 0 20px;
+  }
 `;
 
 export const parthenonImageStyle = css`
@@ -25,11 +36,37 @@ export const parthenonImageStyle = css`
 
 export const projectsStyle = css`
   height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+  width: 100vw;
   background-color: #f8f8f8;
   color: black;
+  padding: 0 10px 30px;
+  @media (min-width: 1024px) {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+export const projectCardsStyle = css`
+  display: flex;
+  justify-content: space-around;
+  @media (min-width: 1921px) {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+  @media (max-width: 1920px) {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  @media (max-width: 767px) {
+    flex-direction: column;
+    max-width: 568px;
+    margin: 0 auto;
+  }
 `;
 
 export const parthenonHeaderStyle = css`
@@ -39,6 +76,8 @@ export const parthenonHeaderStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  max-width: 568px;
+  margin: 0 auto;
 `;
 
 export const myExperienceContainerstyle = css`
@@ -48,19 +87,17 @@ export const myExperienceContainerstyle = css`
 
 export const myExperienceWrapperStyle = css`
   position: relative;
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   background-color: white;
-  border: 1px solid black;
-  margin: 5%;
 `;
 
 export const topNavStyle = css`
-  width: 90%;
+  width: 100%;
   height: 40px;
-  position: fixed;
-  top: 5%;
-  left: 5%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
   // background-color: #5f5f5f;
   background: linear-gradient(0deg, #606060, #696969);
   display: flex;
@@ -72,6 +109,7 @@ export const topNavTabsStyle = css`
   display: flex;
   align-items: center;
   padding-left: 1px;
+  max-width: 100vw;
 `;
 
 export const topNavControlsStyle = css``;
@@ -90,9 +128,9 @@ export const topNavTabStyle = css`
   display: flex;
   align-items: center;
   height: 100%;
-  max-width: 150px;
   padding: 0 10px;
   align-items: center;
+  max-width: 100px;
   border-right: 1px solid #888888;
   span {
     width: 100%;
@@ -100,16 +138,22 @@ export const topNavTabStyle = css`
     text-overflow: ellipsis;
     overflow: hidden;
   }
+  @media (min-width: 1024px) {
+    max-width: 200px;
+  }
 `;
 
 export const activeTabStyle = css`
   background-color: #efefef;
   border-radius: 15px 15px 0 0;
-  max-width: unset;
   padding-top: 8px;
   padding-bottom: 10px;
+  max-width: 150px;
   color: black;
   border-right: 0;
+  @media (min-width: 1024px) {
+    max-width: unset;
+  }
 `;
 
 export const parthenonDutyListStyle = css`
@@ -121,30 +165,20 @@ export const parthenonDutyListItemStyle = css`
 `;
 
 export const scrollingAnimation = keyframes`
-      0% { transform: translateY(100%) }
-      35% { transform: translateY(43%)}
-      65% { transform: translateY(43%)}
-      100% { transform: translateY(0%) }
+      0% { transform: translateY(100%) rotate(63deg) }
+      100% { transform: translateY(0%) rotate(63deg) }
+    `;
+
+export const scrollingAnimationMobile = keyframes`
+      0% { transform: translateY(200%) }
+      100% { transform: translateY(0) }
     `;
 
 export const terminalWrapperStyle = (textColor: string) => css`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  @media (min-width: 1920px) {
-    width: 1440px;
-  }
-  @media (min-width: 1024px) {
-    width: 1024px;
-  }
-  @media (max-width: 1024px) {
-    height: 755px;
-  }
-  @media (max-width: 568px) {
-    height: 400px;
-  }
+  width: 100vw;
 `;
 
 export const turnOnStyle = keyframes`
@@ -223,8 +257,9 @@ export const animateText = css`
 
 export const terminalStyle = css`
   position: relative;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
+  overflow: hidden;
   background: radial-gradient(
     circle at center,
     #020600 0%,
@@ -233,19 +268,27 @@ export const terminalStyle = css`
     #020600 89%,
     black 100%
   );
-  border-radius: 20px;
   display: flex;
   color: green;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   padding: 0 0 10px 10px;
-  font-size: 24px;
-  overflow: hidden;
+  font-size: 22px;
   animation: ${turnOnStyle} 4s 1;
   pre {
     display: flex;
+    overflow: hidden;
     justify-content: center;
+    margin-left: -10px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    pre {
+      code {
+        font-size: 16px;
+      }
+    }
   }
   @media (max-width: 1024px) {
     font-size: 16px;
@@ -293,9 +336,6 @@ export const commandWrapperStyle = css`
 `;
 
 export const terminalContainerStyle = css`
-  width: 90%;
-  height: 90%;
+  width: 100%;
   background-color: black;
-  border-radius: 20px;
-  overflow: hidden;
 `;

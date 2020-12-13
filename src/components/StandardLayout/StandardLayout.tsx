@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import ThemeContext from "../../context/ThemeContext";
-import {
-  getCurrentStyle,
-  getBackgroundColor,
-  getTextColor,
-} from "../../utils/styleUtils";
+import { getCurrentStyle } from "../../utils/styleUtils";
 import { standardLayoutStyles, standardBodyStyle } from "./standardStyles";
 import { cx } from "@emotion/css";
-import StandardTopNav from "./StandardTopNav";
 import LandingPage from "./LandingPage";
-import AboutMe from "../slides/AboutMe";
+import AboutMePage from "./AboutMePage";
+import MyExperiencePage from "./MyExperiencePage";
 
 export const StandardLayout: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -22,10 +18,11 @@ export const StandardLayout: React.FC = () => {
 
   return (
     <div className={cx("standard-root", standardLayoutStyles, currentStyle)}>
-      <StandardTopNav />
+      {/* <StandardTopNav /> */}
       <div className={cx("standard-body", standardBodyStyle)}>
         <LandingPage />
-        <AboutMe />
+        <AboutMePage />
+        <MyExperiencePage />
       </div>
     </div>
   );
