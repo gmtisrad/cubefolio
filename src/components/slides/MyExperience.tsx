@@ -26,7 +26,6 @@ export const MyExperience: React.FC = () => {
     height: 100%;
     width: 100%;
     overflow: auto;
-    margin-top: 40px;
     ${isParth ? "background: linear-gradient(135deg, #284b67, #2f5e79);" : ""}
   `;
 

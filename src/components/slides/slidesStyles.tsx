@@ -176,9 +176,12 @@ export const scrollingAnimationMobile = keyframes`
 
 export const terminalWrapperStyle = (textColor: string) => css`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+  background-color: black;
 `;
 
 export const turnOnStyle = keyframes`
@@ -257,8 +260,8 @@ export const animateText = css`
 
 export const terminalStyle = css`
   position: relative;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100%;
   overflow: hidden;
   background: radial-gradient(
     circle at center,
@@ -271,7 +274,7 @@ export const terminalStyle = css`
   display: flex;
   color: green;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: flex-start;
   padding: 0 0 10px 10px;
   font-size: 22px;
@@ -286,7 +289,7 @@ export const terminalStyle = css`
     font-size: 22px;
     pre {
       code {
-        font-size: 16px;
+        font-size: 12px;
       }
     }
   }

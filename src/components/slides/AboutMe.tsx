@@ -19,6 +19,7 @@ export const AboutMe: React.FC = () => {
     font-size: 16px;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #193441;
     @media (max-width: 768px) {
       flex-direction: column;
       justify-content: center;

@@ -29,14 +29,14 @@ const columnContainerStyles = css`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
+  width: 100vh;
 `;
 
 const upButtonStyle = css`
   position: absolute;
   top: 5px;
   left: 50%;
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
 `;
 
@@ -44,7 +44,7 @@ const downButtonStyle = css`
   position: absolute;
   bottom: 5px;
   left: 50%;
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
 `;
 
@@ -52,7 +52,7 @@ const leftButtonStyle = css`
   position: absolute;
   top: 50%;
   left: 5px;
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
 `;
 
@@ -60,7 +60,7 @@ const rightButtonStyle = css`
   position: absolute;
   top: 50%;
   right: 5px;
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
 `;
 
@@ -150,8 +150,32 @@ export const FramerCube: React.FC = () => {
     </>
   );
 
+  const CubeWrapper = (props: any) => {
+    const { themeStyle } = props;
+    const cubeFaceStyle = css`
+      height: 100%;
+      width: 100%;
+      border-top: 1px solid ${textColor};
+      border-bottom: 1px solid ${textColor};
+      background-color: ${backgroundColor};
+      overflow-y: auto;
+    `;
+    return (
+      <div className={cx("cube-face-wrapper", cubeFaceStyle, themeStyle)}>
+        {props.children}
+      </div>
+    );
+  };
+
   return (
-    <div className={cx(currentStyle, columnContainerStyles)}>
+    <div
+      className={cx(
+        css`
+          color: ${textColor};
+        `,
+        columnContainerStyles
+      )}
+    >
       <Page
         height={"100vh"}
         width={"100vh"}
@@ -159,60 +183,61 @@ export const FramerCube: React.FC = () => {
         gap={0}
         defaultEffect={"cube"}
         backgroundColor="transparent"
-        paddingLeft={40}
-        paddingRight={40}
         currentPage={currentIndex}
         dragEnabled={false}
       >
         <Page
           direction={"vertical"}
           defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
           currentPage={verticalIndex}
           dragEnabled={false}
+          backgroundColor="transparent"
+          height={"100vh"}
+          width={"100vh"}
         >
           <Frame
-            backgroundColor={backgroundColor}
+            backgroundColor="transparent"
             height={"100vh"}
             width={"100vh"}
             center
           >
             <Controls />
-            <TerminalIntro />
+            <CubeWrapper themeStyle={currentStyle}>
+              <TerminalIntro />
+            </CubeWrapper>
           </Frame>
           <Frame
-            backgroundColor={backgroundColor}
+            backgroundColor="transparent"
             height={"100vh"}
             width={"100vh"}
             center
           >
             <Controls />
-            <AboutMe />
+            <CubeWrapper themeStyle={currentStyle}>
+              <AboutMe />
+            </CubeWrapper>
           </Frame>
           <Frame
-            backgroundColor={backgroundColor}
+            backgroundColor="transparent"
             height={"100vh"}
             width={"100vh"}
             center
           >
             <Controls />
             {/* <FrontEndSlide /> */}
-            <MyExperience />
+            <CubeWrapper themeStyle={currentStyle}>
+              <MyExperience />
+            </CubeWrapper>
           </Frame>
         </Page>
         <Page
           dragEnabled={false}
           defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
           directionLock={true}
+          height={"100vh"}
+          width={"100vh"}
         >
-          <Frame
-            backgroundColor={backgroundColor}
-            height={"100vh"}
-            width={"100vh"}
-          >
+          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
             <Controls />
             <FrontEndSlide />
           </Frame>
@@ -220,15 +245,11 @@ export const FramerCube: React.FC = () => {
         <Page
           dragEnabled={false}
           defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
           directionLock={true}
+          height={"100vh"}
+          width={"100vh"}
         >
-          <Frame
-            backgroundColor={backgroundColor}
-            height={"100vh"}
-            width={"100vh"}
-          >
+          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
             <Controls />
             <TitleSlide />
           </Frame>
@@ -236,15 +257,11 @@ export const FramerCube: React.FC = () => {
         <Page
           dragEnabled={false}
           defaultEffect={"cube"}
-          paddingTop={40}
-          paddingBottom={40}
           directionLock={true}
+          height={"100vh"}
+          width={"100vh"}
         >
-          <Frame
-            backgroundColor={backgroundColor}
-            height={"100vh"}
-            width={"100vh"}
-          >
+          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
             <Controls />
             <TitleSlide />
           </Frame>

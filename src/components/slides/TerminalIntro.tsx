@@ -61,7 +61,6 @@ const IntroScroll = (props: any) => {
     if (commandsIndex.current === -1) {
       const animationTimeout = setTimeout(() => {
         update();
-        commandsIndex.current = commandsIndex.current + 1;
       }, 2000);
 
       return (): void => {
@@ -80,21 +79,26 @@ const Cursor: React.FC = () => {
 };
 
 const Command: React.FC<any> = (props: any) => {
-  const { termCommand, setDone, children, idx, commandIdx } = props;
+  const { termCommand, setDone, children, idx, commandIdx, endRef } = props;
   const [isDone, setIsDone] = useState(false);
-  const commandRef = useRef<HTMLInputElement>(null);
 
   const terminalPrefix = "gabeTimm:~$";
 
   useEffect(() => {
     if (idx === commandIdx.current) {
+      // console.log(endRef.current?.parentElement?.scrollHeight);
+      // console.log(endRef.current?.parentElement);
+      // endRef.current?.parentElement?.scrollTo({
+      //   top: endRef.current?.parentElement?.scrollHeight,
+      //   left: 0,
+      //   behavior: "smooth",
+      // });
+      endRef.current?.scrollIntoView(false);
       const animationTimeout = setTimeout(() => {
         setDone();
         setIsDone(true);
         clearTimeout(animationTimeout);
       }, 1000);
-      commandRef.current?.scrollIntoView(false);
-
       return (): void => {
         clearTimeout(animationTimeout);
       };
@@ -102,10 +106,7 @@ const Command: React.FC<any> = (props: any) => {
   }, [commandIdx, idx, setDone]);
 
   return idx <= commandIdx.current ? (
-    <div
-      ref={commandRef}
-      className={cx(commandWrapperStyle, "terminal-command")}
-    >
+    <div className={cx(commandWrapperStyle, "terminal-command")}>
       <span>{terminalPrefix}</span>
       <div className={commandStyle}>{termCommand}</div>
       {isDone && children}
@@ -120,6 +121,7 @@ export const TerminalIntro: React.FC = () => {
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
+  const cmdEndRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
@@ -158,31 +160,33 @@ export const TerminalIntro: React.FC = () => {
 
   return (
     <div className={cx(terminalWrapperStyle(textColor), "terminal-wrapper")}>
-      <div className={cx(terminalContainerStyle, animateText)}>
-        <div className={cx(terminalStyle, "terminal", "crt")}>
-          <IntroScroll
-            commandsIndex={commandsShown}
-            update={() => {
+      {/* <div className={cx(terminalContainerStyle, animateText)}> */}
+      <div className={cx(terminalStyle, "terminal", "crt")}>
+        <IntroScroll
+          commandsIndex={commandsShown}
+          update={() => {
+            commandsShown.current = commandsShown.current + 1;
+            setShouldUpdate(!shouldUpdate);
+          }}
+        />
+        {commands.map((command, idx) => (
+          <Command
+            key={command + idx}
+            idx={idx}
+            commandIdx={commandsShown}
+            setDone={(): void => {
               commandsShown.current = commandsShown.current + 1;
               setShouldUpdate(!shouldUpdate);
             }}
-          />
-          {commands.map((command, idx) => (
-            <Command
-              key={command + idx}
-              idx={idx}
-              commandIdx={commandsShown}
-              setDone={(): void => {
-                commandsShown.current = commandsShown.current + 1;
-                setShouldUpdate(!shouldUpdate);
-              }}
-              termCommand={command}
-            >
-              {idx === commands.length - 1 ? <Cursor /> : null}
-            </Command>
-          ))}
-        </div>
+            termCommand={command}
+            endRef={cmdEndRef}
+          >
+            {idx === commands.length - 1 ? <Cursor /> : null}
+          </Command>
+        ))}
+        <div ref={cmdEndRef} />
       </div>
+      {/* </div> */}
     </div>
   );
 };

@@ -10,11 +10,9 @@ import {
 
 /* Wrapper Styles */
 export const baseWrapperStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
+  width: 100vh;
   height: 100vh;
+  margin: 0 auto;
 `;
 
 export const lightWrapperStyle = css`
