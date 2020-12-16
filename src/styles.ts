@@ -10,8 +10,15 @@ import {
 
 /* Wrapper Styles */
 export const baseWrapperStyle = css`
-  width: 100vh;
-  height: 100vh;
+  @media (orientation: landscape) {
+    height: 100vh;
+    width: 100vh;
+  }
+
+  @media (orientation: portrait) {
+    height: 100vh;
+    width: 100vw;
+  }
   margin: 0 auto;
 `;
 

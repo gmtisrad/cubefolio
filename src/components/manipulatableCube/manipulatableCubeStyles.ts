@@ -6,6 +6,11 @@ export const cubeSideStyle = (
 ) => css`
   background-color: ${backgroundColor};
   color: ${textColor};
+  overflow: hidden;
+  position: absolute;
+  height: 50vh;
+  width: 50vh;
+  user-select: none;
 `;
 
 export const sideOne = css`
@@ -45,15 +50,6 @@ export const cubeWrapper = (
   transform-style: preserve-3d;
   transform: rotateX(${cubeRotateX.current || 0}deg)
     rotateY(${cubeRotateY.current || 0}deg);
-  div {
-    overflow: hidden;
-    position: absolute;
-    height: 50vh;
-    width: 50vh;
-    user-select: none;
-    // ${!light && `box-shadow: ${textColor} 0px 0px 1em;`}
-    // ${!light && `text-shadow: ${textColor} 0px 0px 1em;`}
-  }
 `;
 
 export const cubeViewport = css`

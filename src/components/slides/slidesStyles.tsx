@@ -174,16 +174,6 @@ export const scrollingAnimationMobile = keyframes`
       100% { transform: translateY(0) }
     `;
 
-export const terminalWrapperStyle = (textColor: string) => css`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-`;
-
 export const turnOnStyle = keyframes`
   0%{
     transform:scale(1,0.8) translate3d(0,0,0);
@@ -224,6 +214,16 @@ export const turnOnStyle = keyframes`
   }
 `;
 
+export const terminalWrapperStyle = (textColor: string) => css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+`;
+
 export const shiftyText = keyframes`
   0% {
     text-shadow: green 0px 0px 3px;
@@ -261,7 +261,7 @@ export const animateText = css`
 export const terminalStyle = css`
   position: relative;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   overflow: hidden;
   background: radial-gradient(
     circle at center,
@@ -274,11 +274,11 @@ export const terminalStyle = css`
   display: flex;
   color: green;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: flex-start;
   padding: 0 0 10px 10px;
   font-size: 22px;
-  animation: ${turnOnStyle} 4s 1;
+  // animation: ${turnOnStyle} 4s 1;
   pre {
     display: flex;
     overflow: hidden;
@@ -286,18 +286,25 @@ export const terminalStyle = css`
     margin-left: -10px;
   }
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 26px;
     pre {
       code {
         font-size: 12px;
       }
     }
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     font-size: 16px;
   }
   @media (max-width: 568px) {
     font-size: 12px;
+  }
+  @media (max-width: 320px) {
+    pre {
+      code {
+        font-size: 10px;
+      }
+    }
   }
 `;
 export const blink = keyframes`
@@ -340,5 +347,7 @@ export const commandWrapperStyle = css`
 
 export const terminalContainerStyle = css`
   width: 100%;
+  height: 100%;
   background-color: black;
+  animation: ${turnOnStyle} 4s 1;
 `;

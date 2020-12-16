@@ -28,40 +28,62 @@ const columnContainerStyles = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vh;
+
+  @media (orientation: landscape) {
+    height: 100vh;
+    width: 100vh;
+  }
+
+  @media (orientation: portrait) {
+    height: 100vh;
+    width: 100vw;
+  }
 `;
 
 const upButtonStyle = css`
   position: absolute;
   top: 5px;
-  left: 50%;
+  width: 100px;
+  display: flex;
+  justify-content: center;
   z-index: 100;
   cursor: pointer;
+  mix-blend-mode: difference;
 `;
 
 const downButtonStyle = css`
   position: absolute;
   bottom: 5px;
-  left: 50%;
+  width: 100px;
   z-index: 100;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
+  mix-blend-mode: difference;
 `;
 
 const leftButtonStyle = css`
   position: absolute;
-  top: 50%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   left: 5px;
   z-index: 100;
   cursor: pointer;
+  mix-blend-mode: difference;
 `;
 
 const rightButtonStyle = css`
   position: absolute;
-  top: 50%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   right: 5px;
   z-index: 100;
   cursor: pointer;
+  mix-blend-mode: difference;
 `;
 
 export const FramerCube: React.FC = () => {
@@ -72,6 +94,10 @@ export const FramerCube: React.FC = () => {
   const [textColor, setTextColor] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [verticalIndex, setVerticalIndex] = useState(0);
+
+  const pageWidth = (() => {
+    return window.outerHeight > window.outerWidth ? "100vw" : "100vh";
+  })();
 
   useEffect(() => {
     setCurrentStyle(getCurrentStyle(light, neon, dark));
@@ -137,18 +163,28 @@ export const FramerCube: React.FC = () => {
     );
   };
 
-  const Controls: React.FC = () => (
-    <>
-      {verticalIndex !== 0 && currentIndex === 0 && <UpButton />}
-      {verticalIndex < MAX_VERTICAL_SIDES - 1 && currentIndex === 0 && (
-        <DownButton />
-      )}
-      {currentIndex !== 0 && verticalIndex === 1 && <LeftButton />}
-      {currentIndex < MAX_HORIZONTAL_SIDES - 1 && verticalIndex === 1 && (
-        <RightButton />
-      )}
-    </>
-  );
+  const Controls: React.FC = () => {
+    return (
+      <div
+        className={css`
+          position: absolute;
+          height: 100px;
+          width: 100px;
+          right: 0;
+          bottom: 0;
+        `}
+      >
+        {verticalIndex !== 0 && currentIndex === 0 && <UpButton />}
+        {verticalIndex < MAX_VERTICAL_SIDES - 1 && currentIndex === 0 && (
+          <DownButton />
+        )}
+        {currentIndex !== 0 && verticalIndex === 1 && <LeftButton />}
+        {currentIndex < MAX_HORIZONTAL_SIDES - 1 && verticalIndex === 1 && (
+          <RightButton />
+        )}
+      </div>
+    );
+  };
 
   const CubeWrapper = (props: any) => {
     const { themeStyle } = props;
@@ -178,7 +214,7 @@ export const FramerCube: React.FC = () => {
     >
       <Page
         height={"100vh"}
-        width={"100vh"}
+        width={pageWidth}
         alignment="center"
         gap={0}
         defaultEffect={"cube"}
@@ -193,12 +229,12 @@ export const FramerCube: React.FC = () => {
           dragEnabled={false}
           backgroundColor="transparent"
           height={"100vh"}
-          width={"100vh"}
+          width={pageWidth}
         >
           <Frame
             backgroundColor="transparent"
             height={"100vh"}
-            width={"100vh"}
+            width={pageWidth}
             center
           >
             <Controls />
@@ -209,7 +245,7 @@ export const FramerCube: React.FC = () => {
           <Frame
             backgroundColor="transparent"
             height={"100vh"}
-            width={"100vh"}
+            width={pageWidth}
             center
           >
             <Controls />
@@ -220,7 +256,7 @@ export const FramerCube: React.FC = () => {
           <Frame
             backgroundColor="transparent"
             height={"100vh"}
-            width={"100vh"}
+            width={pageWidth}
             center
           >
             <Controls />
@@ -235,9 +271,13 @@ export const FramerCube: React.FC = () => {
           defaultEffect={"cube"}
           directionLock={true}
           height={"100vh"}
-          width={"100vh"}
+          width={pageWidth}
         >
-          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
+          <Frame
+            backgroundColor="transparent"
+            height={"100vh"}
+            width={pageWidth}
+          >
             <Controls />
             <FrontEndSlide />
           </Frame>
@@ -247,9 +287,13 @@ export const FramerCube: React.FC = () => {
           defaultEffect={"cube"}
           directionLock={true}
           height={"100vh"}
-          width={"100vh"}
+          width={pageWidth}
         >
-          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
+          <Frame
+            backgroundColor="transparent"
+            height={"100vh"}
+            width={pageWidth}
+          >
             <Controls />
             <TitleSlide />
           </Frame>
@@ -259,9 +303,13 @@ export const FramerCube: React.FC = () => {
           defaultEffect={"cube"}
           directionLock={true}
           height={"100vh"}
-          width={"100vh"}
+          width={pageWidth}
         >
-          <Frame backgroundColor="transparent" height={"100vh"} width={"100vh"}>
+          <Frame
+            backgroundColor="transparent"
+            height={"100vh"}
+            width={pageWidth}
+          >
             <Controls />
             <TitleSlide />
           </Frame>

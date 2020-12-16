@@ -54,48 +54,46 @@ const App: React.FC = () => {
       <ThemeSwitcher />
       <ViewSwitcher />
       <StarField />
-      {orientation === ORIENTATIONS.LANDSCAPE && (
-        <AnimatePresence>
-          {standardView && (
-            <Wrapper>
-              <motion.div
-                className={css`
-                  width: 100%;
-                  height: 100%;
-                `}
-                key="standard"
-                // initial={{ scale: 0.5 }}
-                animate={{
-                  scale: 1,
-                }}
-                exit={{
-                  scale: 0.5,
-                }}
-              >
-                <FramerCube />
-              </motion.div>
-            </Wrapper>
-          )}
-          {!standardView && (
-            <Wrapper>
-              <motion.div
-                key="cube"
-                initial={{ scale: 2 }}
-                animate={{
-                  scale: 1,
-                }}
-                exit={{
-                  scale: 2,
-                }}
-              >
-                <ManipulatableCube />
-              </motion.div>
-            </Wrapper>
-          )}
-        </AnimatePresence>
-      )}
+      <AnimatePresence>
+        {standardView && (
+          <Wrapper>
+            <motion.div
+              className={css`
+                width: 100%;
+                height: 100%;
+              `}
+              key="standard"
+              // initial={{ scale: 0.5 }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: 0.5,
+              }}
+            >
+              <FramerCube />
+            </motion.div>
+          </Wrapper>
+        )}
+        {!standardView && (
+          <Wrapper>
+            <motion.div
+              key="cube"
+              initial={{ scale: 2 }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: 2,
+              }}
+            >
+              <ManipulatableCube />
+            </motion.div>
+          </Wrapper>
+        )}
+      </AnimatePresence>
 
-      {orientation === ORIENTATIONS.PORTRAIT && <StandardLayout />}
+      {/* {orientation === ORIENTATIONS.PORTRAIT && <StandardLayout />} */}
     </>
   );
 };

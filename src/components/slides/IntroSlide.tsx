@@ -17,6 +17,9 @@ export const introWrapperStyle = (borderColor: string) => css`
   height: 100%;
   width: 100%;
   font-size: 2em;
+  @media (max-width: 568px) {
+    height: auto;
+  }
 `;
 
 export const IntroSlide: React.FC<Props> = (props: Props) => {

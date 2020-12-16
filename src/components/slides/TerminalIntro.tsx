@@ -160,33 +160,35 @@ export const TerminalIntro: React.FC = () => {
 
   return (
     <div className={cx(terminalWrapperStyle(textColor), "terminal-wrapper")}>
-      {/* <div className={cx(terminalContainerStyle, animateText)}> */}
-      <div className={cx(terminalStyle, "terminal", "crt")}>
-        <IntroScroll
-          commandsIndex={commandsShown}
-          update={() => {
-            commandsShown.current = commandsShown.current + 1;
-            setShouldUpdate(!shouldUpdate);
-          }}
-        />
-        {commands.map((command, idx) => (
-          <Command
-            key={command + idx}
-            idx={idx}
-            commandIdx={commandsShown}
-            setDone={(): void => {
+      <div
+        className={cx(terminalContainerStyle, animateText, "terminal", "crt")}
+      >
+        <div className={cx(terminalStyle)}>
+          <IntroScroll
+            commandsIndex={commandsShown}
+            update={() => {
               commandsShown.current = commandsShown.current + 1;
               setShouldUpdate(!shouldUpdate);
             }}
-            termCommand={command}
-            endRef={cmdEndRef}
-          >
-            {idx === commands.length - 1 ? <Cursor /> : null}
-          </Command>
-        ))}
-        <div ref={cmdEndRef} />
+          />
+          {commands.map((command, idx) => (
+            <Command
+              key={command + idx}
+              idx={idx}
+              commandIdx={commandsShown}
+              setDone={(): void => {
+                commandsShown.current = commandsShown.current + 1;
+                setShouldUpdate(!shouldUpdate);
+              }}
+              termCommand={command}
+              endRef={cmdEndRef}
+            >
+              {idx === commands.length - 1 ? <Cursor /> : null}
+            </Command>
+          ))}
+          <div ref={cmdEndRef} />
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 };
