@@ -278,7 +278,7 @@ export const terminalStyle = css`
   align-items: flex-start;
   padding: 0 0 10px 10px;
   font-size: 22px;
-  // animation: ${turnOnStyle} 4s 1;
+  animation: ${turnOnStyle} 4s 1;
   pre {
     display: flex;
     overflow: hidden;
@@ -349,5 +349,4 @@ export const terminalContainerStyle = css`
   width: 100%;
   height: 100%;
   background-color: black;
-  animation: ${turnOnStyle} 4s 1;
 `;

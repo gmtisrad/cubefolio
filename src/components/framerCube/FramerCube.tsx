@@ -191,8 +191,6 @@ export const FramerCube: React.FC = () => {
     const cubeFaceStyle = css`
       height: 100%;
       width: 100%;
-      border-top: 1px solid ${textColor};
-      border-bottom: 1px solid ${textColor};
       background-color: ${backgroundColor};
       overflow-y: auto;
     `;

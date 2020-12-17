@@ -3,7 +3,8 @@ import { cx, css } from "@emotion/css";
 import NBYLogo from "../../assets/NBYLogo.jpg";
 
 const nikeTabStyle = css`
-  padding-top: 40px;
+  overflow-x: hidden;
+  margin-top: 40px;
   height: 100%;
   width: 100%;
   background-color: white;
