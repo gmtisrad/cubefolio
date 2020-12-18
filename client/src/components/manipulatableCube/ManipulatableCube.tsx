@@ -16,6 +16,8 @@ import {
 } from "./manipulatableCubeStyles";
 import { motion, useMotionValue } from "framer";
 import TerminalIntro from "../slides/TerminalIntro";
+import AboutMe from "../slides/AboutMe";
+import MyExperience from "../slides/MyExperience";
 
 export const ManipulatableCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -109,10 +111,15 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <MiniIntroSlide
-              heading="Hi, my name is Gabe!"
-              message="I am a web developer"
-            />
+            <div
+              className={css`
+                height: 100vh;
+                width: 100vh;
+                transform: scale(0.5) translate(-50%, -50%);
+              `}
+            >
+              <AboutMe />
+            </div>
           </motion.div>
           <motion.div
             className={cx(
@@ -121,10 +128,15 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <MiniIntroSlide
-              heading="Hi, my name is Gabe!"
-              message="I am a web developer"
-            />
+            <div
+              className={css`
+                height: 100vh;
+                width: 100vh;
+                transform: scale(0.5) translate(-50%, -50%);
+              `}
+            >
+              <MyExperience />
+            </div>
           </motion.div>
           <motion.div
             className={cx(
@@ -157,10 +169,15 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <MiniIntroSlide
-              heading="Hi, my name is Gabe!"
-              message="I am a web developer"
-            />
+            <div
+              className={css`
+                height: 100vh;
+                width: 100vh;
+                transform: scale(0.5) translate(-50%, -50%);
+              `}
+            >
+              <AboutMe />
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>

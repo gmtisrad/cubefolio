@@ -6,7 +6,6 @@ import {
   ChevronRight,
 } from "@styled-icons/boxicons-solid";
 import { css, cx } from "@emotion/css";
-import { IntroSlide } from "../slides/IntroSlide";
 import { Frame, Page } from "framer";
 import {
   getCurrentStyle,
@@ -15,7 +14,6 @@ import {
 } from "../../utils/styleUtils";
 import ThemeContext from "../../context/ThemeContext";
 import TitleSlide from "../slides/TitleSlide";
-import FrontEndSlide from "../slides/FrontEndSlide";
 import AboutMe from "../slides/AboutMe";
 import TerminalIntro from "../slides/TerminalIntro";
 import MyExperience from "../slides/MyExperience";
@@ -277,7 +275,7 @@ export const FramerCube: React.FC = () => {
             width={pageWidth}
           >
             <Controls />
-            <FrontEndSlide />
+            <HowsItMade />
           </Frame>
         </Page>
         <Page
