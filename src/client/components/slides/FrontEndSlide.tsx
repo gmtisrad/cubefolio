@@ -12,7 +12,7 @@ export const FrontEndSlide: React.FC = () => {
     setTextColor(getTextColor(light, neon, dark));
   }, [light, dark, neon]);
 
-  const skillsStyles = (color: string) => css`
+  const skillsStyles = (color: string): string => css`
     width: 100%;
     height: 100%;
     display: flex;

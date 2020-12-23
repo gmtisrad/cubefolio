@@ -31,7 +31,11 @@ export const ParthenonTab: React.FC = () => {
         <h3>Parthenon Software Group</h3>
         <span>March 2019 - March 2020</span>
         <br />
-        <img className={parthenonImageStyle} src={parthenonLogo} />
+        <img
+          alt="parthenon software logo"
+          className={parthenonImageStyle}
+          src={parthenonLogo}
+        />
         <div className={parthInfo}>
           <p>
             My time at parthenon allowed me to get my hands on just about every

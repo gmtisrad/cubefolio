@@ -6,9 +6,7 @@ import StarField from "./components/StarField";
 import ManipulatableCube from "./components/manipulatableCube/ManipulatableCube";
 import ThemeContext from "./context/ThemeContext";
 import ViewSwitcher from "./components/VeiwSwitcher";
-import { Page, Frame, AnimatePresence, motion } from "framer";
-import MobileLayout from "./components/MobileLayout";
-import StandardLayout from "./components/StandardLayout/StandardLayout";
+import { AnimatePresence, motion } from "framer";
 import { css } from "@emotion/css";
 
 enum ORIENTATIONS {

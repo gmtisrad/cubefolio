@@ -15,5 +15,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["client/src"]
+  "include": ["src"],
+  "exclude": ["src/server", "webpack.config.server.js"]
 }

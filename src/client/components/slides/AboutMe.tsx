@@ -3,7 +3,7 @@ import { cx, css } from "@emotion/css";
 import ThemeContext from "../../context/ThemeContext";
 import { getTextColor } from "../../utils/styleUtils";
 import { introWrapperStyle } from "./IntroSlide";
-import { MyAvatar } from "../../assets/MyAvatar";
+import { MyAvatar } from "../../../client/assets/MyAvatar";
 
 export const AboutMe: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -19,7 +19,6 @@ export const AboutMe: React.FC = () => {
     font-size: 16px;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #193441;
     @media (max-width: 768px) {
       flex-direction: column;
       justify-content: center;

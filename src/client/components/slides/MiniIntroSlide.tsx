@@ -4,11 +4,11 @@ import ThemeContext from "../../context/ThemeContext";
 import { getTextColor } from "../../utils/styleUtils";
 
 type Props = {
-  heading: String;
-  message: String;
+  heading: string;
+  message: string;
 };
 
-const introWrapperStyle = (borderColor: string) => css`
+const introWrapperStyle = (borderColor: string): string => css`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,6 +4,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Contact,
 } from "@styled-icons/boxicons-solid";
 import { css, cx } from "@emotion/css";
 import { Frame, Page } from "framer";
@@ -17,6 +18,8 @@ import TitleSlide from "../slides/TitleSlide";
 import AboutMe from "../slides/AboutMe";
 import TerminalIntro from "../slides/TerminalIntro";
 import MyExperience from "../slides/MyExperience";
+import ContactMe from "../slides/ContactMe";
+import { Orbit } from "../slides/Orbit";
 
 const MAX_HORIZONTAL_SIDES = 4;
 const MAX_VERTICAL_SIDES = 3;
@@ -235,7 +238,8 @@ export const FramerCube: React.FC = () => {
           >
             <Controls />
             <CubeWrapper themeStyle={currentStyle}>
-              <TerminalIntro />
+              {/* <TerminalIntro /> */}
+              <Orbit />
             </CubeWrapper>
           </Frame>
           <Frame
@@ -256,7 +260,6 @@ export const FramerCube: React.FC = () => {
             center
           >
             <Controls />
-            {/* <FrontEndSlide /> */}
             <CubeWrapper themeStyle={currentStyle}>
               <MyExperience />
             </CubeWrapper>
@@ -275,7 +278,9 @@ export const FramerCube: React.FC = () => {
             width={pageWidth}
           >
             <Controls />
-            <HowsItMade />
+            <CubeWrapper themeStyle={currentStyle}>
+              <ContactMe />
+            </CubeWrapper>
           </Frame>
         </Page>
         <Page

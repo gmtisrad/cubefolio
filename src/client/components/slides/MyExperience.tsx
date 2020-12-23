@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { css, cx, keyframes } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import {
-  topNavTabStyle,
-  activeTabStyle,
   myExperienceContainerstyle,
   myExperienceWrapperStyle,
   topNavStyle,
@@ -22,7 +20,7 @@ export const MyExperience: React.FC = () => {
     "Nike - Senior Applications Engineer",
   ];
 
-  const myExperienceBodyStyle = (isParth: boolean) => css`
+  const myExperienceBodyStyle = (isParth: boolean): string => css`
     height: 100%;
     width: 100%;
     overflow: auto;

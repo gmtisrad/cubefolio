@@ -4,8 +4,7 @@ export const parthenonBodyStyle = css`
   height: 100%;
   width: 100%;
   padding-top: 40px;
-  // // background-color: #2f5e79;
-  // background: linear-gradient(135deg, #284b67, #2f5e79);
+  color: white;
   margin: 0 auto;
   @media (min-width: 1921px) {
     max-width: 1440px;
@@ -117,6 +116,7 @@ export const topNavControlsStyle = css``;
 export const topNavCloseStyle = css`
   height: 40px;
   width: 40px;
+  color: white;
   background-color: red;
   display: flex;
   justify-content: center;
@@ -127,6 +127,7 @@ export const topNavCloseStyle = css`
 export const topNavTabStyle = css`
   display: flex;
   align-items: center;
+  color: white;
   height: 100%;
   padding: 0 10px;
   align-items: center;
