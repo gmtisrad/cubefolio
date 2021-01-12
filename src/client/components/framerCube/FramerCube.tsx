@@ -238,8 +238,7 @@ export const FramerCube: React.FC = () => {
           >
             <Controls />
             <CubeWrapper themeStyle={currentStyle}>
-              {/* <TerminalIntro /> */}
-              <Orbit />
+              <TerminalIntro />
             </CubeWrapper>
           </Frame>
           <Frame

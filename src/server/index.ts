@@ -1,14 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
+import { emailService, fromEmail, fromEmailPassword, personalEmail } from "../../secrets";
 
 const app = express();
 const PORT = 3001;
-
-const emailService = "gmail";
-const fromEmail = "contactgabetimm@gmail.com";
-const fromEmailPassword = "********";
-const personalEmail = "Gabe.m.timm@gmail.com";
 
 const transporter = nodemailer.createTransport({
   service: emailService,
