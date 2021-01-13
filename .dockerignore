@@ -1,0 +1,5 @@
+node_modules
+npm-debug.log
+deprecated_components
+secrets.js
+yarn-error.log

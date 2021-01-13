@@ -58,7 +58,9 @@
     "build": "yarn build:client && yarn build:server",
     "build:client": "react-scripts build",
     "build:server": "webpack --config webpack.config.server.js",
-    "serve": "yarn build && pm2 start build/server.js"
+    "serve": "yarn build && pm2 start build/server.js",
+    "docker:build": "rm -rf doc node_modules && docker build . -t gtimm/portfolio",
+    "docker:run": "docker run -it -p 3001:3001 gtimm/portfolio"
   },
   "eslintConfig": {
     "extends": "react-app"

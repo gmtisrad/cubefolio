@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>webpack.config.server.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "";
+    var thisFile = "webpack.config.server.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>webpack.config.server.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">"path"</span>);
+<span class="hljs-keyword">const</span> nodeExternals = <span class="hljs-built_in">require</span>(<span class="hljs-string">"webpack-node-externals"</span>);
+
+<span class="hljs-keyword">const</span> entry = { <span class="hljs-attr">server</span>: <span class="hljs-string">"./src/server/index.ts"</span> };
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">mode</span>: process.env.NODE_ENV ? process.env.NODE_ENV : <span class="hljs-string">"development"</span>,
+  <span class="hljs-attr">target</span>: <span class="hljs-string">"node"</span>,
+  <span class="hljs-attr">devtool</span>: <span class="hljs-string">"inline-source-map"</span>,
+  <span class="hljs-attr">entry</span>: entry,
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">"build"</span>),
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">"[name].js"</span>,
+  },
+  <span class="hljs-attr">resolve</span>: {
+    <span class="hljs-attr">extensions</span>: [<span class="hljs-string">".ts"</span>, <span class="hljs-string">".tsx"</span>, <span class="hljs-string">".js"</span>],
+  },
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>don't compile node_modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  externals: [nodeExternals()],
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.tsx?$/</span>,
+        <span class="hljs-attr">use</span>: [
+          {
+            <span class="hljs-attr">loader</span>: <span class="hljs-string">"ts-loader"</span>,
+            <span class="hljs-attr">options</span>: {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>use the tsconfig in the server directory</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">              configFile: <span class="hljs-string">"src/server/tsconfig.json"</span>,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

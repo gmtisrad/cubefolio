@@ -1,5 +1,5 @@
 
-FROM node:8-alpine
+FROM node:15
 
 WORKDIR /usr/app
 
@@ -9,6 +9,6 @@ RUN npm i --quiet
 
 COPY . .
 
-RUN npm install pm2 -g
+EXPOSE 3001
 
 RUN npm run serve
