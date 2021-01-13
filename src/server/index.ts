@@ -35,7 +35,7 @@ app.post("/contact-me", (req, res) => {
     text: message,
   };
 
-  transporter.sendMail(mailOptions, (error: Error, info: any): void => {
+  transporter.sendMail(mailOptions, (error: Error | null, info: any): void => {
     if (error) {
       console.log(error);
     } else {

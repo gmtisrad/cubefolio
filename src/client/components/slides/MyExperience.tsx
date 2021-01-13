@@ -23,7 +23,7 @@ export const MyExperience: React.FC = () => {
   const myExperienceBodyStyle = (isParth: boolean): string => css`
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     ${isParth ? "background: linear-gradient(135deg, #284b67, #2f5e79);" : ""}
   `;
 
