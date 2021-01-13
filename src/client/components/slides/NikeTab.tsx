@@ -1,26 +1,17 @@
 import React from "react";
 import { cx, css } from "@emotion/css";
 import NBYLogo from "../../assets/NBYLogo.jpg";
-
-const nikeTabStyle = css`
-  overflow-x: hidden;
-  margin-top: 40px;
-  height: 100%;
-  width: 100%;
-  background-color: white;
-`;
-
-const nikeTabTopNavStyle = css`
-  display: flex;
-  width: 100%;
-  height: 60px;
-  align-items: center;
-  justify-content: space-between;
-  div {
-    flex-grow: 1;
-    flex-basis: 0;
-  }
-`;
+import {
+  nbyInfoStyle,
+  nbyLogo,
+  nikeTabBody,
+  nikeTabBodyRowLeft,
+  nikeTabFooterStyle,
+  nikeTabNavInfo,
+  nikeTabStyle,
+  nikeTabTickerStyle,
+  nikeTabTopNavStyle,
+} from "../../styles";
 
 const Logo: React.FC = () => {
   const nikeLogoStyle = css`
@@ -41,110 +32,7 @@ const Logo: React.FC = () => {
   );
 };
 
-const nikeTabNavInfo = css`
-  height: 100%;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: visible;
-  white-space: nowrap;
-`;
-
-const nikeTabTickerStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  width: 100%;
-  background-color: #f7f7f7;
-  color: black;
-`;
-const nikeTabBody = css`
-  width: 100%;
-  padding: 0 10px;
-  margin: 0 auto;
-  @media (min-width: 1921px) {
-    max-width: 1440px;
-  }
-  @media (max-width: 1920px) {
-    max-width: 1024px;
-  }
-`;
-
-const nikeTabBodyRowLeft = css`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 20px 0;
-    img {
-      margin-bottom: 20px;
-    }
-  }
-`;
-const nbyLogo = css`
-  display: flex;
-  align-items: center;
-  width: 300px;
-  img {
-    height: 300px;
-    width: 300px;
-  }
-`;
-
-const nbyInfoStyle = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  color: black;
-  p {
-    margin-top: 0;
-  }
-  @media (min-width: 568px) {
-    padding-left: 20px;
-  }
-`;
-
-const nikeTabFooterStyle = css`
-  background-color: #111;
-  width: 100%;
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
-    padding: 10px 0;
-    li {
-      width: 45%;
-      margin: 10px 0;
-    }
-  }
-  @media (min-width: 1024px) {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-  @media (max-width: 586px) {
-    ul {
-      padding: 20px;
-      li {
-        width: 100%;
-      }
-    }
-  }
-`;
-
-export const NikeTab = () => {
+export const NikeTab: React.FC = () => {
   return (
     <div className={cx("nike-tab-container", nikeTabStyle)}>
       <div className={cx("nike-tab-top-nav", nikeTabTopNavStyle)}>

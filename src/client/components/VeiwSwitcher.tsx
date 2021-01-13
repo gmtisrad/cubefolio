@@ -1,24 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ThemeContext from "../context/ThemeContext";
-import { css } from "@emotion/css";
 import { getBackgroundColor, getTextColor } from "../utils/styleUtils";
-
-const viewSwitcherButtonStyle = (
-  backgroundColor: string,
-  textColor: string
-): string => css`
-  position: absolute;
-  top: 70px;
-  left: 10px;
-  background-color: ${backgroundColor};
-  border: 2px solid ${textColor};
-  color: ${textColor};
-  padding: 5px;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 99;
-`;
+import { viewSwitcherButtonStyle } from "../styles";
 
 export const ViewSwitcher: React.FC = () => {
   const { toggleView, standardView } = useContext(ThemeContext);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { cx, css } from "@emotion/css";
 import { getTextColor } from "../../utils/styleUtils";
 import ThemeContext from "../../context/ThemeContext";
+import { asciiIntro3 } from "../../assets/asciiIntros";
 import {
   scrollingAnimation,
   animateCursor,
@@ -14,26 +15,13 @@ import {
   scrollingAnimationMobile,
 } from "./slidesStyles";
 
-const IntroScroll = (props: any) => {
-  const { commandsIndex, update } = props;
-  const asciiIntro = `
-    ____       _          
-   / ___| __ _| |__   ___ 
-  | |  _ / _\` | '_ \\ / _ \\
-  | |_| | (_| | |_) |  __/
-   \\____|\\__,_|_.__/ \\___|
- _____ _     
-|_   _(_)_ __ ___  _ __ ___  
-  | | | | '_ \` _ \\| '_ \` _ \\ 
-  | | | | | | | | | | | | | |
-  |_| |_|_| |_| |_|_| |_| |_|`;
-  const asciiIntro2 = `
-  _____\/\\\\\\\\\\\\\\\\\\\\\\\\_________________\/\\\\\\_______________________        \r\n ___\/\\\\\\\/\/\/\/\/\/\/\/\/\/_________________\\\/\\\\\\_______________________       \r\n  __\/\\\\\\____________________________\\\/\\\\\\_______________________      \r\n   _\\\/\\\\\\____\/\\\\\\\\\\\\\\__\/\\\\\\\\\\\\\\\\\\____\\\/\\\\\\____________\/\\\\\\\\\\\\\\\\__     \r\n    _\\\/\\\\\\___\\\/\/\/\/\/\\\\\\_\\\/\/\/\/\/\/\/\/\\\\\\___\\\/\\\\\\\\\\\\\\\\\\____\/\\\\\\\/\/\/\/\/\\\\\\_    \r\n     _\\\/\\\\\\_______\\\/\\\\\\___\/\\\\\\\\\\\\\\\\\\\\__\\\/\\\\\\\/\/\/\/\\\\\\__\/\\\\\\\\\\\\\\\\\\\\\\__   \r\n      _\\\/\\\\\\_______\\\/\\\\\\__\/\\\\\\\/\/\/\/\/\\\\\\__\\\/\\\\\\__\\\/\\\\\\_\\\/\/\\\\\/\/\/\/\/\/\/___  \r\n       _\\\/\/\\\\\\\\\\\\\\\\\\\\\\\\\/__\\\/\/\\\\\\\\\\\\\\\\\/\\\\_\\\/\\\\\\\\\\\\\\\\\\___\\\/\/\\\\\\\\\\\\\\\\\\\\_ \r\n        __\\\/\/\/\/\/\/\/\/\/\/\/\/_____\\\/\/\/\/\/\/\/\/\\\/\/__\\\/\/\/\/\/\/\/\/\/_____\\\/\/\/\/\/\/\/\/\/\/__\r\n           __\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_______________________________________________        \r\n          _\\\/\/\/\/\/\/\/\\\\\\\/\/\/\/\/________________________________________________       \r\n           _______\\\/\\\\\\________\/\\\\\\_________________________________________      \r\n            _______\\\/\\\\\\_______\\\/\/\/_____\/\\\\\\\\\\__\/\\\\\\\\\\______\/\\\\\\\\\\__\/\\\\\\\\\\___     \r\n             _______\\\/\\\\\\________\/\\\\\\__\/\\\\\\\/\/\/\\\\\\\\\\\/\/\/\\\\\\__\/\\\\\\\/\/\/\\\\\\\\\\\/\/\/\\\\\\_    \r\n              _______\\\/\\\\\\_______\\\/\\\\\\_\\\/\\\\\\_\\\/\/\\\\\\__\\\/\\\\\\_\\\/\\\\\\_\\\/\/\\\\\\__\\\/\\\\\\_   \r\n               _______\\\/\\\\\\_______\\\/\\\\\\_\\\/\\\\\\__\\\/\\\\\\__\\\/\\\\\\_\\\/\\\\\\__\\\/\\\\\\__\\\/\\\\\\_  \r\n                _______\\\/\\\\\\_______\\\/\\\\\\_\\\/\\\\\\__\\\/\\\\\\__\\\/\\\\\\_\\\/\\\\\\__\\\/\\\\\\__\\\/\\\\\\_ \r\n                 _______\\\/\/\/________\\\/\/\/__\\\/\/\/___\\\/\/\/___\\\/\/\/__\\\/\/\/___\\\/\/\/___\\\/\/\/__
-  `;
+type Props = {
+  commandsIndex: React.RefObject<number>;
+  update: () => void;
+};
 
-  const asciiIntro3 = `
-                                ___          ___     \r\n                               \/\\__\\        \/\\  \\    \r\n                              \/:\/ _\/_      |::\\  \\   \r\n                             \/:\/ \/\\__\\     |:|:\\  \\  \r\n                            \/:\/ \/:\/ _\/_  __|:|\\:\\  \\ \r\n                           \/:\/_\/:\/ \/\\__\\\/::::|_\\:\\__\\\r\n                           \\:\\\/:\/ \/:\/  \/\\:\\~~\\  \\\/__\/\r\n                            \\::\/_\/:\/  \/  \\:\\  \\      \r\n                             \\:\\\/:\/  \/    \\:\\  \\     \r\n                              \\::\/  \/      \\:\\__\\    \r\n                               \\\/__\/___     \\\/__\/    \r\n                      _____        \/\\  \\             \r\n                     \/::\\  \\      |::\\  \\            \r\n                    \/:\/\\:\\  \\     |:|:\\  \\           \r\n                   \/:\/ \/::\\__\\  __|:|\\:\\  \\          \r\n                  \/:\/_\/:\/\\:|__|\/::::|_\\:\\__\\         \r\n                  \\:\\\/:\/ \/:\/  \/\\:\\~~\\  \\\/__\/         \r\n                   \\::\/_\/:\/  \/  \\:\\  \\               \r\n                    \\:\\\/:\/  \/    \\:\\  \\              \r\n              ___    \\::\/  \/      \\:\\__\\             \r\n             \/\\  \\    \\\/__\/        \\\/__\/             \r\n            \/::\\  \\      ___                         \r\n           \/:\/\\:\\  \\    \/\\__\\                        \r\n          \/:\/ \/::\\  \\  \/:\/__\/                        \r\n         \/:\/_\/:\/\\:\\__\\\/::\\  \\                        \r\n         \\:\\\/:\/  \\\/__\/\\\/\\:\\  \\__                     \r\n          \\::\/__\/      ~~\\:\\\/\\__\\                    \r\n      ___  \\:\\  \\         \\::\/  \/                    \r\n     \/\\__\\  \\:\\__\\        \/:\/  \/                     \r\n    \/:\/ _\/_  \\\/__\/___     \\\/__\/                      \r\n   \/:\/ \/\\  \\     \/\\__\\                               \r\n  \/:\/ \/::\\  \\   \/:\/  \/                               \r\n \/:\/__\\\/\\:\\__\\ \/:\/__\/                                \r\n \\:\\  \\ \/:\/  \/\/::\\  \\                                \r\n  \\:\\  \/:\/  \/\/:\/\\:\\  \\                               \r\n   \\:\\\/:\/  \/ \\\/__\\:\\  \\                              \r\n    \\::\/  \/       \\:\\__\\                             \r\n     \\\/__\/         \\\/__\/                             
-  `;
+const IntroScroll: React.FC<Props> = (props: Props) => {
+  const { commandsIndex, update } = props;
 
   const asciiHtml = `<pre><code>${
     asciiIntro3 // window.innerWidth > 568 ? asciiIntro2 : asciiIntro
@@ -43,7 +31,7 @@ const IntroScroll = (props: any) => {
   const asciiIntroStyle = css`
     @media (min-width: 769px) {
       animation: ${scrollingAnimation} 4s steps(25, end);
-      transform: rotate(63deg);
+      transform: rotate(65deg);
     }
     @media (max-width: 768px) {
       animation: ${scrollingAnimationMobile} 4s steps(30, end);
@@ -58,7 +46,7 @@ const IntroScroll = (props: any) => {
   `;
 
   useEffect(() => {
-    if (commandsIndex.current === -1) {
+    if (commandsIndex && commandsIndex.current === -1) {
       const animationTimeout = setTimeout(() => {
         update();
       }, 2000);
@@ -78,7 +66,16 @@ const Cursor: React.FC = () => {
   return <div className={animateCursor} />;
 };
 
-const Command: React.FC<any> = (props: any) => {
+type CommandProps = {
+  termCommand: string;
+  setDone: () => void;
+  children: React.ReactNode | React.ReactNode[];
+  idx: number;
+  commandIdx: React.RefObject<any>;
+  endRef: React.RefObject<any>;
+};
+
+const Command: React.FC<CommandProps> = (props: CommandProps) => {
   const { termCommand, setDone, children, idx, commandIdx, endRef } = props;
   const [isDone, setIsDone] = useState(false);
 
@@ -117,7 +114,7 @@ const Command: React.FC<any> = (props: any) => {
 };
 
 export const TerminalIntro: React.FC = () => {
-  const commandsShown = useRef(-2);
+  const commandsShown = useRef<number>(-2);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
@@ -149,7 +146,7 @@ export const TerminalIntro: React.FC = () => {
       clearTimeout(introTimer);
     }, 4000);
 
-    return () => {
+    return (): void => {
       clearTimeout(introTimer);
     };
   }, []);
@@ -166,7 +163,7 @@ export const TerminalIntro: React.FC = () => {
         <div className={cx(terminalStyle)}>
           <IntroScroll
             commandsIndex={commandsShown}
-            update={() => {
+            update={(): void => {
               commandsShown.current = commandsShown.current + 1;
               setShouldUpdate(!shouldUpdate);
             }}

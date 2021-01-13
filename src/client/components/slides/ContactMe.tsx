@@ -2,88 +2,15 @@ import React, { useEffect, useContext, useState } from "react";
 import { css, cx } from "@emotion/css";
 import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";
 import ThemeContext from "../../context/ThemeContext";
-
-export const contactMeStyle = css`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-`;
-
-export const contactMeFormStyle = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-  input {
-    padding: 10px 2px;
-    margin: 0 0 10px;
-  }
-  button {
-    margin-top: 10px;
-  }
-  @media (min-width: 769px) {
-    width: 640px;
-  }
-  @media (max-width: 768px) {
-    width: 320px;
-  }
-`;
-
-export const contactFormRow = css`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-wrap: wrap;
-  @media (min-width: 769px) {
-    justify-content: space-between;
-    input {
-      width: 49%;
-    }
-    #subject-input {
-      width: 100%;
-    }
-    #message-input {
-      width: 100%;
-      height: 100px;
-    }
-  }
-  @media (max-width: 768px) {
-    input {
-      width: 100%;
-    }
-    textarea {
-      width: 100%;
-    }
-  }
-`;
-
-export const formTitleStyle = (
-  textColor: string,
-  backgroundColor: string
-): string => css`
-  font-size: 24px;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  color: ${backgroundColor};
-  background-color: ${textColor};
-  margin-bottom: 10px;
-`;
-
-export const formButtonStyle = (isFormValid: boolean) => css`
-  opacity: ${isFormValid ? 1 : 0.5};
-  cursor: ${isFormValid ? "pointer" : "cursor"};
-`;
-
-export const contactMeIntro = css`
-  width: 100%;
-  text-align: center;
-`;
+import {
+  contactFormRow,
+  contactMeFormStyle,
+  contactMeIntro,
+  contactMeStyle,
+  formButtonStyle,
+  formTitleStyle,
+  isValid,
+} from "../../styles";
 
 interface FormDataSchema {
   name: string;
@@ -92,7 +19,7 @@ interface FormDataSchema {
   email: string;
 }
 
-const validateEmail = (email: string) => {
+const validateEmail = (email: string): boolean => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
@@ -204,11 +131,6 @@ export const ContactMe: React.FC = () => {
         console.error(error);
       });
   };
-
-  const isValid = (valid: boolean) =>
-    css`
-      ${valid === false ? "border: 1px solid red" : ""}
-    `;
 
   return (
     <div className={contactMeStyle}>

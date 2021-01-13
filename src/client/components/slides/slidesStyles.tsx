@@ -166,8 +166,8 @@ export const parthenonDutyListItemStyle = css`
 `;
 
 export const scrollingAnimation = keyframes`
-      0% { transform: translateY(100%) rotate(63deg) }
-      100% { transform: translateY(0%) rotate(63deg) }
+      0% { transform: translateY(100%) rotate(65deg) }
+      100% { transform: translateY(0%) rotate(65deg) }
     `;
 
 export const scrollingAnimationMobile = keyframes`
@@ -223,6 +223,8 @@ export const terminalWrapperStyle = (textColor: string) => css`
   width: 100%;
   height: 100%;
   background-color: black;
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 export const shiftyText = keyframes`

@@ -1,9 +1,15 @@
 import React, { useEffect, useContext, useState } from "react";
-import { cx, css } from "@emotion/css";
+import { cx } from "@emotion/css";
 import ThemeContext from "../../context/ThemeContext";
 import { getTextColor } from "../../utils/styleUtils";
 import { introWrapperStyle } from "./IntroSlide";
 import { MyAvatar } from "../../../client/assets/MyAvatar";
+import { ContactIcons } from "../ContactIcons";
+import {
+  aboutMeWrapperStyle,
+  avatarContainer,
+  infoContainerStyle,
+} from "../../styles";
 
 export const AboutMe: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -12,53 +18,6 @@ export const AboutMe: React.FC = () => {
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
   }, [light, dark, neon]);
-
-  const aboutMeWrapperStyle = css`
-    text-align: left;
-    padding: 30px;
-    font-size: 16px;
-    flex-direction: row;
-    justify-content: space-between;
-    @media (max-width: 768px) {
-      flex-direction: column;
-      justify-content: center;
-      .avatar-wrapper {
-        margin: 60px;
-      }
-      padding-top: 60px;
-    }
-  `;
-
-  const infoContainerStyle = css`
-    @media (min-width: 768px) {
-      width: 50%;
-    }
-    .skills-info {
-      margin: 0 20px 0 0;
-    }
-    ul {
-      columns: 2;
-      width: 100%;
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-    }
-    @media (max-width: 768px) {
-      max-width: 568px;
-      ul {
-        max-width: 324px;
-        margin: 0 auto;
-      }
-    }
-  `;
-
-  const avatarContainer = css`
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  `;
 
   return (
     <div
@@ -70,6 +29,7 @@ export const AboutMe: React.FC = () => {
     >
       <div className={avatarContainer}>
         <MyAvatar />
+        <ContactIcons />
       </div>
       <div className={infoContainerStyle}>
         <p>

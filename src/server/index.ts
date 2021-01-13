@@ -1,7 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
-import { emailService, fromEmail, fromEmailPassword, personalEmail } from "../../secrets";
+import {
+  emailService,
+  fromEmail,
+  fromEmailPassword,
+  personalEmail,
+} from "../../secrets";
 
 const app = express();
 const PORT = 3001;
@@ -26,7 +31,7 @@ app.post("/contact-me", (req, res) => {
   const mailOptions = {
     from: fromEmail,
     to: personalEmail,
-    subject: `Contact Me- ${name} - ${email} - ${subject}`,
+    subject: `Contact Me - ${name} - ${email} - ${subject}`,
     text: message,
   };
 

@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import Wrapper from "./components/Wrapper";
-import ThemeSwitcher from "./components/ThemeSwitcher";
 import FramerCube from "./components/framerCube/FramerCube";
 import StarField from "./components/StarField";
 import ManipulatableCube from "./components/manipulatableCube/ManipulatableCube";
 import ThemeContext from "./context/ThemeContext";
-import ViewSwitcher from "./components/VeiwSwitcher";
 import { AnimatePresence, motion } from "framer";
-import { css } from "@emotion/css";
+import { MenuTrigger } from "./components/MenuTrigger";
+import { standardViewWrapperStyle } from "./styles";
 
 enum ORIENTATIONS {
   LANDSCAPE = "LANDSCAPE",
@@ -43,23 +42,15 @@ const App: React.FC = () => {
     );
   }, []);
 
-  /**
- * 
-  
- */
   return (
     <>
-      <ThemeSwitcher />
-      <ViewSwitcher />
+      <MenuTrigger />
       <StarField />
       <AnimatePresence>
         {standardView && (
           <Wrapper>
             <motion.div
-              className={css`
-                width: 100%;
-                height: 100%;
-              `}
+              className={standardViewWrapperStyle}
               key="standard"
               // initial={{ scale: 0.5 }}
               animate={{
@@ -90,8 +81,6 @@ const App: React.FC = () => {
           </Wrapper>
         )}
       </AnimatePresence>
-
-      {/* {orientation === ORIENTATIONS.PORTRAIT && <StandardLayout />} */}
     </>
   );
 };

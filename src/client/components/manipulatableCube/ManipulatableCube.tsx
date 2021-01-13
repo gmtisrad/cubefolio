@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import { MiniIntroSlide } from "../slides/MiniIntroSlide";
 import ThemeContext from "../../context/ThemeContext";
 import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";
-import { cx, css } from "@emotion/css";
+import { cx } from "@emotion/css";
 import {
   cubeWrapper,
   cubeViewport,
@@ -18,6 +18,12 @@ import { motion, useMotionValue } from "framer";
 import TerminalIntro from "../slides/TerminalIntro";
 import AboutMe from "../slides/AboutMe";
 import MyExperience from "../slides/MyExperience";
+import {
+  manipulatableCubeFaceStyle,
+  manipulatableCubeWrapperStyle,
+} from "../../styles";
+import ContactMe from "../slides/ContactMe";
+import { MyProjects } from "../slides/MyProjects";
 
 export const ManipulatableCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -33,7 +39,7 @@ export const ManipulatableCube: React.FC = () => {
   const handleDrag = useCallback(
     (event: MouseEvent) => {
       let throttleTimeout;
-      const getRotateX = () => {
+      const getRotateX = (): number => {
         let newRotateX = cubeRotateX.get() - event.movementY * 0.3;
         newRotateX = newRotateX < -91 ? -90 : newRotateX;
         newRotateX = newRotateX > 91 ? 90 : newRotateX;
@@ -60,22 +66,12 @@ export const ManipulatableCube: React.FC = () => {
 
   useEffect(() => {
     window.onmousemove = handleDrag;
-    window.onmousedown = () => setMouseDown(true);
-    window.onmouseup = () => setMouseDown(false);
+    window.onmousedown = (): void => setMouseDown(true);
+    window.onmouseup = (): void => setMouseDown(false);
   }, [handleDrag]);
 
   return (
-    <div
-      className={cx(
-        "wrapper",
-        css`
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `
-      )}
-    >
+    <div className={cx("wrapper", manipulatableCubeWrapperStyle)}>
       <motion.div className={cubeViewport} animate="end">
         <motion.div
           style={{
@@ -94,13 +90,7 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <div
-              className={css`
-                height: 100vh;
-                width: 100vh;
-                transform: scale(0.5) translate(-50%, -50%);
-              `}
-            >
+            <div className={manipulatableCubeFaceStyle}>
               <TerminalIntro />
             </div>
           </motion.div>
@@ -111,13 +101,7 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <div
-              className={css`
-                height: 100vh;
-                width: 100vh;
-                transform: scale(0.5) translate(-50%, -50%);
-              `}
-            >
+            <div className={manipulatableCubeFaceStyle}>
               <AboutMe />
             </div>
           </motion.div>
@@ -128,13 +112,7 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <div
-              className={css`
-                height: 100vh;
-                width: 100vh;
-                transform: scale(0.5) translate(-50%, -50%);
-              `}
-            >
+            <div className={manipulatableCubeFaceStyle}>
               <MyExperience />
             </div>
           </motion.div>
@@ -145,10 +123,9 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <MiniIntroSlide
-              heading="Hi, my name is Gabe!"
-              message="I am a web developer"
-            />
+            <div className={manipulatableCubeFaceStyle}>
+              <ContactMe />
+            </div>
           </motion.div>
           <motion.div
             className={cx(
@@ -157,10 +134,9 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <MiniIntroSlide
-              heading="Hi, my name is Gabe!"
-              message="I am a web developer"
-            />
+            <div className={manipulatableCubeFaceStyle}>
+              <MyProjects />
+            </div>
           </motion.div>
           <motion.div
             className={cx(
@@ -169,13 +145,7 @@ export const ManipulatableCube: React.FC = () => {
               "side"
             )}
           >
-            <div
-              className={css`
-                height: 100vh;
-                width: 100vh;
-                transform: scale(0.5) translate(-50%, -50%);
-              `}
-            >
+            <div className={manipulatableCubeFaceStyle}>
               <AboutMe />
             </div>
           </motion.div>
