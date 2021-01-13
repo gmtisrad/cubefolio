@@ -3,12 +3,14 @@ FROM node:15
 
 WORKDIR /usr/app
 
-COPY package.json .
+COPY yarn.lock .
 
-RUN npm i --quiet
+RUN yarn
+
+RUN yarn global add pm2
 
 COPY . .
 
 EXPOSE 3001
 
-RUN npm run serve
+RUN yarn serve
