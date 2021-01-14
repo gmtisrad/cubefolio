@@ -7,6 +7,7 @@ import {
   fromEmailPassword,
   personalEmail,
 } from "../../secrets";
+import { send } from "process";
 
 const app = express();
 const PORT = 3001;
@@ -43,6 +44,10 @@ app.post("/contact-me", (req, res) => {
     }
   });
 
+  res.send(200);
+});
+
+app.get("/ping", (req, res) => {
   res.send(200);
 });
 

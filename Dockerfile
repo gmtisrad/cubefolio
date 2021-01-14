@@ -3,14 +3,14 @@ FROM node:15
 
 WORKDIR /usr/app
 
-COPY yarn.lock .
+COPY . .
 
 RUN yarn
 
 RUN yarn global add pm2
 
-COPY . .
-
 EXPOSE 3001
 
-RUN yarn serve
+RUN yarn build
+
+CMD ["pm2-runtime", "build/server.js"]
