@@ -1,5 +1,10 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import { MiniIntroSlide } from "../slides/MiniIntroSlide";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import ThemeContext from "../../context/ThemeContext";
 import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";
 import { cx } from "@emotion/css";
@@ -23,30 +28,34 @@ import {
   manipulatableCubeWrapperStyle,
 } from "../../styles";
 import ContactMe from "../slides/ContactMe";
-import { MyProjects } from "../slides/MyProjects";
+import { Project } from "../Project";
+import pychatimage from "../../assets/pychat.png";
+import webcrawler from "../../assets/webcrawler.png";
 
 export const ManipulatableCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
   const [backgroundColor, setBackgroundColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [throttleEvent, setThrottleEvent] = useState(false);
+  const previousTouch = useRef((undefined as unknown) as Touch);
 
   // Cube Animation State
   const cubeRotateX = useMotionValue(0);
   const cubeRotateY = useMotionValue(0);
   const [mouseDown, setMouseDown] = useState(false);
 
+  const getRotateX = (event: MouseEvent | TouchEvent): number => {
+    let newRotateX = cubeRotateX.get() - (event as any).movementY * 0.3;
+    newRotateX = newRotateX < -91 ? -90 : newRotateX;
+    newRotateX = newRotateX > 91 ? 90 : newRotateX;
+    return newRotateX;
+  };
+
   const handleDrag = useCallback(
     (event: MouseEvent) => {
       let throttleTimeout;
-      const getRotateX = (): number => {
-        let newRotateX = cubeRotateX.get() - event.movementY * 0.3;
-        newRotateX = newRotateX < -91 ? -90 : newRotateX;
-        newRotateX = newRotateX > 91 ? 90 : newRotateX;
-        return newRotateX;
-      };
       if (mouseDown && !throttleEvent) {
-        cubeRotateX.set(getRotateX());
+        cubeRotateX.set(getRotateX(event));
         cubeRotateY.set(cubeRotateY.get() + event.movementX * 0.15);
         setThrottleEvent(true);
         throttleTimeout = setTimeout(() => {
@@ -59,6 +68,43 @@ export const ManipulatableCube: React.FC = () => {
     [cubeRotateX, cubeRotateY, mouseDown, throttleEvent]
   );
 
+  const handleMobileDrag = useCallback(
+    (event: TouchEvent) => {
+      let throttleTimeout: NodeJS.Timeout;
+
+      const handleMovement = (): void => {
+        if (mouseDown && !throttleEvent) {
+          console.log({ GRX: getRotateX(event) });
+          cubeRotateX.set(getRotateX(event));
+          cubeRotateY.set(cubeRotateY.get() + (event as any).movementX * 0.15);
+          console.log({
+            GRY: cubeRotateY.get() + (event as any).movementX * 0.15,
+          });
+          setThrottleEvent(true);
+          throttleTimeout = setTimeout(() => {
+            setThrottleEvent(false);
+          }, 1000 / 90);
+        } else if (!mouseDown) {
+          clearTimeout(throttleTimeout);
+        }
+      };
+
+      ((): void => {
+        const touch = event.touches[0];
+
+        if (previousTouch.current) {
+          (event as any).movementX = touch.pageX - previousTouch.current.pageX;
+          (event as any).movementY = touch.pageY - previousTouch.current.pageY;
+
+          handleMovement();
+        }
+
+        previousTouch.current = touch;
+      })();
+    },
+    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent]
+  );
+
   useEffect(() => {
     setBackgroundColor(getBackgroundColor(light, neon, dark));
     setTextColor(getTextColor(light, neon, dark));
@@ -66,7 +112,15 @@ export const ManipulatableCube: React.FC = () => {
 
   useEffect(() => {
     window.onmousemove = handleDrag;
+    window.ontouchmove = handleMobileDrag;
+
+    window.ontouchstart = (): void => setMouseDown(true);
     window.onmousedown = (): void => setMouseDown(true);
+
+    window.ontouchend = (): void => {
+      setMouseDown(false);
+      previousTouch.current = (undefined as any) as Touch;
+    };
     window.onmouseup = (): void => setMouseDown(false);
   }, [handleDrag]);
 
@@ -135,7 +189,13 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <MyProjects />
+              <Project
+                key="PyChat"
+                projectName="PyChat"
+                projectDescription="PyChat is a desktop based chat client made using Python and Socket.io. I made PyChat in an effort to learn more about how socket communication works and about building UIs with TKinter."
+                projectImage={pychatimage}
+                projectLink="https://github.com/gmtisrad/PyChat"
+              />
             </div>
           </motion.div>
           <motion.div
@@ -146,7 +206,13 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <AboutMe />
+              <Project
+                key="sPYder"
+                projectName="sPYder"
+                projectDescription="sPYder is an uber fast threaded web crawler that allows you to configure the depth of the crawl and whether or not to download the assets on the page. All of that in under 100 lines of python!"
+                projectImage={webcrawler}
+                projectLink="https://github.com/gmtisrad/web_crawler"
+              />
             </div>
           </motion.div>
         </motion.div>

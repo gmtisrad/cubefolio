@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import React, { useContext, useEffect, useState } from "react";
 import { Github, Linkedin, Codepen } from "@styled-icons/fa-brands";
+import { MailSend } from "@styled-icons/boxicons-regular";
 import { getTextColor } from "../utils/styleUtils";
 import ThemeContext from "../context/ThemeContext";
 
@@ -38,6 +39,14 @@ export const CodepenIcon: React.FC = () => {
   return (
     <a href="https://codepen.io/Gabe_M_Timm">
       <Codepen />
+    </a>
+  );
+};
+
+export const MailIcon: React.FC = () => {
+  return (
+    <a href="mailto:gabe.m.timm@gmail.com">
+      <MailSend />
     </a>
   );
 };

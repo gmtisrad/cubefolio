@@ -30,7 +30,7 @@ export const Controls: React.FC<Props> = (props: Props) => {
     currentIndex,
   } = props;
 
-  const MAX_HORIZONTAL_SIDES = 3;
+  const MAX_HORIZONTAL_SIDES = 4;
   const MAX_VERTICAL_SIDES = 3;
 
   const upFromCurrent = (): void => {

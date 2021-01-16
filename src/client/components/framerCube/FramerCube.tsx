@@ -12,6 +12,9 @@ import { MyProjects } from "../slides/MyProjects";
 import { columnContainerStyles } from "../../styles";
 import { Controls } from "../Controls";
 import CubeWrapper from "../CubeWrapper";
+import { Project } from "../Project";
+import pychatimage from "../../assets/pychat.png";
+import webcrawler from "../../assets/webcrawler.png";
 
 export const FramerCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
@@ -116,7 +119,43 @@ export const FramerCube: React.FC = () => {
             width={pageWidth}
           >
             <CubeWrapper themeStyle={currentStyle}>
-              <MyProjects />
+              <Project
+                key="PyChat"
+                projectName="PyChat"
+                projectDescription="PyChat is a desktop based chat client made using Python and Socket.io. I made PyChat in an effort to learn more about how socket communication works and about building UIs with TKinter."
+                projectImage={pychatimage}
+                projectLink="https://github.com/gmtisrad/PyChat"
+              />
+            </CubeWrapper>
+            <Controls
+              currentIndex={currentIndex}
+              verticalIndex={verticalIndex}
+              setVerticalIndex={(idx: number): void => setVerticalIndex(idx)}
+              setCurrentIndex={(idx: number): void => setCurrentIndex(idx)}
+              shouldBlend={false}
+            />
+          </Frame>
+        </Page>
+        <Page
+          dragEnabled={false}
+          defaultEffect={"cube"}
+          directionLock={true}
+          height={"100vh"}
+          width={pageWidth}
+        >
+          <Frame
+            backgroundColor="transparent"
+            height={"100vh"}
+            width={pageWidth}
+          >
+            <CubeWrapper themeStyle={currentStyle}>
+              <Project
+                key="sPYder"
+                projectName="sPYder"
+                projectDescription="sPYder is an uber fast threaded web crawler that allows you to configure the depth of the crawl and whether or not to download the assets on the page. All of that in under 100 lines of python!"
+                projectImage={webcrawler}
+                projectLink="https://github.com/gmtisrad/web_crawler"
+              />
             </CubeWrapper>
             <Controls
               currentIndex={currentIndex}

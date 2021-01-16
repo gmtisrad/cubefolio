@@ -12,6 +12,11 @@ export const MenuTrigger: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
+  const [collapseMenu, setCollapseMenu] = useState(window.innerHeight < 1024);
+
+  useEffect(() => {
+    setCollapseMenu(window.innerHeight < 1024);
+  }, []);
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
@@ -37,7 +42,7 @@ export const MenuTrigger: React.FC = () => {
 
   return (
     <motion.div
-      animate={isOpen ? "open" : "closed"}
+      animate={isOpen || !collapseMenu ? "open" : "closed"}
       variants={variants}
       onClick={(): void => setIsOpen(!isOpen)}
       className={menuTriggerStyle(textColor, backgroundColor)}
