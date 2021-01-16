@@ -64,6 +64,7 @@ export const ContactIcons: React.FC = () => {
       <GithubIcon />
       <LinkedinIcon />
       <CodepenIcon />
+      <MailIcon />
     </div>
   );
 };
