@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { cx, css } from "@emotion/css";
 import NBYLogo from "../../assets/NBYLogo.jpg";

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useContext, useState } from "react";
 import { css, cx } from "@emotion/css";
 import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";

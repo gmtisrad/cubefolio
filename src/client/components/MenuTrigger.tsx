@@ -7,15 +7,21 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import ViewSwitcher from "./VeiwSwitcher";
 import { menuTriggerStyle } from "../styles";
 
-export const MenuTrigger: React.FC = () => {
+export const MenuTrigger = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const { light, dark, neon } = useContext(ThemeContext);
   const [textColor, setTextColor] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
-  const [collapseMenu, setCollapseMenu] = useState(window.innerHeight < 1024);
+  const [collapseMenu, setCollapseMenu] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
-    setCollapseMenu(window.innerHeight < 1024);
+    setCollapseMenu(window.innerWidth < 1024);
+    setIsOpen(!collapseMenu);
+
+    window.addEventListener("resize", () => {
+      setCollapseMenu(window.innerHeight < 1024);
+      setIsOpen(!collapseMenu);
+    });
   }, []);
 
   useEffect(() => {
@@ -40,7 +46,7 @@ export const MenuTrigger: React.FC = () => {
     closed: closedStyle,
   };
 
-  return (
+  const MobileMenu = (
     <motion.div
       animate={isOpen || !collapseMenu ? "open" : "closed"}
       variants={variants}
@@ -52,4 +58,16 @@ export const MenuTrigger: React.FC = () => {
       {!isOpen && <Menu />}
     </motion.div>
   );
+
+  const DesktopMenu = (
+    <>
+      <ViewSwitcher />
+      <ThemeSwitcher />
+    </>
+  );
+
+  const composeButton = (): JSX.Element =>
+    collapseMenu ? MobileMenu : DesktopMenu;
+
+  return composeButton();
 };

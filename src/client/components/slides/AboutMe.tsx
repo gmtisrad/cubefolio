@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useContext, useState } from "react";
 import { cx } from "@emotion/css";
 import ThemeContext from "../../context/ThemeContext";

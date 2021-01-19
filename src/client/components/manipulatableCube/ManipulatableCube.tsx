@@ -44,12 +44,15 @@ export const ManipulatableCube: React.FC = () => {
   const cubeRotateY = useMotionValue(0);
   const [mouseDown, setMouseDown] = useState(false);
 
-  const getRotateX = (event: MouseEvent | TouchEvent): number => {
-    let newRotateX = cubeRotateX.get() - (event as any).movementY * 0.3;
-    newRotateX = newRotateX < -91 ? -90 : newRotateX;
-    newRotateX = newRotateX > 91 ? 90 : newRotateX;
-    return newRotateX;
-  };
+  const getRotateX = useCallback(
+    (event: MouseEvent | TouchEvent): number => {
+      let newRotateX = cubeRotateX.get() - (event as any).movementY * 0.3;
+      newRotateX = newRotateX < -91 ? -90 : newRotateX;
+      newRotateX = newRotateX > 91 ? 90 : newRotateX;
+      return newRotateX;
+    },
+    [cubeRotateX]
+  );
 
   const handleDrag = useCallback(
     (event: MouseEvent) => {
@@ -65,7 +68,7 @@ export const ManipulatableCube: React.FC = () => {
         clearTimeout(throttleTimeout);
       }
     },
-    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent]
+    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent, getRotateX]
   );
 
   const handleMobileDrag = useCallback(
