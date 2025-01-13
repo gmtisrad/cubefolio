@@ -1,37 +1,34 @@
 import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
-import {
-  emailService,
-  fromEmail,
-  fromEmailPassword,
-  personalEmail,
-} from "../../secrets";
-import { send } from "process";
+import path from "path";
+
+const { EMAIL_SERVICE, FROM_EMAIL, FROM_EMAIL_PASSWORD, PERSONAL_EMAIL, PORT } = process.env;
+
+const __dirname = path.resolve();
 
 const app = express();
-const PORT = 3001;
 
 const transporter = nodemailer.createTransport({
-  service: emailService,
+  service: EMAIL_SERVICE,
   auth: {
-    user: fromEmail,
-    pass: fromEmailPassword,
+    user: FROM_EMAIL,
+    pass: FROM_EMAIL_PASSWORD,
   },
 });
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-app.use("/", express.static("build"));
+app.use("/", express.static(path.join(__dirname, "../../build")));
 
 app.post("/contact-me", (req, res) => {
   const { name, email, subject, message } = req.body;
   console.log(req.body);
 
   const mailOptions = {
-    from: fromEmail,
-    to: personalEmail,
+    from:   FROM_EMAIL,
+    to:   PERSONAL_EMAIL,
     subject: `Contact Me - ${name} - ${email} - ${subject}`,
     text: message,
   };
