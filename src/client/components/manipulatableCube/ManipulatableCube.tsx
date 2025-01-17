@@ -4,10 +4,10 @@ import React, {
   useEffect,
   useCallback,
   useRef,
-} from "react";
-import ThemeContext from "../../context/ThemeContext";
-import { getBackgroundColor, getTextColor } from "../../utils/styleUtils";
-import { cx } from "@emotion/css";
+} from 'react';
+import ThemeContext from '../../context/ThemeContext';
+import { getBackgroundColor, getTextColor } from '../../utils/styleUtils';
+import { cx } from '@emotion/css';
 import {
   cubeWrapper,
   cubeViewport,
@@ -18,24 +18,24 @@ import {
   sideFour,
   sideFive,
   sideSix,
-} from "./manipulatableCubeStyles";
-import { motion, useMotionValue } from "framer";
-import TerminalIntro from "../slides/TerminalIntro";
-import AboutMe from "../slides/AboutMe";
-import MyExperience from "../slides/MyExperience";
+} from './manipulatableCubeStyles';
+import { motion, useMotionValue } from 'framer';
+import TerminalIntro from '../slides/TerminalIntro';
+import AboutMe from '../slides/AboutMe';
+import MyExperience from '../slides/MyExperience';
 import {
   manipulatableCubeFaceStyle,
   manipulatableCubeWrapperStyle,
-} from "../../styles";
-import ContactMe from "../slides/ContactMe";
-import { Project } from "../Project";
-import pychatimage from "../../assets/pychat.png";
-import webcrawler from "../../assets/webcrawler.png";
+} from '../../styles';
+import ContactMe from '../slides/ContactMe';
+import { Project } from '../Project';
+import pychatimage from '../../assets/pychat.png';
+import webcrawler from '../../assets/webcrawler.png';
 
 export const ManipulatableCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
-  const [backgroundColor, setBackgroundColor] = useState("");
-  const [textColor, setTextColor] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState('');
+  const [textColor, setTextColor] = useState('');
   const [throttleEvent, setThrottleEvent] = useState(false);
   const previousTouch = useRef((undefined as unknown) as Touch);
 
@@ -46,29 +46,26 @@ export const ManipulatableCube: React.FC = () => {
 
   const getRotateX = useCallback(
     (event: MouseEvent | TouchEvent): number => {
-      let newRotateX = cubeRotateX.get() - (event as any).movementY * 0.3;
-      newRotateX = newRotateX < -91 ? -90 : newRotateX;
-      newRotateX = newRotateX > 91 ? 90 : newRotateX;
+      let newRotateX = cubeRotateX.get() - (event as any).movementY * 0.2;
+      newRotateX = Math.max(-90, Math.min(90, newRotateX));
       return newRotateX;
     },
-    [cubeRotateX]
+    [cubeRotateX],
   );
 
   const handleDrag = useCallback(
     (event: MouseEvent) => {
-      let throttleTimeout;
       if (mouseDown && !throttleEvent) {
         cubeRotateX.set(getRotateX(event));
-        cubeRotateY.set(cubeRotateY.get() + event.movementX * 0.15);
+        cubeRotateY.set(cubeRotateY.get() + event.movementX * 0.1);
+
         setThrottleEvent(true);
-        throttleTimeout = setTimeout(() => {
+        setTimeout(() => {
           setThrottleEvent(false);
-        }, 1000 / 90);
-      } else if (!mouseDown) {
-        clearTimeout(throttleTimeout);
+        }, 1000 / 60);
       }
     },
-    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent, getRotateX]
+    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent, getRotateX],
   );
 
   const handleMobileDrag = useCallback(
@@ -105,7 +102,7 @@ export const ManipulatableCube: React.FC = () => {
         previousTouch.current = touch;
       })();
     },
-    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent]
+    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent],
   );
 
   useEffect(() => {
@@ -128,7 +125,7 @@ export const ManipulatableCube: React.FC = () => {
   }, [handleDrag]);
 
   return (
-    <div className={cx("wrapper", manipulatableCubeWrapperStyle)}>
+    <div className={cx('wrapper', manipulatableCubeWrapperStyle)}>
       <motion.div className={cubeViewport} animate="end">
         <motion.div
           style={{
@@ -137,14 +134,14 @@ export const ManipulatableCube: React.FC = () => {
           }}
           className={cx(
             cubeWrapper(light, cubeRotateX, cubeRotateY, textColor),
-            "cube"
+            'cube',
           )}
         >
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideOne,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
@@ -155,7 +152,7 @@ export const ManipulatableCube: React.FC = () => {
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideTwo,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
@@ -166,7 +163,7 @@ export const ManipulatableCube: React.FC = () => {
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideThree,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
@@ -177,7 +174,7 @@ export const ManipulatableCube: React.FC = () => {
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFour,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
@@ -188,7 +185,7 @@ export const ManipulatableCube: React.FC = () => {
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideFive,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
@@ -205,7 +202,7 @@ export const ManipulatableCube: React.FC = () => {
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
               sideSix,
-              "side"
+              'side',
             )}
           >
             <div className={manipulatableCubeFaceStyle}>

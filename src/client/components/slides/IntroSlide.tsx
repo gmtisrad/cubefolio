@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
-import { css } from "@emotion/css";
-import ThemeContext from "../../context/ThemeContext";
-import { getTextColor } from "../../utils/styleUtils";
+import React, { useContext, useState, useEffect } from 'react';
+import { css } from '@emotion/css';
+import ThemeContext from '../../context/ThemeContext';
+import { getTextColor } from '../../utils/styleUtils';
 
 type Props = {
   name: string;
@@ -25,7 +25,7 @@ export const introWrapperStyle = (borderColor: string) => css`
 export const IntroSlide: React.FC<Props> = (props: Props) => {
   const { name, tagline, message } = props;
   const { light, dark, neon } = useContext(ThemeContext);
-  const [textColor, setTextColor] = useState("");
+  const [textColor, setTextColor] = useState('');
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
