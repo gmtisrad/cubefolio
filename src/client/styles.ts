@@ -60,50 +60,75 @@ export const columnContainerStyles = (textColor: string): string => css`
   }
 `;
 
+export const controlsContainerStyle = (shouldBlend: boolean): string => css`
+  position: fixed;
+  height: 100px;
+  width: 100px;
+  right: 40px;
+  bottom: 40px;
+  z-index: 2000;
+  ${shouldBlend ? "mix-blend-mode: difference;" : ""}
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+`;
+
 export const upButtonStyle = css`
   position: absolute;
-  top: 5px;
-  width: 100px;
+  top: 0;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
-  z-index: 100;
+  align-items: center;
+  z-index: 2001;
   cursor: pointer;
   mix-blend-mode: difference;
+  color: white;
 `;
 
 export const downButtonStyle = css`
   position: absolute;
-  bottom: 5px;
-  width: 100px;
-  z-index: 100;
+  bottom: 0;
+  width: 36px;
+  height: 36px;
+  z-index: 2001;
   display: flex;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
   mix-blend-mode: difference;
+  color: white;
 `;
 
 export const leftButtonStyle = css`
   position: absolute;
-  height: 100px;
+  left: 0;
+  height: 36px;
+  width: 36px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  left: 5px;
-  z-index: 100;
+  z-index: 2001;
   cursor: pointer;
   mix-blend-mode: difference;
+  color: white;
 `;
 
 export const rightButtonStyle = css`
   position: absolute;
-  height: 100px;
+  right: 0;
+  height: 36px;
+  width: 36px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  right: 5px;
-  z-index: 100;
+  z-index: 2001;
   cursor: pointer;
   mix-blend-mode: difference;
+  color: white;
 `;
 
 export const projectImageStyle = css`
@@ -171,16 +196,6 @@ export const menuTriggerStyle = (
   left: 20px;
   z-index: 1;
   cursor: pointer;
-`;
-
-export const controlsContainerStyle = (shouldBlend: boolean): string => css`
-  position: absolute;
-  height: 100px;
-  width: 100px;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  ${shouldBlend ? "mix-blend-mode: difference;" : ""}
 `;
 
 export const cubeFaceStyle = (backgroundColor: string): string => css`
