@@ -203,6 +203,7 @@ export const cubeFaceStyle = (backgroundColor: string): string => css`
   width: 100%;
   background-color: ${backgroundColor};
   overflow-y: auto;
+  padding: 40px;
   img {
     pointer-event: none;
   }

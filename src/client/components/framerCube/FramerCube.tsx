@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { css, cx } from '@emotion/css';
 import { getCurrentStyle, getTextColor } from '../../utils/styleUtils';
 import ThemeContext from '../../context/ThemeContext';
-import TitleSlide from '../slides/TitleSlide';
 import AboutMe from '../slides/AboutMe';
 import TerminalIntro from '../slides/TerminalIntro';
 import MyExperience from '../slides/MyExperience';
@@ -11,7 +10,7 @@ import { columnContainerStyles } from '../../styles';
 import { Controls } from '../Controls';
 import CubeWrapper from '../CubeWrapper';
 import { Project } from '../Project';
-import pychatimage from '../../assets/pychat.png';
+import MovieGraphImage from '../../assets/MovieGraphImg.webp';
 import webcrawler from '../../assets/webcrawler.png';
 
 const CUBE_SIZE = '80vh';
@@ -25,6 +24,7 @@ const cubeStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
 `;
 
 const pageStyles = css`
@@ -34,6 +34,7 @@ const pageStyles = css`
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   backface-visibility: hidden;
+  background: transparent;
 `;
 
 const frameStyles = css`
@@ -44,6 +45,7 @@ const frameStyles = css`
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  background: transparent;
 
   /* Center the content within each face */
   display: flex;
@@ -59,7 +61,7 @@ const frameStyles = css`
 
   /* Style the cube wrapper content */
   & > div {
-    padding: 40px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,7 +113,7 @@ const bottomFaceStyles = css`
 
 const getPageTransform = (index: number, isVertical = false) => css`
   transform: ${isVertical
-    ? `rotateX(${index * -90}deg)`
+    ? `rotateX(${(index - 1) * 90}deg)`
     : `rotateY(${index * -90}deg)`};
 `;
 
@@ -121,7 +123,7 @@ export const FramerCube: React.FC = () => {
   const [currentStyle, setCurrentStyle] = useState('');
   const [textColor, setTextColor] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [verticalIndex, setVerticalIndex] = useState(0);
+  const [verticalIndex, setVerticalIndex] = useState(1);
 
   const pageWidth = useMemo(() => {
     return window.outerHeight > window.outerWidth ? '100vw' : '100vh';
@@ -149,34 +151,45 @@ export const FramerCube: React.FC = () => {
             <div
               className={cx(pageStyles, getPageTransform(verticalIndex, true))}
             >
-              <div className={cx(frameStyles, frontFaceStyles)}>
-                <CubeWrapper themeStyle={currentStyle}>
-                  <TerminalIntro />
-                </CubeWrapper>
-              </div>
-              <div className={cx(frameStyles, topFaceStyles)}>
+              {/* Top face - About Me */}
+              <div id="about-me" className={cx(frameStyles, topFaceStyles)}>
                 <CubeWrapper themeStyle={currentStyle}>
                   <AboutMe />
                 </CubeWrapper>
               </div>
-              <div className={cx(frameStyles, bottomFaceStyles)}>
+              {/* Front face - Terminal */}
+              <div
+                id="terminal-intro"
+                className={cx(frameStyles, frontFaceStyles)}
+              >
+                <CubeWrapper themeStyle={currentStyle}>
+                  <TerminalIntro />
+                </CubeWrapper>
+              </div>
+              {/* Bottom face - Experience */}
+              <div
+                id="my-experience"
+                className={cx(frameStyles, bottomFaceStyles)}
+              >
                 <CubeWrapper themeStyle={currentStyle}>
                   <MyExperience />
                 </CubeWrapper>
               </div>
             </div>
-            <div className={cx(frameStyles, rightFaceStyles)}>
+            {/* Right face - PyChat Project */}
+            <div id="pychat" className={cx(frameStyles, rightFaceStyles)}>
               <CubeWrapper themeStyle={currentStyle}>
                 <Project
-                  key="PyChat"
-                  projectName="PyChat"
-                  projectDescription="PyChat is a desktop based chat client made using Python and Socket.io. I made PyChat in an effort to learn more about how socket communication works and about building UIs with TKinter."
-                  projectImage={pychatimage}
-                  projectLink="https://github.com/gmtisrad/PyChat"
+                  key="MovieGraph"
+                  projectName="MovieGraph"
+                  projectDescription="MovieGraph is a high-performance GO application that generates a graph database from IMDB's non-commercial datasets, creating connections between movies and the people who worked on them."
+                  projectImage={MovieGraphImage}
+                  projectLink="https://github.com/gmtisrad/movie-graph"
                 />
               </CubeWrapper>
             </div>
-            <div className={cx(frameStyles, backFaceStyles)}>
+            {/* Back face - sPYder Project */}
+            <div id="spyder" className={cx(frameStyles, backFaceStyles)}>
               <CubeWrapper themeStyle={currentStyle}>
                 <Project
                   key="sPYder"
@@ -187,13 +200,11 @@ export const FramerCube: React.FC = () => {
                 />
               </CubeWrapper>
             </div>
-            <div className={cx(frameStyles, leftFaceStyles)}>
+            {/* Left face - Contact Me */}
+            <div id="contact-me" className={cx(frameStyles, leftFaceStyles)}>
               <CubeWrapper themeStyle={currentStyle}>
                 <ContactMe />
               </CubeWrapper>
-            </div>
-            <div className={cx(frameStyles, frontFaceStyles)}>
-              <TitleSlide />
             </div>
           </div>
         </div>
