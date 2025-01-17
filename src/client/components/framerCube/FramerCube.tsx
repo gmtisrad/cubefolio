@@ -13,7 +13,13 @@ import { Project } from '../Project';
 import MovieGraphImage from '../../assets/MovieGraphImg.webp';
 import webcrawler from '../../assets/webcrawler.png';
 
-const CUBE_SIZE = '80vh';
+// Calculate cube size based on viewport dimensions
+const getCubeSize = () => {
+  const vh = Math.min(window.innerHeight, 1000); // Cap at 1000px
+  const vw = Math.min(window.innerWidth, 1000); // Cap at 1000px
+  const minSize = Math.min(vh, vw);
+  return `${minSize * 0.8}px`; // 80% of the smallest viewport dimension
+};
 
 const cubeStyles = css`
   perspective: 2000px;
@@ -27,96 +33,6 @@ const cubeStyles = css`
   background: transparent;
 `;
 
-const pageStyles = css`
-  position: absolute;
-  width: ${CUBE_SIZE};
-  height: ${CUBE_SIZE};
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  backface-visibility: hidden;
-  background: transparent;
-`;
-
-const frameStyles = css`
-  position: absolute;
-  width: ${CUBE_SIZE};
-  height: ${CUBE_SIZE};
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  background: transparent;
-
-  /* Center the content within each face */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* Ensure content doesn't bleed */
-  & > * {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
-
-  /* Style the cube wrapper content */
-  & > div {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Ensure text content is properly sized */
-    font-size: calc(${CUBE_SIZE} * 0.04);
-    line-height: 1.5;
-
-    /* Re-enable pointer events for interactive elements */
-    a,
-    button,
-    [role='button'] {
-      pointer-events: auto;
-      position: relative;
-      z-index: 1500;
-    }
-  }
-`;
-
-// Front face (no rotation needed)
-const frontFaceStyles = css`
-  transform: translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-// Back face (rotated 180 degrees around Y axis)
-const backFaceStyles = css`
-  transform: rotateY(180deg) translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-// Right face (rotated 90 degrees around Y axis)
-const rightFaceStyles = css`
-  transform: rotateY(90deg) translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-// Left face (rotated -90 degrees around Y axis)
-const leftFaceStyles = css`
-  transform: rotateY(-90deg) translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-// Top face (rotated -90 degrees around X axis)
-const topFaceStyles = css`
-  transform: rotateX(-90deg) translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-// Bottom face (rotated 90 degrees around X axis)
-const bottomFaceStyles = css`
-  transform: rotateX(90deg) translateZ(calc(${CUBE_SIZE} / 2));
-`;
-
-const getPageTransform = (index: number, isVertical = false) => css`
-  transform: ${isVertical
-    ? `rotateX(${(index - 1) * 90}deg)`
-    : `rotateY(${index * -90}deg)`};
-`;
-
 export const FramerCube: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
 
@@ -124,10 +40,126 @@ export const FramerCube: React.FC = () => {
   const [textColor, setTextColor] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [verticalIndex, setVerticalIndex] = useState(0);
+  const [cubeSize, setCubeSize] = useState(getCubeSize());
 
-  const pageWidth = useMemo(() => {
-    return window.outerHeight > window.outerWidth ? '100vw' : '100vh';
+  // Update cube size on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setCubeSize(getCubeSize());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const pageStyles = useMemo(
+    () => css`
+      position: absolute;
+      width: ${cubeSize};
+      height: ${cubeSize};
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      backface-visibility: hidden;
+      background: transparent;
+    `,
+    [cubeSize],
+  );
+
+  const frameStyles = useMemo(
+    () => css`
+      position: absolute;
+      width: ${cubeSize};
+      height: ${cubeSize};
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      background: transparent;
+
+      /* Center the content within each face */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Ensure content doesn't bleed */
+      & > * {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+
+      /* Style the cube wrapper content */
+      & > div {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* Ensure text content is properly sized */
+        font-size: calc(${cubeSize} * 0.04);
+        line-height: 1.5;
+
+        /* Re-enable pointer events for interactive elements */
+        a,
+        button,
+        [role='button'] {
+          pointer-events: auto;
+          position: relative;
+          z-index: 1500;
+        }
+      }
+    `,
+    [cubeSize],
+  );
+
+  // Face styles with dynamic cube size
+  const frontFaceStyles = useMemo(
+    () => css`
+      transform: translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const backFaceStyles = useMemo(
+    () => css`
+      transform: rotateY(180deg) translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const rightFaceStyles = useMemo(
+    () => css`
+      transform: rotateY(90deg) translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const leftFaceStyles = useMemo(
+    () => css`
+      transform: rotateY(-90deg) translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const topFaceStyles = useMemo(
+    () => css`
+      transform: rotateX(-90deg) translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const bottomFaceStyles = useMemo(
+    () => css`
+      transform: rotateX(90deg) translateZ(calc(${cubeSize} / 2));
+    `,
+    [cubeSize],
+  );
+
+  const getPageTransform = (index: number, isVertical = false) => css`
+    transform: ${isVertical
+      ? `rotateX(${(index - 1) * 90}deg)`
+      : `rotateY(${index * -90}deg)`};
+  `;
 
   useEffect(() => {
     setCurrentStyle(getCurrentStyle(light, neon, dark));

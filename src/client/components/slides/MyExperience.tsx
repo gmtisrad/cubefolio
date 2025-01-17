@@ -11,6 +11,7 @@ import {
 import Tab from '../Tab';
 import ParthenonTab from './ParthenonTab';
 import NikeTab from './NikeTab';
+import StreamYardTab from './StreamYardTab';
 
 const contentStyle = css`
   flex: 1;
@@ -24,8 +25,9 @@ export const MyExperience: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const experience = [
-    'Parthenon Software Group - Software Developer',
+    'StreamYard - Senior Full-Stack Engineer (Growth)',
     'Nike - Senior Applications Engineer',
+    'Parthenon Software Group - Software Developer',
   ];
 
   const myExperienceBodyStyle = (isParth: boolean): string => css`
@@ -37,7 +39,11 @@ export const MyExperience: React.FC = () => {
     flex-direction: column;
   `;
 
-  const tabs = [<ParthenonTab key={0} />, <NikeTab key={1} />];
+  const tabs = [
+    <StreamYardTab key={0} />,
+    <NikeTab key={1} />,
+    <ParthenonTab key={2} />,
+  ];
 
   return (
     <div className={myExperienceContainerstyle}>
@@ -62,7 +68,7 @@ export const MyExperience: React.FC = () => {
         <div
           className={cx(
             'my-experience-body',
-            myExperienceBodyStyle(activeIndex === 0),
+            myExperienceBodyStyle(activeIndex === 2),
             contentStyle,
           )}
         >
