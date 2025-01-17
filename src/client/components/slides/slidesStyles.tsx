@@ -1,70 +1,66 @@
-import { css, keyframes } from "@emotion/css";
+import { css, keyframes } from '@emotion/css';
 
 export const parthenonBodyStyle = css`
   height: 100%;
   width: 100%;
-  padding-top: 40px;
+  padding: 20px;
   color: white;
-  margin: 0 auto;
-  @media (min-width: 1921px) {
-    max-width: 1440px;
-  }
-  @media (max-width: 1920px) {
-    max-width: 1024px;
-  }
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 1.6;
+  pointer-events: auto;
 `;
 
 export const parthInfo = css`
-  padding: 0 20px;
+  padding: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 1200px;
+  margin: 0 auto;
+  pointer-events: auto;
 `;
 
 export const projectWrapperStyle = css`
-  height: 100%;
+  height: auto;
   width: 45%;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 10px;
   @media (max-width: 767px) {
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
   }
 `;
 
 export const parthenonImageStyle = css`
-  height: 125px;
+  height: 80px;
+  width: auto;
+  margin: 10px 0;
 `;
 
 export const projectsStyle = css`
-  height: 100%;
-  width: 100vw;
+  width: 100%;
   background-color: #f8f8f8;
   color: black;
-  padding: 0 10px 30px;
-  @media (min-width: 1024px) {
-    position: absolute;
-    height: auto;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-  }
+  padding: 25px 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  pointer-events: auto;
 `;
 
 export const projectCardsStyle = css`
   display: flex;
-  justify-content: space-around;
-  @media (min-width: 1921px) {
-    margin: 0 auto;
-    max-width: 1440px;
-  }
-  @media (max-width: 1920px) {
-    max-width: 1024px;
-    margin: 0 auto;
-  }
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  max-width: 1400px;
+  margin: 0 auto;
+  pointer-events: auto;
+
   @media (max-width: 767px) {
     flex-direction: column;
-    max-width: 568px;
-    margin: 0 auto;
+    align-items: center;
   }
 `;
 
@@ -75,13 +71,26 @@ export const parthenonHeaderStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  max-width: 568px;
-  margin: 0 auto;
+  pointer-events: auto;
+
+  h3 {
+    margin: 15px 0 8px;
+    font-size: 20px;
+  }
+
+  span {
+    font-size: 16px;
+    opacity: 0.9;
+  }
 `;
 
 export const myExperienceContainerstyle = css`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
 `;
 
 export const myExperienceWrapperStyle = css`
@@ -89,14 +98,15 @@ export const myExperienceWrapperStyle = css`
   height: 100%;
   width: 100%;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  pointer-events: auto;
 `;
 
 export const topNavStyle = css`
   width: 100%;
   height: 40px;
-  position: absolute;
-  top: 0%;
-  left: 0%;
   // background-color: #5f5f5f;
   background: linear-gradient(0deg, #606060, #696969);
   display: flex;
@@ -108,7 +118,8 @@ export const topNavTabsStyle = css`
   display: flex;
   align-items: center;
   padding-left: 1px;
-  max-width: 100vw;
+  max-width: 100%;
+  font-size: 14px;
 `;
 
 export const topNavControlsStyle = css``;
@@ -131,16 +142,14 @@ export const topNavTabStyle = css`
   height: 100%;
   padding: 0 10px;
   align-items: center;
-  max-width: 100px;
+  max-width: 200px;
   border-right: 1px solid #888888;
+  font-size: 14px;
   span {
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-  @media (min-width: 1024px) {
-    max-width: 200px;
   }
 `;
 

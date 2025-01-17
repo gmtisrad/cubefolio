@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { css, cx } from "@emotion/css";
+import React, { useState } from 'react';
+import { css, cx } from '@emotion/css';
 import {
   myExperienceContainerstyle,
   myExperienceWrapperStyle,
@@ -7,24 +7,34 @@ import {
   topNavTabsStyle,
   topNavControlsStyle,
   topNavCloseStyle,
-} from "./slidesStyles";
-import Tab from "../Tab";
-import ParthenonTab from "./ParthenonTab";
-import NikeTab from "./NikeTab";
+} from './slidesStyles';
+import Tab from '../Tab';
+import ParthenonTab from './ParthenonTab';
+import NikeTab from './NikeTab';
+
+const contentStyle = css`
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+`;
 
 export const MyExperience: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const experience = [
-    "Parthenon Software Group - Software Developer",
-    "Nike - Senior Applications Engineer",
+    'Parthenon Software Group - Software Developer',
+    'Nike - Senior Applications Engineer',
   ];
 
   const myExperienceBodyStyle = (isParth: boolean): string => css`
-    height: 100%;
+    flex: 1;
     width: 100%;
-    overflow: hidden;
-    ${isParth ? "background: linear-gradient(135deg, #284b67, #2f5e79);" : ""}
+    overflow: auto;
+    ${isParth ? 'background: linear-gradient(135deg, #284b67, #2f5e79);' : ''}
+    display: flex;
+    flex-direction: column;
   `;
 
   const tabs = [<ParthenonTab key={0} />, <NikeTab key={1} />];
@@ -32,8 +42,8 @@ export const MyExperience: React.FC = () => {
   return (
     <div className={myExperienceContainerstyle}>
       <div className={myExperienceWrapperStyle}>
-        <div className={cx("top-nav", topNavStyle)}>
-          <div className={cx("top-nav-tabs", topNavTabsStyle)}>
+        <div className={cx('top-nav', topNavStyle)}>
+          <div className={cx('top-nav-tabs', topNavTabsStyle)}>
             {experience.map((job, idx) => (
               <Tab
                 key={job}
@@ -43,16 +53,17 @@ export const MyExperience: React.FC = () => {
               />
             ))}
           </div>
-          <div className={cx("top-nav-controls", topNavControlsStyle)}>
-            <div className={cx("top-nav-close-button", topNavCloseStyle)}>
+          <div className={cx('top-nav-controls', topNavControlsStyle)}>
+            <div className={cx('top-nav-close-button', topNavCloseStyle)}>
               &times;
             </div>
           </div>
         </div>
         <div
           className={cx(
-            "my-experience-body",
-            myExperienceBodyStyle(activeIndex === 0)
+            'my-experience-body',
+            myExperienceBodyStyle(activeIndex === 0),
+            contentStyle,
           )}
         >
           {tabs[activeIndex]}

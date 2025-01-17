@@ -123,7 +123,7 @@ export const FramerCube: React.FC = () => {
   const [currentStyle, setCurrentStyle] = useState('');
   const [textColor, setTextColor] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [verticalIndex, setVerticalIndex] = useState(1);
+  const [verticalIndex, setVerticalIndex] = useState(0);
 
   const pageWidth = useMemo(() => {
     return window.outerHeight > window.outerWidth ? '100vw' : '100vh';
@@ -151,28 +151,28 @@ export const FramerCube: React.FC = () => {
             <div
               className={cx(pageStyles, getPageTransform(verticalIndex, true))}
             >
-              {/* Top face - About Me */}
+              {/* Top face - Experience */}
+              <div
+                id="my-experience"
+                className={cx(frameStyles, frontFaceStyles)}
+              >
+                <CubeWrapper themeStyle={currentStyle}>
+                  <MyExperience />
+                </CubeWrapper>
+              </div>
+              {/* Front face - About Me */}
               <div id="about-me" className={cx(frameStyles, topFaceStyles)}>
                 <CubeWrapper themeStyle={currentStyle}>
                   <AboutMe />
                 </CubeWrapper>
               </div>
-              {/* Front face - Terminal */}
+              {/* Bottom face - Terminal */}
               <div
                 id="terminal-intro"
-                className={cx(frameStyles, frontFaceStyles)}
-              >
-                <CubeWrapper themeStyle={currentStyle}>
-                  <TerminalIntro />
-                </CubeWrapper>
-              </div>
-              {/* Bottom face - Experience */}
-              <div
-                id="my-experience"
                 className={cx(frameStyles, bottomFaceStyles)}
               >
                 <CubeWrapper themeStyle={currentStyle}>
-                  <MyExperience />
+                  <TerminalIntro />
                 </CubeWrapper>
               </div>
             </div>
