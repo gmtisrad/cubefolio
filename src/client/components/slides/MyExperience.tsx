@@ -13,12 +13,47 @@ import ParthenonTab from './ParthenonTab';
 import NikeTab from './NikeTab';
 import StreamYardTab from './StreamYardTab';
 
-const contentStyle = css`
+const experienceStyles = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+`;
+
+const contentContainerStyles = css`
   flex: 1;
-  overflow: auto;
-  padding: 20px;
-  font-size: 16px;
-  line-height: 1.5;
+  overflow: hidden;
+  position: relative;
+`;
+
+const contentStyle = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
+const tabTitleStyle = css`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  font-size: 12px;
 `;
 
 export const MyExperience: React.FC = () => {
@@ -31,7 +66,7 @@ export const MyExperience: React.FC = () => {
   ];
 
   const myExperienceBodyStyle = (isParth: boolean): string => css`
-    flex: 1;
+    height: 100%;
     width: 100%;
     overflow: auto;
     ${isParth ? 'background: linear-gradient(135deg, #284b67, #2f5e79);' : ''}
@@ -46,25 +81,23 @@ export const MyExperience: React.FC = () => {
   ];
 
   return (
-    <div className={myExperienceContainerstyle}>
-      <div className={myExperienceWrapperStyle}>
-        <div className={cx('top-nav', topNavStyle)}>
-          <div className={cx('top-nav-tabs', topNavTabsStyle)}>
-            {experience.map((job, idx) => (
-              <Tab
-                key={job}
-                name={job}
-                active={idx === activeIndex}
-                switchTab={(): void => setActiveIndex(idx)}
-              />
-            ))}
-          </div>
-          <div className={cx('top-nav-controls', topNavControlsStyle)}>
-            <div className={cx('top-nav-close-button', topNavCloseStyle)}>
-              &times;
-            </div>
-          </div>
+    <div className={experienceStyles}>
+      <div className={topNavStyle}>
+        <div className={topNavTabsStyle}>
+          {experience.map((job, idx) => (
+            <Tab
+              key={job}
+              name={<div className={tabTitleStyle}>{job}</div>}
+              active={idx === activeIndex}
+              switchTab={(): void => setActiveIndex(idx)}
+            />
+          ))}
         </div>
+        <div className={topNavControlsStyle}>
+          <div className={topNavCloseStyle}>&times;</div>
+        </div>
+      </div>
+      <div className={contentContainerStyles}>
         <div
           className={cx(
             'my-experience-body',

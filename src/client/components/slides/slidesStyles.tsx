@@ -106,63 +106,86 @@ export const myExperienceWrapperStyle = css`
 
 export const topNavStyle = css`
   width: 100%;
-  height: 40px;
-  // background-color: #5f5f5f;
-  background: linear-gradient(0deg, #606060, #696969);
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
+  background: #5f5f5f;
   border-bottom: 1px solid #888888;
+  min-height: 35px;
+  flex-shrink: 0;
 `;
 
 export const topNavTabsStyle = css`
   display: flex;
-  align-items: center;
-  padding-left: 1px;
-  max-width: 100%;
-  font-size: 14px;
-`;
-
-export const topNavControlsStyle = css``;
-
-export const topNavCloseStyle = css`
-  height: 40px;
-  width: 40px;
-  color: white;
-  background-color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
+  overflow-x: hidden;
+  flex: 1;
+  min-width: 0;
 `;
 
 export const topNavTabStyle = css`
   display: flex;
   align-items: center;
-  color: white;
+  color: #e1e1e1;
   height: 100%;
-  padding: 0 10px;
-  align-items: center;
-  max-width: 200px;
+  padding: 8px 16px;
+  background: #696969;
   border-right: 1px solid #888888;
-  font-size: 14px;
+  font-size: 13px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
   span {
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  &:hover {
+    background: #777777;
+  }
 `;
 
 export const activeTabStyle = css`
-  background-color: #efefef;
-  border-radius: 15px 15px 0 0;
-  padding-top: 8px;
-  padding-bottom: 10px;
-  max-width: 150px;
-  color: black;
-  border-right: 0;
-  @media (min-width: 1024px) {
-    max-width: unset;
+  background: #efefef;
+  color: #333;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #efefef;
+  }
+
+  &:hover {
+    background: #efefef;
+  }
+`;
+
+export const topNavControlsStyle = css`
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+`;
+
+export const topNavCloseStyle = css`
+  width: 45px;
+  color: #e1e1e1;
+  background-color: #d85858;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c75050;
+    color: white;
   }
 `;
 
@@ -175,13 +198,13 @@ export const parthenonDutyListItemStyle = css`
 `;
 
 export const scrollingAnimation = keyframes`
-      0% { transform: translateY(100%) rotate(65deg) }
-      100% { transform: translateY(0%) rotate(65deg) }
+      0% { transform: translateY(100%) rotate(63deg) }
+      100% { transform: translateY(0%) rotate(63deg) }
     `;
 
 export const scrollingAnimationMobile = keyframes`
-      0% { transform: translateY(200%) }
-      100% { transform: translateY(0) }
+      0% { transform: translateY(200%) rotate(63deg) }
+      100% { transform: translateY(0) rotate(63deg) }
     `;
 
 export const turnOnStyle = keyframes`
@@ -224,7 +247,7 @@ export const turnOnStyle = keyframes`
   }
 `;
 
-export const terminalWrapperStyle = (textColor: string) => css`
+export const terminalWrapperStyle = () => css`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -289,34 +312,36 @@ export const terminalStyle = css`
   justify-content: flex-end;
   align-items: flex-start;
   padding: 0 0 10px 10px;
-  font-size: 22px;
+  font-size: 18px;
   animation: ${turnOnStyle} 4s 1;
   pre {
     display: flex;
     overflow: hidden;
     justify-content: center;
-    margin-left: -10px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 26px;
-    pre {
-      code {
-        font-size: 12px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    code {
+      font-size: 10px;
+      transform-origin: center;
+      @media (min-width: 769px) {
+        transform: scale(0.9);
+      }
+      @media (max-width: 768px) {
+        transform: scale(0.7);
       }
     }
+  }
+  @media (min-width: 1024px) {
+    font-size: 22px;
   }
   @media (max-width: 1023px) {
     font-size: 16px;
   }
   @media (max-width: 568px) {
     font-size: 12px;
-  }
-  @media (max-width: 320px) {
-    pre {
-      code {
-        font-size: 10px;
-      }
-    }
   }
 `;
 export const blink = keyframes`

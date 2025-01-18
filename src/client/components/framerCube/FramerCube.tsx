@@ -15,10 +15,11 @@ import webcrawler from '../../assets/webcrawler.png';
 
 // Calculate cube size based on viewport dimensions
 const getCubeSize = () => {
-  const vh = Math.min(window.innerHeight, 1000); // Cap at 1000px
-  const vw = Math.min(window.innerWidth, 1000); // Cap at 1000px
+  const vh = window.innerHeight;
+  const vw = window.innerWidth;
   const minSize = Math.min(vh, vw);
-  return `${minSize * 0.8}px`; // 80% of the smallest viewport dimension
+  // Use a smaller percentage and add a max size constraint
+  return `${Math.min(minSize * 0.7, 800)}px`;
 };
 
 const cubeStyles = css`
@@ -31,6 +32,7 @@ const cubeStyles = css`
   align-items: center;
   justify-content: center;
   background: transparent;
+  overflow: hidden;
 `;
 
 export const FramerCube: React.FC = () => {
@@ -61,6 +63,7 @@ export const FramerCube: React.FC = () => {
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       backface-visibility: hidden;
       background: transparent;
+      transform-origin: center center;
     `,
     [cubeSize],
   );
@@ -94,10 +97,8 @@ export const FramerCube: React.FC = () => {
         display: flex;
         align-items: center;
         justify-content: center;
-
-        /* Ensure text content is properly sized */
-        font-size: calc(${cubeSize} * 0.04);
-        line-height: 1.5;
+        height: 100%;
+        width: 100%;
 
         /* Re-enable pointer events for interactive elements */
         a,

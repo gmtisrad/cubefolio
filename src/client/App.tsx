@@ -1,17 +1,18 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import Wrapper from "./components/Wrapper";
-import FramerCube from "./components/framerCube/FramerCube";
-import StarField from "./components/StarField";
-import ManipulatableCube from "./components/manipulatableCube/ManipulatableCube";
-import ThemeContext from "./context/ThemeContext";
-import { AnimatePresence, motion } from "framer";
-import { MenuTrigger } from "./components/MenuTrigger";
-import { standardViewWrapperStyle } from "./styles";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import Wrapper from './components/Wrapper';
+import FramerCube from './components/framerCube/FramerCube';
+import StarField from './components/StarField';
+import ManipulatableCube from './components/manipulatableCube/ManipulatableCube';
+import ThemeContext from './context/ThemeContext';
+import { AnimatePresence, motion } from 'framer';
+import { MenuTrigger } from './components/MenuTrigger';
+import { standardViewWrapperStyle } from './styles';
+import ViewSwitcher from './components/VeiwSwitcher';
 
 enum ORIENTATIONS {
-  LANDSCAPE = "LANDSCAPE",
-  PORTRAIT = "PORTRAIT",
-  UNKNOWN = "UNKNOWN",
+  LANDSCAPE = 'LANDSCAPE',
+  PORTRAIT = 'PORTRAIT',
+  UNKNOWN = 'UNKNOWN',
 }
 
 const App: React.FC = () => {
@@ -38,13 +39,13 @@ const App: React.FC = () => {
     setOrientation(
       window.outerHeight > window.outerWidth
         ? ORIENTATIONS.PORTRAIT
-        : ORIENTATIONS.LANDSCAPE
+        : ORIENTATIONS.LANDSCAPE,
     );
   }, []);
 
   return (
     <>
-      <MenuTrigger />
+      <ViewSwitcher />
       <StarField />
       <AnimatePresence>
         {standardView && (

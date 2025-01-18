@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { cx, css } from "@emotion/css";
-import { getTextColor } from "../../utils/styleUtils";
-import ThemeContext from "../../context/ThemeContext";
-import { asciiIntro3 } from "../../assets/asciiIntros";
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { cx, css } from '@emotion/css';
+import { getTextColor } from '../../utils/styleUtils';
+import ThemeContext from '../../context/ThemeContext';
+import { asciiIntro3 } from '../../assets/asciiIntros';
 import {
   scrollingAnimation,
   animateCursor,
@@ -13,7 +13,7 @@ import {
   animateText,
   terminalContainerStyle,
   scrollingAnimationMobile,
-} from "./slidesStyles";
+} from './slidesStyles';
 
 type Props = {
   commandsIndex: React.RefObject<number>;
@@ -31,10 +31,11 @@ const IntroScroll: React.FC<Props> = (props: Props) => {
   const asciiIntroStyle = css`
     @media (min-width: 769px) {
       animation: ${scrollingAnimation} 4s steps(25, end);
-      transform: rotate(65deg);
+      transform: rotate(63deg);
     }
     @media (max-width: 768px) {
       animation: ${scrollingAnimationMobile} 4s steps(30, end);
+      transform: rotate(63deg);
     }
     animation-iteration-count: 1;
     animation-delay: 0;
@@ -79,7 +80,7 @@ const Command: React.FC<CommandProps> = (props: CommandProps) => {
   const { termCommand, setDone, children, idx, commandIdx, endRef } = props;
   const [isDone, setIsDone] = useState(false);
 
-  const terminalPrefix = "gabeTimm:~$";
+  const terminalPrefix = 'gabeTimm:~$';
 
   useEffect(() => {
     if (idx === commandIdx.current) {
@@ -103,7 +104,7 @@ const Command: React.FC<CommandProps> = (props: CommandProps) => {
   }, [commandIdx, idx, setDone]);
 
   return idx <= commandIdx.current ? (
-    <div className={cx(commandWrapperStyle, "terminal-command")}>
+    <div className={cx(commandWrapperStyle, 'terminal-command')}>
       <span>{terminalPrefix}</span>
       <div className={commandStyle}>{termCommand}</div>
       {isDone && children}
@@ -116,27 +117,21 @@ const Command: React.FC<CommandProps> = (props: CommandProps) => {
 export const TerminalIntro: React.FC = () => {
   const commandsShown = useRef<number>(-2);
   const [shouldUpdate, setShouldUpdate] = useState(false);
-  const { light, dark, neon } = useContext(ThemeContext);
-  const [textColor, setTextColor] = useState("");
   const cmdEndRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setTextColor(getTextColor(light, neon, dark));
-  }, [light, dark, neon]);
-
   const commands = [
-    "Hi there!",
-    "My name is Gabe.",
-    "",
+    'Hi there!',
+    'My name is Gabe.',
+    '',
     "I'm a Full Stack engineer,",
-    "and love solving complex problems.",
-    "",
-    "My main medium is is the web.",
+    'and love solving complex problems.',
+    '',
+    'My main medium is is the web.',
     "I've worked on LMS applications,",
     "eCommerce websites, complex SPA's",
-    "and much more!",
-    "",
-    "Take a look around!",
+    'and much more!',
+    '',
+    'Take a look around!',
   ];
 
   useEffect(() => {
@@ -152,13 +147,13 @@ export const TerminalIntro: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Should Update");
+    console.log('Should Update');
   }, [shouldUpdate]);
 
   return (
-    <div className={cx(terminalWrapperStyle(textColor), "terminal-wrapper")}>
+    <div className={cx(terminalWrapperStyle(), 'terminal-wrapper')}>
       <div
-        className={cx(terminalContainerStyle, animateText, "terminal", "crt")}
+        className={cx(terminalContainerStyle, animateText, 'terminal', 'crt')}
       >
         <div className={cx(terminalStyle)}>
           <IntroScroll

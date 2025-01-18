@@ -1,9 +1,9 @@
-import { css } from "@emotion/css";
-import React, { useContext, useEffect, useState } from "react";
-import { Github, Linkedin, Codepen } from "@styled-icons/fa-brands";
-import { MailSend } from "@styled-icons/boxicons-regular";
-import { getTextColor } from "../utils/styleUtils";
-import ThemeContext from "../context/ThemeContext";
+import { css } from '@emotion/css';
+import React, { useContext, useEffect, useState } from 'react';
+import { Github, Linkedin, Codepen } from '@styled-icons/fa-brands';
+import { MailSend } from '@styled-icons/boxicons-regular';
+import { getTextColor } from '../utils/styleUtils';
+import ThemeContext from '../context/ThemeContext';
 
 export const contactIconsStyle = (iconColor: string) => css`
   display: flex;
@@ -53,7 +53,7 @@ export const MailIcon: React.FC = () => {
 
 export const ContactIcons: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
-  const [textColor, setTextColor] = useState("");
+  const [textColor, setTextColor] = useState('');
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));

@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./client/App";
-import { ThemeProvider } from "./client/context/ThemeContext";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './client/App';
+import { ThemeProvider } from './client/context/ThemeContext';
 
 const AppComponent: React.FC = () => (
   <ThemeProvider>
@@ -9,4 +9,4 @@ const AppComponent: React.FC = () => (
   </ThemeProvider>
 );
 
-ReactDOM.render(<AppComponent />, document.getElementById("root"));
+ReactDOM.render(<AppComponent />, document.getElementById('root'));

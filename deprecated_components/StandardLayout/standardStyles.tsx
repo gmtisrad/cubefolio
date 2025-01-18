@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from '@emotion/css';
 
 export const standardBodyStyle = css`
   height: 100vh;
@@ -44,13 +44,4 @@ export const aboutMePageStyles = css`
   height: 100vh;
   width: 100%;
   margin: 0 auto;
-  @media (min-width: 1921px) {
-    max-width: 1440px;
-  }
-  @media (max-width: 1920px) {
-    max-width: 1024px;
-  }
-  @media (max-width: 568px) {
-    height: auto;
-  }
 `;

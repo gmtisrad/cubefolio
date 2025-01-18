@@ -1,12 +1,5 @@
 import { css } from "@emotion/css";
-import {
-  LIGHT_BACKGROUND,
-  LIGHT_TEXT,
-  DARK_BACKGROUND,
-  NEON_BACKGROUND,
-  NEON_TEXT,
-  DARK_TEXT,
-} from "./constants/ColorConstants";
+import { BACKGROUND, TEXT } from "./constants/ColorConstants";
 
 /* Wrapper Styles */
 export const baseWrapperStyle = css`
@@ -20,21 +13,8 @@ export const baseWrapperStyle = css`
     width: 100vw;
   }
   margin: 0 auto;
-`;
-
-export const lightWrapperStyle = css`
-  color: ${LIGHT_TEXT};
-  background-color: ${LIGHT_BACKGROUND};
-`;
-
-export const darkWrapperStyle = css`
-  color: ${DARK_TEXT};
-  background-color: ${DARK_BACKGROUND};
-`;
-
-export const neonWrapperStyle = css`
-  color: ${NEON_TEXT};
-  background-color: ${NEON_BACKGROUND};
+  color: ${TEXT};
+  background-color: ${BACKGROUND};
 `;
 
 export const standardViewWrapperStyle = css`
@@ -214,8 +194,8 @@ export const avatarWrapperStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 230px;
-  height: 230px;
+  width: 200px;
+  height: 200px;
   transform: rotate(45deg);
   overflow: hidden;
   background-color: white;
