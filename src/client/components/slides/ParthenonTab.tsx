@@ -1,30 +1,34 @@
 import React from 'react';
 import BaseExperienceTab from './BaseExperienceTab';
 import ParthenonLogo from '../../assets/ParthenonLogo.png';
+import { css } from '@emotion/css';
+
+const invertedLogoStyle = css`
+  filter: invert(1);
+`;
 
 const ParthenonTab: React.FC = () => {
   const parthenonDescription =
-    'At Parthenon Software Group, I worked as a Software Developer focusing on building robust web applications for various clients. I specialized in developing scalable solutions using modern web technologies and best practices in software development.';
+    'Delivered high-impact client solutions at Parthenon Software Group, specializing in modern web applications and system integrations. Led development of scalable, enterprise-grade solutions across diverse business domains.';
 
   const achievements = [
-    'Developed and maintained multiple client-facing web applications using React and TypeScript',
-    'Implemented RESTful APIs using Node.js and Express',
-    'Created automated deployment pipelines using Jenkins and Docker',
-    'Optimized database queries and improved application performance',
-    'Led technical discussions and architecture planning sessions',
-    'Mentored junior developers and conducted code reviews',
-    'Implemented comprehensive testing strategies using Jest and React Testing Library',
-    'Collaborated with clients to gather requirements and provide technical solutions',
+    'Led development of real-time centralized screen sharing application, improving frame rate from 25 FPS to 60 FPS',
+    'Built React-based AWS-hosted Learning Management System serving thousands of users',
+    'Designed and implemented scalable microservices architecture using Node.js and Docker',
+    'Created advanced DOM manipulation library for dynamic HTML content management',
+    'Established CI/CD pipelines using Jenkins, improving deployment efficiency by 50%',
+    'Collaborated in agile environment using Jira, Scrum, and Git for effective team coordination',
   ];
 
   return (
     <BaseExperienceTab
       companyName="Parthenon Software Group"
       role="Software Developer"
-      period="June 2019 - March 2021"
+      period="March 2019 - March 2021"
       logoSrc={ParthenonLogo}
       description={parthenonDescription}
       achievements={achievements}
+      logoClassName={invertedLogoStyle}
     />
   );
 };

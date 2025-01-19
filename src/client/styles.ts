@@ -202,8 +202,11 @@ export const avatarWrapperStyle = css`
   box-shadow: 0 0 10px 0 white;
   margin: 0;
   img {
-    transform: rotate(-45deg);
-    margin: 0 -30px -30px 0;
+    transform: rotate(-45deg) scale(1.2);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 `;
 

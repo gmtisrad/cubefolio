@@ -11,6 +11,7 @@ import {
 import Tab from '../Tab';
 import ParthenonTab from './ParthenonTab';
 import NikeTab from './NikeTab';
+import CurrentNikeTab from './CurrentNikeTab';
 import StreamYardTab from './StreamYardTab';
 
 const experienceStyles = css`
@@ -60,24 +61,28 @@ export const MyExperience: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const experience = [
-    'StreamYard - Senior Full-Stack Engineer (Growth)',
-    'Nike - Senior Applications Engineer',
-    'Parthenon Software Group - Software Developer',
+    'Nike (Current)',
+    'Nike (2022-2023)',
+    'StreamYard',
+    'Parthenon',
   ];
 
   const myExperienceBodyStyle = (isParth: boolean): string => css`
     height: 100%;
     width: 100%;
     overflow: auto;
-    ${isParth ? 'background: linear-gradient(135deg, #284b67, #2f5e79);' : ''}
+    ${isParth
+      ? 'background: linear-gradient(135deg, #284b67 0%, #2f5e79 100%); color: white;'
+      : ''}
     display: flex;
     flex-direction: column;
   `;
 
   const tabs = [
-    <StreamYardTab key={0} />,
+    <CurrentNikeTab key={0} />,
     <NikeTab key={1} />,
-    <ParthenonTab key={2} />,
+    <StreamYardTab key={2} />,
+    <ParthenonTab key={3} />,
   ];
 
   return (
@@ -101,7 +106,7 @@ export const MyExperience: React.FC = () => {
         <div
           className={cx(
             'my-experience-body',
-            myExperienceBodyStyle(activeIndex === 2),
+            myExperienceBodyStyle(activeIndex === 3),
             contentStyle,
           )}
         >

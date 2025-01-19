@@ -33,7 +33,7 @@ import pychatimage from '../../assets/pychat.png';
 import webcrawler from '../../assets/webcrawler.png';
 
 export const ManipulatableCube: React.FC = () => {
-  const { light, dark, neon } = useContext(ThemeContext);
+  const { standardView: light } = useContext(ThemeContext);
   const [backgroundColor, setBackgroundColor] = useState('');
   const [textColor, setTextColor] = useState('');
   const [throttleEvent, setThrottleEvent] = useState(false);
@@ -102,13 +102,13 @@ export const ManipulatableCube: React.FC = () => {
         previousTouch.current = touch;
       })();
     },
-    [cubeRotateX, cubeRotateY, mouseDown, throttleEvent],
+    [cubeRotateX, cubeRotateY, getRotateX, mouseDown, throttleEvent],
   );
 
   useEffect(() => {
-    setBackgroundColor(getBackgroundColor(light, neon, dark));
-    setTextColor(getTextColor(light, neon, dark));
-  }, [light, dark, neon]);
+    setBackgroundColor(getBackgroundColor());
+    setTextColor(getTextColor());
+  }, [light]);
 
   useEffect(() => {
     window.onmousemove = handleDrag;
@@ -122,7 +122,7 @@ export const ManipulatableCube: React.FC = () => {
       previousTouch.current = (undefined as any) as Touch;
     };
     window.onmouseup = (): void => setMouseDown(false);
-  }, [handleDrag]);
+  }, [handleDrag, handleMobileDrag]);
 
   return (
     <div className={cx('wrapper', manipulatableCubeWrapperStyle)}>
@@ -132,10 +132,7 @@ export const ManipulatableCube: React.FC = () => {
             rotateX: `${cubeRotateX.get()}deg`,
             rotateY: `${cubeRotateY.get()}deg`,
           }}
-          className={cx(
-            cubeWrapper(light, cubeRotateX, cubeRotateY, textColor),
-            'cube',
-          )}
+          className={cx(cubeWrapper(cubeRotateX, cubeRotateY), 'cube')}
         >
           <motion.div
             className={cx(

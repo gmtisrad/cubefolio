@@ -42,16 +42,16 @@ export const sideSix = css`
 `;
 
 export const cubeWrapper = (
-  cubeRotateX: { current: number },
-  cubeRotateY: { current: number },
+  cubeRotateX: { get: () => number },
+  cubeRotateY: { get: () => number },
 ): string => css`
   position: relative;
   margin: 0 auto;
   height: 50vh;
   width: 50vh;
   transform-style: preserve-3d;
-  transform: rotateX(${cubeRotateX.current || 0}deg)
-    rotateY(${cubeRotateY.current || 0}deg);
+  transform: rotateX(${cubeRotateX?.get?.() || 0}deg)
+    rotateY(${cubeRotateY?.get?.() || 0}deg);
   transition: transform 0.3s ease-out;
 `;
 
