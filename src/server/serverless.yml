@@ -1,0 +1,52 @@
+service: portfolio-backend
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'prod'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    EMAIL_SERVICE: ${env:EMAIL_SERVICE}
+    FROM_EMAIL: ${env:FROM_EMAIL}
+    FROM_EMAIL_PASSWORD: ${env:FROM_EMAIL_PASSWORD}
+    PERSONAL_EMAIL: ${env:PERSONAL_EMAIL}
+    PORT: ${env:PORT}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource: "*"
+
+plugins:
+  - serverless-express
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+package:
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+custom:
+  express:
+    apiPath: index.handler 

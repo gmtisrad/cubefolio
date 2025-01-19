@@ -1,0 +1,43 @@
+name: Backend Deployment
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/server/**'
+      - 'serverless.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install -g serverless
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy
+      run: |
+        cd src/server
+        serverless deploy --stage prod
+      env:
+        EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
+        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+        FROM_EMAIL_PASSWORD: ${{ secrets.FROM_EMAIL_PASSWORD }}
+        PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }} 
