@@ -2,7 +2,7 @@ name: Frontend Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'src/client/**'
       - 'public/**'
