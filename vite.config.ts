@@ -8,6 +8,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src/client'),
     },
+    dedupe: ['@styled-icons/fa-brands', '@styled-icons/boxicons-regular']
+  },
+  optimizeDeps: {
+    include: ['@styled-icons/fa-brands', '@styled-icons/boxicons-regular']
   },
   server: {
     port: 3000,
