@@ -11,11 +11,17 @@ if (!domainName) {
   throw new Error('Domain name must be provided via environment variable DOMAIN_NAME or context');
 }
 
+// Get AWS account and region
+const account = process.env.AWS_ACCOUNT_ID || process.env.CDK_DEFAULT_ACCOUNT;
+const region = process.env.AWS_REGION || process.env.CDK_DEFAULT_REGION || 'us-east-1';
+
 new InfrastructureStack(app, 'PortfolioInfrastructureStack', {
   domainName: domainName,
   wwwSubdomain: true, // Set to false if you don't want www subdomain
   env: {
-    account: process.env.AWS_ACCOUNT_ID,
-    region: process.env.AWS_REGION || 'us-east-1',
+    account: account,
+    region: region,
   },
 });
+
+app.synth();
