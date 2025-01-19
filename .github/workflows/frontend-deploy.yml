@@ -1,5 +1,4 @@
 name: Frontend Deployment
-
 on:
   push:
     branches: [ main ]
