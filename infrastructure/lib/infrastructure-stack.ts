@@ -25,7 +25,7 @@ export class InfrastructureStack extends cdk.Stack {
 
     // Create S3 bucket for static website hosting
     const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-      bucketName: `${props.domainName}-website`,
+      bucketName: `gabetimm-website`,
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
       publicReadAccess: false,
