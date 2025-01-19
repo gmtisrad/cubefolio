@@ -12,6 +12,7 @@ on:
 
 jobs:
   deploy:
+    needs: [infrastructure]  # Wait for infrastructure deployment
     runs-on: ubuntu-latest
     
     steps:

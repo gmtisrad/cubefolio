@@ -1,16 +1,15 @@
-name: Backend Deployment
+name: Infrastructure Deployment
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allow manual triggers
   push:
     branches: [ main ]
     paths:
-      - 'src/server/**'
-      - 'serverless.yml'
+      - 'infrastructure/**'
+      - '.github/workflows/infrastructure-deploy.yml'
 
 jobs:
   deploy:
-    needs: [infrastructure]  # Wait for infrastructure deployment
     runs-on: ubuntu-latest
     
     steps:
@@ -41,9 +40,8 @@ jobs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      run: |
-        pnpm install
-        pnpm add -g serverless
+      working-directory: infrastructure
+      run: pnpm install
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -52,12 +50,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Deploy
-      run: |
-        cd src/server
-        pnpm exec serverless deploy --stage prod
+    - name: Deploy CDK Stack
+      working-directory: infrastructure
+      run: pnpm cdk deploy --require-approval never
       env:
-        EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
-        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-        FROM_EMAIL_PASSWORD: ${{ secrets.FROM_EMAIL_PASSWORD }}
-        PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }} 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }} 
