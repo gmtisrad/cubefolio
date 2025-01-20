@@ -14,9 +14,18 @@ jobs:
   deploy:
     needs: [infrastructure]  # Wait for infrastructure deployment
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # Required for OIDC
+      contents: read    # Required to checkout repository
     
     steps:
     - uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::688567301885:role/github-actions-role
+        aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -49,13 +58,6 @@ jobs:
       run: pnpm build
       env:
         NODE_ENV: production
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Deploy to S3
       run: |
