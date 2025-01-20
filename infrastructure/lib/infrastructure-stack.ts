@@ -1,4 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
+import * as dotenv from 'dotenv';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
@@ -6,6 +7,9 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import { Construct } from 'constructs';
+
+// Load environment variables from .env file
+dotenv.config();
 
 export interface InfrastructureStackProps extends cdk.StackProps {
   domainName: string;
