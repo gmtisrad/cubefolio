@@ -20,6 +20,7 @@ if (!domainName) {
 const certStack = new CertificateStack(app, 'PortfolioCertificateStack', {
   domainName: domainName,
   wwwSubdomain: true,
+  crossRegionReferences: true,
 });
 
 // Create main infrastructure stack in us-west-2
@@ -27,6 +28,7 @@ new InfrastructureStack(app, 'PortfolioInfrastructureStack', {
   domainName: domainName,
   wwwSubdomain: true,
   certificateArn: certStack.certificate.certificateArn,
+  crossRegionReferences: true,
 });
 
 app.synth();
