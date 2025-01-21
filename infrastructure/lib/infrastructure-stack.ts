@@ -6,6 +6,9 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { CustomResource, Duration } from 'aws-cdk-lib';
+import { Provider } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
 // Load environment variables from .env file
@@ -34,16 +37,63 @@ export class InfrastructureStack extends cdk.Stack {
       props.certificateArn
     );
 
-    // Create S3 bucket for static website hosting
-    const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-      bucketName: process.env.S3_BUCKET_NAME || 'gabetimm-website',
-      websiteIndexDocument: 'index.html',
-      websiteErrorDocument: 'index.html',
-      publicReadAccess: false,
-      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
-      encryption: s3.BucketEncryption.S3_MANAGED,
+    // Handle S3 bucket - create if doesn't exist, import if it does
+    const bucketName = process.env.S3_BUCKET_NAME || 'gabetimm-website';
+
+    // Create a Lambda function to check bucket existence
+    const checkBucketFunction = new lambda.Function(this, 'CheckBucketFunction', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromInline(`
+        const AWS = require('aws-sdk');
+        const s3 = new AWS.S3();
+        
+        exports.handler = async (event) => {
+          const bucketName = event.ResourceProperties.bucketName;
+          try {
+            await s3.headBucket({ Bucket: bucketName }).promise();
+            return { Data: { exists: true } };
+          } catch (error) {
+            if (error.code === 'NotFound') {
+              return { Data: { exists: false } };
+            }
+            throw error;
+          }
+        }
+      `),
     });
+
+    // Add necessary permissions to the Lambda function
+    checkBucketFunction.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['s3:HeadBucket'],
+      resources: ['*'],
+    }));
+
+    // Create the custom resource provider
+    const provider = new Provider(this, 'CheckBucketProvider', {
+      onEventHandler: checkBucketFunction,
+    });
+
+    // Create the custom resource
+    const checkBucket = new CustomResource(this, 'CheckBucket', {
+      serviceToken: provider.serviceToken,
+      properties: {
+        bucketName: bucketName,
+      },
+    });
+
+    // Create or import bucket based on existence check
+    const websiteBucket = checkBucket.getAttString('exists') === 'true'
+      ? s3.Bucket.fromBucketName(this, 'ExistingWebsiteBucket', bucketName)
+      : new s3.Bucket(this, 'NewWebsiteBucket', {
+          bucketName: bucketName,
+          websiteIndexDocument: 'index.html',
+          websiteErrorDocument: 'index.html',
+          publicReadAccess: false,
+          blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+          removalPolicy: cdk.RemovalPolicy.RETAIN,
+          encryption: s3.BucketEncryption.S3_MANAGED,
+        });
 
     // Create Origin Access Control
     const oac = new cloudfront.CfnOriginAccessControl(this, 'WebsiteOAC', {
