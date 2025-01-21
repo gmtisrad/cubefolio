@@ -14,22 +14,29 @@ dotenv.config();
 export interface InfrastructureStackProps extends cdk.StackProps {
   domainName: string;
   wwwSubdomain?: boolean;
+  certificateArn: string;
 }
 
 export class InfrastructureStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: InfrastructureStackProps) {
-    super(scope, id, props);
-
-    // Create SSL certificate
-    const certificate = new acm.Certificate(this, 'GabeTimmCom', {
-      domainName: props.domainName,
-      subjectAlternativeNames: props.wwwSubdomain ? [`www.${props.domainName}`] : [],
-      validation: acm.CertificateValidation.fromDns(),
+    super(scope, id, {
+      ...props,
+      env: {
+        account: process.env.AWS_ACCOUNT_ID,
+        region: process.env.AWS_REGION || 'us-west-2',
+      },
     });
+
+    // Import the certificate from us-east-1
+    const certificate = acm.Certificate.fromCertificateArn(
+      this,
+      'Certificate',
+      props.certificateArn
+    );
 
     // Create S3 bucket for static website hosting
     const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-      bucketName: `gabetimm-website`,
+      bucketName: process.env.S3_BUCKET_NAME || 'gabetimm-website',
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html',
       publicReadAccess: false,
@@ -107,16 +114,6 @@ export class InfrastructureStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: api.url,
       description: 'API Gateway URL',
-    });
-
-    // Output DNS validation records
-    certificate.node.findAll().forEach((child, index) => {
-      if (child instanceof acm.CfnCertificate) {
-        new cdk.CfnOutput(this, `CertificateValidation${index}`, {
-          value: `Add CNAME record to Hover DNS: ${child.domainValidationOptions}`,
-          description: 'Certificate validation record',
-        });
-      }
     });
   }
 }

@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as dotenv from 'dotenv';
 import * as cdk from 'aws-cdk-lib';
+import { CertificateStack } from '../lib/certificate-stack';
 import { InfrastructureStack } from '../lib/infrastructure-stack';
 
 // Load environment variables from .env file
@@ -15,17 +16,17 @@ if (!domainName) {
   throw new Error('Domain name must be provided via environment variable DOMAIN_NAME or context');
 }
 
-// Get AWS account and region
-const account = process.env.AWS_ACCOUNT_ID || process.env.CDK_DEFAULT_ACCOUNT;
-const region = process.env.AWS_REGION || process.env.CDK_DEFAULT_REGION || 'us-east-1';
+// Create certificate stack in us-east-1
+const certStack = new CertificateStack(app, 'PortfolioCertificateStack', {
+  domainName: domainName,
+  wwwSubdomain: true,
+});
 
+// Create main infrastructure stack in us-west-2
 new InfrastructureStack(app, 'PortfolioInfrastructureStack', {
   domainName: domainName,
-  wwwSubdomain: true, // Set to false if you don't want www subdomain
-  env: {
-    account: account,
-    region: region,
-  },
+  wwwSubdomain: true,
+  certificateArn: certStack.certificate.certificateArn,
 });
 
 app.synth();
