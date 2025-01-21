@@ -58,8 +58,16 @@ export class InfrastructureStack extends cdk.Stack {
     // Create CloudFront distribution
     const distribution = new cloudfront.Distribution(this, 'WebsiteDistribution', {
       defaultBehavior: {
-        origin: new origins.S3Origin(websiteBucket, {
-          originAccessIdentity,
+        origin: new origins.OriginGroup({
+          primaryOrigin: new origins.S3Origin(websiteBucket, {
+            originAccessIdentity,
+            originPath: '/'
+          }),
+          fallbackOrigin: new origins.S3Origin(websiteBucket, {
+            originAccessIdentity,
+            originPath: '/index.html'
+          }),
+          fallbackStatusCodes: [403, 404]
         }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
