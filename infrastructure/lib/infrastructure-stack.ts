@@ -58,21 +58,13 @@ export class InfrastructureStack extends cdk.Stack {
     // Create CloudFront distribution
     const distribution = new cloudfront.Distribution(this, 'WebsiteDistribution', {
       defaultBehavior: {
-        origin: new origins.OriginGroup({
-          primaryOrigin: new origins.S3Origin(websiteBucket, {
-            originAccessIdentity,
-            originPath: '/'
-          }),
-          fallbackOrigin: new origins.S3Origin(websiteBucket, {
-            originAccessIdentity,
-            originPath: '/index.html'
-          }),
-          fallbackStatusCodes: [403, 404]
+        origin: new origins.S3Origin(websiteBucket, {
+          originAccessIdentity,
         }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
-        cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+        compress: true,
       },
       domainNames: props.wwwSubdomain 
         ? [props.domainName, `www.${props.domainName}`]
@@ -81,12 +73,19 @@ export class InfrastructureStack extends cdk.Stack {
       defaultRootObject: 'index.html',
       errorResponses: [
         {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: '/index.html',
+        },
+        {
           httpStatus: 404,
           responseHttpStatus: 200,
           responsePagePath: '/index.html',
         },
       ],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
+      httpVersion: cloudfront.HttpVersion.HTTP2,
+      enableIpv6: true,
     });
 
     // Create API Gateway
