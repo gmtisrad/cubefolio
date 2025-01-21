@@ -54,6 +54,6 @@ jobs:
 
     - name: Deploy CDK Stack
       working-directory: infrastructure
-      run: pnpm cdk deploy --require-approval never
+      run: pnpm cdk deploy --all --require-approval never
       env:
         DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }} 
