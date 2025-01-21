@@ -45,22 +45,20 @@ export class InfrastructureStack extends cdk.Stack {
       encryption: s3.BucketEncryption.S3_MANAGED,
     });
 
-    // CloudFront OAI
-    const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'WebsiteOAI');
-
-    // Grant CloudFront access to bucket
-    websiteBucket.addToResourcePolicy(new iam.PolicyStatement({
-      actions: ['s3:GetObject'],
-      resources: [websiteBucket.arnForObjects('*')],
-      principals: [new iam.CanonicalUserPrincipal(originAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
-    }));
+    // Create Origin Access Control
+    const oac = new cloudfront.CfnOriginAccessControl(this, 'WebsiteOAC', {
+      originAccessControlConfig: {
+        name: 'WebsiteOAC',
+        originAccessControlOriginType: 's3',
+        signingBehavior: 'always',
+        signingProtocol: 'sigv4'
+      }
+    });
 
     // Create CloudFront distribution
     const distribution = new cloudfront.Distribution(this, 'WebsiteDistribution', {
       defaultBehavior: {
-        origin: new origins.S3Origin(websiteBucket, {
-          originAccessIdentity,
-        }),
+        origin: new origins.S3Origin(websiteBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
@@ -87,6 +85,23 @@ export class InfrastructureStack extends cdk.Stack {
       httpVersion: cloudfront.HttpVersion.HTTP2,
       enableIpv6: true,
     });
+
+    // Attach the OAC to the distribution
+    const cfnDistribution = distribution.node.defaultChild as cloudfront.CfnDistribution;
+    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', oac.attrId);
+    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.S3OriginConfig.OriginAccessIdentity', '');
+
+    // Grant CloudFront access to bucket using OAC
+    websiteBucket.addToResourcePolicy(new iam.PolicyStatement({
+      actions: ['s3:GetObject'],
+      resources: [websiteBucket.arnForObjects('*')],
+      principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
+      conditions: {
+        StringEquals: {
+          'AWS:SourceArn': `arn:aws:cloudfront::${this.account}:distribution/${distribution.distributionId}`
+        }
+      }
+    }));
 
     // Create API Gateway
     const api = new apigateway.RestApi(this, 'PortfolioApi', {
