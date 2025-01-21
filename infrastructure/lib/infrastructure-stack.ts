@@ -54,11 +54,15 @@ export class InfrastructureStack extends cdk.Stack {
     // Create CloudFront distribution
     const distribution = new cloudfront.Distribution(this, 'WebsiteDistribution', {
       defaultBehavior: {
-        origin: new origins.S3Origin(websiteBucket),
+        origin: new origins.S3Origin(websiteBucket, {
+          originAccessIdentity: undefined  // Disable OAI as we're using OAC
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
         compress: true,
+        originRequestPolicy: cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
+        cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       },
       domainNames: props.wwwSubdomain 
         ? [props.domainName, `www.${props.domainName}`]
@@ -85,7 +89,9 @@ export class InfrastructureStack extends cdk.Stack {
     // Attach the OAC to the distribution
     const cfnDistribution = distribution.node.defaultChild as cloudfront.CfnDistribution;
     cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', oac.attrId);
-    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.S3OriginConfig.OriginAccessIdentity', '');
+    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.S3OriginConfig', {
+      OriginAccessIdentity: ''  // Required for OAC
+    });
 
     // Grant CloudFront access to bucket using OAC
     websiteBucket.addToResourcePolicy(new iam.PolicyStatement({
