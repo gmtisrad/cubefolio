@@ -15,6 +15,12 @@ jobs:
       id-token: write   # Required for OIDC
       contents: read    # Required to checkout repository
     
+    # Add environment variables at job level
+    env:
+      DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    
     steps:
     - uses: actions/checkout@v3
 
@@ -49,11 +55,13 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::688567301885:role/github-actions-role
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Deploy CDK Stack
       working-directory: infrastructure
-      run: pnpm cdk deploy --all --require-approval never
-      env:
-        DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }} 
+      run: |
+        echo "Using AWS Account: $AWS_ACCOUNT_ID"
+        echo "Using Region: $AWS_REGION"
+        echo "Using Domain: $DOMAIN_NAME"
+        pnpm cdk deploy --all --require-approval never 
