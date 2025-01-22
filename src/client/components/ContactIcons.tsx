@@ -63,7 +63,6 @@ export const ContactIcons: React.FC = () => {
     <div className={contactIconsStyle(textColor)}>
       <GithubIcon />
       <LinkedinIcon />
-      <CodepenIcon />
       <MailIcon />
     </div>
   );

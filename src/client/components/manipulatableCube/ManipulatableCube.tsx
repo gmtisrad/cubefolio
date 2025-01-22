@@ -22,12 +22,14 @@ import {
 import { motion, useMotionValue } from 'framer';
 import TerminalIntro from '../slides/TerminalIntro';
 import AboutMe from '../slides/AboutMe';
-import MyExperience from '../slides/MyExperience';
 import {
   manipulatableCubeFaceStyle,
   manipulatableCubeWrapperStyle,
 } from '../../styles';
-import ContactMe from '../slides/ContactMe';
+import CurrentNikeTab from '../slides/CurrentNikeTab';
+import NikeTab from '../slides/NikeTab';
+import StreamYardTab from '../slides/StreamYardTab';
+import ParthenonTab from '../slides/ParthenonTab';
 import { Project } from '../Project';
 import pychatimage from '../../assets/pychat.png';
 import webcrawler from '../../assets/webcrawler.png';
@@ -134,6 +136,7 @@ export const ManipulatableCube: React.FC = () => {
           }}
           className={cx(cubeWrapper(cubeRotateX, cubeRotateY), 'cube')}
         >
+          {/* Front - Terminal */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -145,6 +148,7 @@ export const ManipulatableCube: React.FC = () => {
               <TerminalIntro />
             </div>
           </motion.div>
+          {/* Top - About Me */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -156,6 +160,7 @@ export const ManipulatableCube: React.FC = () => {
               <AboutMe />
             </div>
           </motion.div>
+          {/* Right - Current Nike */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -164,9 +169,10 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <MyExperience />
+              <CurrentNikeTab />
             </div>
           </motion.div>
+          {/* Back - Previous Nike */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -175,9 +181,10 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <ContactMe />
+              <NikeTab />
             </div>
           </motion.div>
+          {/* Left - StreamYard */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -186,15 +193,10 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <Project
-                key="PyChat"
-                projectName="PyChat"
-                projectDescription="PyChat is a desktop based chat client made using Python and Socket.io. I made PyChat in an effort to learn more about how socket communication works and about building UIs with TKinter."
-                projectImage={pychatimage}
-                projectLink="https://github.com/gmtisrad/PyChat"
-              />
+              <StreamYardTab />
             </div>
           </motion.div>
+          {/* Bottom - Parthenon */}
           <motion.div
             className={cx(
               cubeSideStyle(backgroundColor, textColor),
@@ -203,13 +205,7 @@ export const ManipulatableCube: React.FC = () => {
             )}
           >
             <div className={manipulatableCubeFaceStyle}>
-              <Project
-                key="sPYder"
-                projectName="sPYder"
-                projectDescription="sPYder is an uber fast threaded web crawler that allows you to configure the depth of the crawl and whether or not to download the assets on the page. All of that in under 100 lines of python!"
-                projectImage={webcrawler}
-                projectLink="https://github.com/gmtisrad/web_crawler"
-              />
+              <ParthenonTab />
             </div>
           </motion.div>
         </motion.div>

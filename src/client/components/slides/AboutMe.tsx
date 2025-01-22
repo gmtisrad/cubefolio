@@ -1,20 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useContext, useState } from "react";
-import { cx } from "@emotion/css";
-import ThemeContext from "../../context/ThemeContext";
-import { getTextColor } from "../../utils/styleUtils";
-import { introWrapperStyle } from "./IntroSlide";
-import { MyAvatar } from "../../../client/assets/MyAvatar";
-import { ContactIcons } from "../ContactIcons";
+import React, { useEffect, useContext, useState } from 'react';
+import { cx } from '@emotion/css';
+import ThemeContext from '../../context/ThemeContext';
+import { getTextColor } from '../../utils/styleUtils';
+import { introWrapperStyle } from './IntroSlide';
+import { MyAvatar } from '../../../client/assets/MyAvatar';
+import { ContactIcons } from '../ContactIcons';
 import {
   aboutMeWrapperStyle,
   avatarContainer,
   infoContainerStyle,
-} from "../../styles";
+} from '../../styles';
 
 export const AboutMe: React.FC = () => {
   const { light, dark, neon } = useContext(ThemeContext);
-  const [textColor, setTextColor] = useState("");
+  const [textColor, setTextColor] = useState('');
 
   useEffect(() => {
     setTextColor(getTextColor(light, neon, dark));
@@ -25,7 +25,7 @@ export const AboutMe: React.FC = () => {
       className={cx(
         introWrapperStyle(textColor),
         aboutMeWrapperStyle,
-        "about-me-wrapper"
+        'about-me-wrapper',
       )}
     >
       <div className={avatarContainer}>
@@ -49,14 +49,14 @@ export const AboutMe: React.FC = () => {
         <div className="skills-info">
           <p>Here's what I've been working with recently:</p>
           <ul>
-            <li>JS(ES6+)</li>
+            <li>SSR</li>
             <li>TypeScript</li>
             <li>Node</li>
-            <li>React 17</li>
-            <li>Redux</li>
-            <li>Spring Boot</li>
-            <li>WordPress</li>
-            <li>HTML/CSS</li>
+            <li>React</li>
+            <li>GraphQL</li>
+            <li>AWS</li>
+            <li>TailwindCSS</li>
+            <li>Pendo</li>
           </ul>
         </div>
       </div>

@@ -5,13 +5,13 @@ import ThemeContext from '../../context/ThemeContext';
 import AboutMe from '../slides/AboutMe';
 import TerminalIntro from '../slides/TerminalIntro';
 import MyExperience from '../slides/MyExperience';
-import ContactMe from '../slides/ContactMe';
 import { columnContainerStyles } from '../../styles';
 import { Controls } from '../Controls';
 import CubeWrapper from '../CubeWrapper';
-import { Project } from '../Project';
-import MovieGraphImage from '../../assets/MovieGraphImg.webp';
-import webcrawler from '../../assets/webcrawler.png';
+import CurrentNikeTab from '../slides/CurrentNikeTab';
+import NikeTab from '../slides/NikeTab';
+import StreamYardTab from '../slides/StreamYardTab';
+import ParthenonTab from '../slides/ParthenonTab';
 
 // Calculate cube size based on viewport dimensions
 const getCubeSize = () => {
@@ -172,8 +172,8 @@ export const FramerCube: React.FC = () => {
       <Controls
         currentIndex={currentIndex}
         verticalIndex={verticalIndex}
-        setVerticalIndex={setVerticalIndex}
         setCurrentIndex={setCurrentIndex}
+        setVerticalIndex={setVerticalIndex}
         shouldBlend={true}
       />
       <div className={cx(columnContainerStyles(textColor))}>
@@ -184,19 +184,16 @@ export const FramerCube: React.FC = () => {
             <div
               className={cx(pageStyles, getPageTransform(verticalIndex, true))}
             >
-              {/* Top face - Experience */}
-              <div
-                id="my-experience"
-                className={cx(frameStyles, frontFaceStyles)}
-              >
-                <CubeWrapper themeStyle={currentStyle}>
-                  <MyExperience />
-                </CubeWrapper>
-              </div>
               {/* Front face - About Me */}
-              <div id="about-me" className={cx(frameStyles, topFaceStyles)}>
+              <div id="about-me" className={cx(frameStyles, frontFaceStyles)}>
                 <CubeWrapper themeStyle={currentStyle}>
                   <AboutMe />
+                </CubeWrapper>
+              </div>
+              {/* Top face - Current Nike Experience */}
+              <div id="current-nike" className={cx(frameStyles, topFaceStyles)}>
+                <CubeWrapper themeStyle={currentStyle}>
+                  <CurrentNikeTab />
                 </CubeWrapper>
               </div>
               {/* Bottom face - Terminal */}
@@ -209,34 +206,25 @@ export const FramerCube: React.FC = () => {
                 </CubeWrapper>
               </div>
             </div>
-            {/* Right face - PyChat Project */}
-            <div id="pychat" className={cx(frameStyles, rightFaceStyles)}>
+            {/* Right face - Previous Nike Experience */}
+            <div
+              id="previous-nike"
+              className={cx(frameStyles, rightFaceStyles)}
+            >
               <CubeWrapper themeStyle={currentStyle}>
-                <Project
-                  key="MovieGraph"
-                  projectName="MovieGraph"
-                  projectDescription="MovieGraph is a high-performance GO application that generates a graph database from IMDB's non-commercial datasets, creating connections between movies and the people who worked on them."
-                  projectImage={MovieGraphImage}
-                  projectLink="https://github.com/gmtisrad/movie-graph"
-                />
+                <NikeTab />
               </CubeWrapper>
             </div>
-            {/* Back face - sPYder Project */}
-            <div id="spyder" className={cx(frameStyles, backFaceStyles)}>
+            {/* Back face - StreamYard Experience */}
+            <div id="streamyard" className={cx(frameStyles, backFaceStyles)}>
               <CubeWrapper themeStyle={currentStyle}>
-                <Project
-                  key="sPYder"
-                  projectName="sPYder"
-                  projectDescription="sPYder is an uber fast threaded web crawler that allows you to configure the depth of the crawl and whether or not to download the assets on the page. All of that in under 100 lines of python!"
-                  projectImage={webcrawler}
-                  projectLink="https://github.com/gmtisrad/web_crawler"
-                />
+                <StreamYardTab />
               </CubeWrapper>
             </div>
-            {/* Left face - Contact Me */}
-            <div id="contact-me" className={cx(frameStyles, leftFaceStyles)}>
+            {/* Left face - Parthenon Experience */}
+            <div id="parthenon" className={cx(frameStyles, leftFaceStyles)}>
               <CubeWrapper themeStyle={currentStyle}>
-                <ContactMe />
+                <ParthenonTab />
               </CubeWrapper>
             </div>
           </div>
