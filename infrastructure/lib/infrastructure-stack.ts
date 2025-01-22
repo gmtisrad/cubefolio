@@ -6,6 +6,8 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import { Construct } from 'constructs';
 
 // Load environment variables from .env file
@@ -118,6 +120,31 @@ export class InfrastructureStack extends cdk.Stack {
         allowHeaders: ['Content-Type', 'Authorization'],
       },
     });
+
+    // Create Route53 zone
+    const zone = route53.HostedZone.fromLookup(this, 'Zone', {
+      domainName: props.domainName,
+    });
+
+    // Create A record for the domain
+    new route53.ARecord(this, 'SiteAliasRecord', {
+      zone,
+      recordName: props.domainName,
+      target: route53.RecordTarget.fromAlias(
+        new targets.CloudFrontTarget(distribution)
+      ),
+    });
+
+    // Create A record for www subdomain if enabled
+    if (props.wwwSubdomain) {
+      new route53.ARecord(this, 'WwwSiteAliasRecord', {
+        zone,
+        recordName: `www.${props.domainName}`,
+        target: route53.RecordTarget.fromAlias(
+          new targets.CloudFrontTarget(distribution)
+        ),
+      });
+    }
 
     // Output values
     new cdk.CfnOutput(this, 'BucketName', {
