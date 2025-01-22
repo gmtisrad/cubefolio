@@ -5,7 +5,6 @@ import StarField from './components/StarField';
 import ManipulatableCube from './components/manipulatableCube/ManipulatableCube';
 import ThemeContext from './context/ThemeContext';
 import { AnimatePresence, motion } from 'framer';
-import { MenuTrigger } from './components/MenuTrigger';
 import { standardViewWrapperStyle } from './styles';
 import ViewSwitcher from './components/VeiwSwitcher';
 

@@ -48,7 +48,6 @@ export const controlsContainerStyle = (shouldBlend: boolean): string => css`
   bottom: 40px;
   z-index: 2000;
   ${shouldBlend ? "mix-blend-mode: difference;" : ""}
-  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
