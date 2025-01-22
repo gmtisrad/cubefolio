@@ -33,21 +33,19 @@ export const AboutMe: React.FC = () => {
         <ContactIcons />
       </div>
       <div className={infoContainerStyle}>
-        <p>
-          I'm a software engineer based in Portland, OR specializing in fulll
-          stack web development and devops on AWS.
-        </p>
+        <p>I&apos;m a software engineer based in the Portland, Oregon area!</p>
         <p>
           My passion lies in coming up with simple solutions to complex problems
           on the back end, front end, and everywhere in between.
         </p>
         <p>
-          Currently, I'm working with Nike to maintain and overhaul their
-          product customization platform built with React on the front end and
-          SpringBoot on the back end.
+          Currently, I&apos;m contributing to Nike&apos;s Digital Product
+          Creation team, developing tools that enhance the product design and
+          development process. I focus on building seamless collaboration
+          experiences for global design teams.
         </p>
         <div className="skills-info">
-          <p>Here's what I've been working with recently:</p>
+          <p>Here&apos;s what I&apos;ve been working with recently:</p>
           <ul>
             <li>SSR</li>
             <li>TypeScript</li>
