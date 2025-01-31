@@ -7,19 +7,19 @@ const CurrentNikeTab: React.FC = () => {
     "Contributing to Nike's Digital Product Creation team, developing tools that enhance the product design and development process. Focused on building seamless collaboration experiences for global design teams.";
 
   const achievements = [
-    'Developing React-based design system components used across multiple enterprise applications',
-    'Building scalable microservices using Node.js and TypeScript to support global design operations',
-    'Implementing real-time collaboration features enabling simultaneous work by distributed design teams',
-    'Contributing to testing and CI/CD pipelines, improving deployment reliability by 90%',
-    'Optimizing application performance, achieving 40% reduction in load times through caching strategies',
-    'Participating in code reviews and helping establish best practices across team',
+    'Contributed to data aggregation platform development, unifying modern and legacy product planning systems',
+    'Implemented complex data models enabling seamless integration between disparate systems',
+    'Developed automated Excel processing pipeline reducing data validation time by 75%',
+    'Built composable analytics dashboard with visx, providing real-time insights for product teams',
+    'Integrated system monitoring using Pendo analytics',
+    'Collaborated on data migration and deprecation strategy for legacy platform transition',
   ];
 
   return (
     <BaseExperienceTab
       companyName="Nike"
-      role="Senior Applications Engineer"
-      period="January 2024 - Ongoing"
+      role="Senior Software Engineer"
+      period="March 2022 - Ongoing"
       logoSrc={NikeLogo}
       description={nikeDescription}
       achievements={achievements}
