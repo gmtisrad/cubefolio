@@ -44,9 +44,9 @@ export class InfrastructureStack extends cdk.Stack {
     );
 
     // Create Origin Access Control
-    const oac = new cloudfront.CfnOriginAccessControl(this, 'WebsiteOAC', {
+    const oac = new cloudfront.CfnOriginAccessControl(this, 'WebsiteOACNew', {
       originAccessControlConfig: {
-        name: 'WebsiteOAC',
+        name: 'WebsiteOACNew',
         originAccessControlOriginType: 's3',
         signingBehavior: 'always',
         signingProtocol: 'sigv4'
