@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'src/client/**'
+      - 'src/**'
       - 'public/**'
       - 'package.json'
       - 'vite.config.ts'

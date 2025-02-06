@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './client/App';
-import { ThemeProvider } from './client/context/ThemeContext';
+import App from './App';
+import { ThemeProvider } from './context/ThemeContext';
 
 const AppComponent: React.FC = () => (
   <ThemeProvider>

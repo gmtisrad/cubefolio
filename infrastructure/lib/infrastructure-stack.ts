@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
-import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
@@ -107,20 +106,6 @@ export class InfrastructureStack extends cdk.Stack {
       }
     }));
 
-    // Create API Gateway
-    const api = new apigateway.RestApi(this, 'PortfolioApi', {
-      restApiName: 'Portfolio API',
-      description: 'API for portfolio website',
-      defaultCorsPreflightOptions: {
-        allowOrigins: [
-          `https://${props.domainName}`,
-          props.wwwSubdomain ? `https://www.${props.domainName}` : '',
-        ].filter(Boolean),
-        allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowHeaders: ['Content-Type', 'Authorization'],
-      },
-    });
-
     // Create Route53 zone
     const zone = route53.HostedZone.fromLookup(this, 'Zone', {
       domainName: props.domainName,
@@ -160,11 +145,6 @@ export class InfrastructureStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'DistributionDomainName', {
       value: distribution.distributionDomainName,
       description: 'CloudFront distribution domain name',
-    });
-
-    new cdk.CfnOutput(this, 'ApiUrl', {
-      value: api.url,
-      description: 'API Gateway URL',
     });
   }
 }

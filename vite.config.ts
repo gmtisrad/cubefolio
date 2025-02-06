@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src/client'),
+      '@': path.resolve(__dirname, './src'),
     },
     dedupe: ['@styled-icons/fa-brands', '@styled-icons/boxicons-regular']
   },
@@ -14,10 +14,7 @@ export default defineConfig({
     include: ['@styled-icons/fa-brands', '@styled-icons/boxicons-regular']
   },
   server: {
-    port: 3000,
-    proxy: {
-      '/api': 'http://localhost:3001'
-    }
+    port: 3000
   },
   build: {
     outDir: 'build'

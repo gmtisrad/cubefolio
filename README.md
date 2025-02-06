@@ -1,74 +1,68 @@
-# Personal Portfolio Website
+# Portfolio Website
 
-A modern, serverless portfolio website built with React and AWS infrastructure. This project showcases a robust cloud architecture using AWS services and modern development practices.
+A modern, interactive portfolio website built with React, TypeScript, and AWS infrastructure.
 
-## Architecture
+## Technology Stack
 
-The website is deployed using a serverless architecture on AWS:
-- **Frontend**: Static React application
-- **Hosting**: Amazon S3 for static content storage
-- **CDN**: CloudFront distribution for global content delivery
-- **Security**: Origin Access Control (OAC) for secure S3 access
-- **DNS**: Custom domain configuration with SSL/TLS
+- **Frontend**: React, TypeScript, Vite, Framer Motion
+- **Styling**: Styled Components
+- **Infrastructure**: AWS (S3, CloudFront, Route53, ACM)
+- **CI/CD**: GitHub Actions
 
-## Prerequisites
+## Local Development
 
-1. Node.js
-2. yarn or npm
-3. AWS CLI configured with appropriate credentials
-4. AWS CDK CLI installed globally
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies:
+1. Install dependencies:
    ```bash
-   npm install
-   # or
-   yarn
-   ```
-3. Start local development:
-   ```bash
-   npm start
-   # or
-   yarn start
+   pnpm install
    ```
 
-## Development
-
-The project is structured into two main parts:
-- `/` - React frontend application
-- `/infrastructure` - AWS CDK infrastructure code
-
-### Local Development
-
-```bash
-npm start
-```
-Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
-
-### Production Deployment
-
-1. Build the frontend:
+2. Start the development server:
    ```bash
-   npm run build
+   pnpm dev
    ```
-2. Deploy infrastructure:
+
+3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Deployment
+
+The website is automatically deployed through GitHub Actions when changes are pushed to the main branch:
+
+- Frontend changes trigger a build and deployment to S3/CloudFront
+- Infrastructure changes trigger a CDK deployment
+
+### Manual Deployment
+
+If needed, you can manually deploy:
+
+1. Frontend:
+   ```bash
+   pnpm build
+   aws s3 sync build/ s3://[BUCKET_NAME] --delete
+   aws cloudfront create-invalidation --distribution-id [DISTRIBUTION_ID] --paths "/*"
+   ```
+
+2. Infrastructure:
    ```bash
    cd infrastructure
-   npm install
-   npx cdk deploy --all
+   pnpm cdk deploy --all
    ```
 
 ## Infrastructure
 
-The infrastructure is defined as code using AWS CDK in TypeScript. Key components:
-- S3 bucket for static website hosting
-- CloudFront distribution with OAC
-- Custom domain configuration
-- Secure access policies
+The website is hosted on AWS with the following setup:
 
-For infrastructure-specific details, see the [infrastructure README](./infrastructure/README.md).
+- S3 bucket for static file hosting
+- CloudFront for content delivery and caching
+- Route53 for DNS management
+- ACM for SSL certificate
+
+## Environment Variables
+
+Required environment variables:
+- `AWS_ACCOUNT_ID`: Your AWS account ID
+- `AWS_REGION`: AWS region (e.g., us-west-2)
+- `DOMAIN_NAME`: Your domain name
+- `S3_BUCKET_NAME`: S3 bucket name for static hosting
 
 ## License
 
@@ -78,7 +72,7 @@ MIT
 
 In the project directory, you can run:
 
-### `npm start` or `yarn start`
+### `pnpm dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
