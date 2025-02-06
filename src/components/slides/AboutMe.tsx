@@ -4,7 +4,7 @@ import { cx } from '@emotion/css';
 import ThemeContext from '../../context/ThemeContext';
 import { getTextColor } from '../../utils/styleUtils';
 import { introWrapperStyle } from './IntroSlide';
-import { MyAvatar } from '../../../client/assets/MyAvatar';
+import { MyAvatar } from '../../assets/MyAvatar';
 import { ContactIcons } from '../ContactIcons';
 import {
   aboutMeWrapperStyle,
